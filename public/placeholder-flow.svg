@@ -1,0 +1,15 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675' width='1200' height='675'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0' stop-color='#0a1537'/>
+      <stop offset='1' stop-color='#10214a'/>
+    </linearGradient>
+    <linearGradient id='accent' x1='0' y1='0' x2='1' y2='0'>
+      <stop offset='0' stop-color='#00d0ff'/>
+      <stop offset='1' stop-color='#60a5fa'/>
+    </linearGradient>
+  </defs>
+  <rect width='1200' height='675' fill='url(#bg)'/>
+  <path d='M100 338 C 300 200, 500 475, 700 338 S 1100 338, 1100 338' fill='none' stroke='url(#accent)' stroke-width='14' stroke-linecap='round'/>
+  <text x='40' y='640' fill='#cfe0ff' font-family='Inter, system-ui, sans-serif' font-size='32'>Flow diagram placeholder — replace with deck image</text>
+</svg>
