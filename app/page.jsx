@@ -3,45 +3,41 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const GOAL = 360000;
+
+// ---- COPY PIVOT: Participation tiers (keeps same layout/images) ----
 const TIERS = [
 	{
 		key: "site",
-		name: "Sponsor a Site",
+		name: "Tribal Site Note",
 		price: 36000,
 		badge: "Top Tribal Impact",
-		features: [
-			"Commemorative plaque at the site",
-			"Name on TEN map & press release",
-		],
+		features: ["Milestone-linked returns", "Named recognition at host site"],
 		image: "/ten5.jpg",
-		action: "Request Sponsor Packet",
+		action: "Request Term Sheet",
 		primary: true,
 	},
 	{
 		key: "port",
-		name: "Sponsor a Port",
+		name: "Per-Port Participation",
 		price: 3600,
 		badge: "On-Site Recognition",
-		features: [
-			"Commemorative sticker on one port",
-			"Interactive QR code and web mention",
-		],
+		features: ["Port-level allocation", "QR-linked recognition"],
 		image: "/ten3.jpg",
-		action: "Give $3,600",
+		action: "Request Allocation",
 	},
 	{
 		key: "circle",
-		name: "Join the Circle",
+		name: "Strategic Partner",
 		price: 1000,
 		badge: "Support the Cause",
-		features: ["Listed in annual impact report", "Regular project updates"],
+		features: ["Partner listing", "Project briefings"],
 		image: "/ten8.jpg",
-		action: "Give $1,000",
+		action: "Request Intro Call",
 	},
 ];
 
 const KPIS = [
-	{ label: "CALeVIP per port", value: "$55,000" },
+	{ label: "CALeVIP per port (cap)", value: "$55,000" },
 	{ label: "Federal incentives (30%)", value: "$54,000" },
 	{ label: "Sponsor match effect", value: "50×" },
 	{ label: "Ports per Tribe (target)", value: "10" },
@@ -49,21 +45,21 @@ const KPIS = [
 
 const FAQS = [
 	{
-		q: "How does my support unlock 50×?",
-		a: "Your sponsorship funds the readiness work (liaison, surveys, applications) that qualifies Tribal sites for program funding and sponsorship to fully cover equipment and operations, which can multiply the impact of your contribution with an average 10 ports per installation.",
+		q: "How does my participation unlock 50×?",
+		a: "Your tranche funds Tribal readiness (liaison, surveys, engineering, permits) that qualifies host sites for CALeVIP awards and federal credits. These program dollars plus private sponsors cover equipment and operations, multiplying the effect of your capital across ~10 ports per site.",
 	},
 	{
-		q: "If I choose to donate, is my gift tax-deductible?",
-		a: "Donations are processed through our Tribal energy nonprofit partner where applicable. A receipt will be issued; consult your tax advisor. If you have any questions about your donation, please reach out to us.",
+		q: "Can I focus on a specific Tribe or site?",
+		a: "Yes. Note your preference in the request form. Allocation can be assigned to a host site with your review; if not selected by Aug 31, we’ll follow up to discuss options.",
 	},
 	{
-		q: "Can I sponsor a specific Tribe?",
-		a: "Yes. Use the Sponsor Packet request and note your preference. We’ll apply your sponsorship directly to a host site with your review. If the site is not selected by Aug 31, we’ll reach out to discuss options.",
+		q: "How are returns structured?",
+		a: "Returns are milestone-indexed (e.g., shovel-ready, scheduled install, grant approval) and described in the term sheet. Public site copy is informational; we share specifics 1:1.",
 	},
 ];
 
 const TIMELINE = [
-	{ date: "Aug 13", text: "Fundraising launch" },
+	{ date: "Aug 13", text: "Capital launch" },
 	{ date: "Aug 31", text: "Target to secure all 10 sites" },
 	{ date: "Oct 29", text: "CALeVIP Tribal priority window closes" },
 	{ date: "Dec–Jun", text: "Installations & activation" },
@@ -189,7 +185,7 @@ function PieChart({
 }
 
 export default function Page() {
-	const [raised] = useState(0); // setRaised not needed
+	const [raised] = useState(0); // display only; not changing behavior
 	const [modalOpen, setModalOpen] = useState(false);
 	const sitesFunded = useMemo(() => Math.floor(raised / 36000), [raised]);
 	const progressPct = Math.max(0, Math.min(100, (raised / GOAL) * 100));
@@ -233,6 +229,7 @@ export default function Page() {
 
 	return (
 		<>
+			{/* HERO */}
 			<header className="relative overflow-hidden bg-[radial-gradient(1200px_400px_at_70%_-20%,rgba(0,208,255,.25),transparent),linear-gradient(180deg,#0b1020,#0b1020_55%,#0a0f24)]">
 				<div className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-7 p-6 py-12 lg:grid-cols-[1.1fr_.9fr]">
 					<div>
@@ -241,13 +238,14 @@ export default function Page() {
 							window closes <strong>Oct 29, 2025</strong>
 						</div>
 						<h1 className="mt-3 text-[40px] font-extrabold leading-[1.05] tracking-tight">
-							Launch the Tribal Energy Network: Help 10 California Tribes Secure
-							Clean Energy
+							Launch the Tribal Energy Network: Finance 10 Tribal Fast-Charge
+							Sites
 						</h1>
 						<p className="mt-3 text-[18px] text-muted">
-							Your gift today can unlock an estimated <strong>$18.6M+</strong>{" "}
-							in chargers, credits, and sponsorships. Once the window closes,
-							the funds are gone.
+							A <strong>$36k</strong> site tranche can unlock ~
+							<strong>$1.8M</strong> per Tribe via CALeVIP grants, federal
+							credits, and network sponsors. Investor participation is
+							milestone-indexed; see the deck for terms.
 						</p>
 						<div className="mt-5 flex flex-wrap gap-3">
 							<button
@@ -255,9 +253,8 @@ export default function Page() {
 								className="btn btn-primary"
 								onClick={() => setModalOpen(true)}
 							>
-								Sponsor a Site
+								Request Term Sheet
 							</button>
-							{/* another button to Learn More about CALeVIP, linking to the CALeVIP website */}
 							<button
 								type="button"
 								className="btn btn-outline"
@@ -316,9 +313,9 @@ export default function Page() {
 							/>
 						</div>
 						<div className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4 text-[#cfe0ff]">
-							<strong>Mission-First:</strong> Sponsorship supports Tribal
-							infrastructure. For those interested in private sponsorship or
-							investment, schedule a call below and we’ll follow up one-on-one.
+							<strong>Mission-First:</strong> Participation strengthens Tribal
+							infrastructure. For private sponsorship or investment, request the
+							term sheet and we’ll follow up 1:1.
 						</div>
 						<ul className="mt-2 grid gap-2">
 							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
@@ -326,17 +323,66 @@ export default function Page() {
 								<strong>$55,000 per port</strong> with Tribal priority.
 							</li>
 							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-								Federal incentives: Per $180,000 port, 30% tax credits cover
-								approximately <strong>$54,000 per port</strong>.
+								Federal incentives: Per ~$180,000 port, 30% tax credits cover ~
+								<strong>$54,000 per port</strong>.
 							</li>
 							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-								Private network sponsorships complete the funding for
-								installation and operations.
+								Private network sponsorships complete funding for installation
+								and operations.
 							</li>
 						</ul>
 					</div>
 				</div>
 			</header>
+
+			{/* NEW: Investment Overview Deck (Canva) */}
+			<section id="deck" className="mx-auto max-w-[1100px] p-6">
+				<h2 className="text-[28px] font-bold">Investment Overview Deck</h2>
+				<p className="mt-1 max-w-[72ch] text-[#d7deee]">
+					Walk through the structure, risk controls, milestones, and modeled
+					returns. For a detailed term sheet, use the “Request Term Sheet”
+					button.
+				</p>
+				<div className="relative mt-4 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
+					<div
+						style={{
+							position: "relative",
+							width: "100%",
+							height: 0,
+							paddingTop: "56.25%",
+							boxShadow: "0 2px 8px rgba(63,69,81,0.16)",
+							overflow: "hidden",
+							borderRadius: 8,
+						}}
+					>
+						<iframe
+							loading="lazy"
+							title="AN-TEN Sponsorship"
+							src="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?embed"
+							allow="fullscreen"
+							style={{
+								position: "absolute",
+								inset: 0,
+								width: "100%",
+								height: "100%",
+								border: "none",
+							}}
+						/>
+					</div>
+					<p className="mt-2 text-sm text-[#cfe0ff]">
+						Trouble loading?{" "}
+						<a
+							className="underline"
+							href="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?utm_content=DAGwLBmZn74&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Open the deck in a new tab
+						</a>
+						.
+					</p>
+				</div>
+			</section>
 
 			<main id="main">
 				<section className="mx-auto max-w-[1100px] p-6">
@@ -344,9 +390,11 @@ export default function Page() {
 						Your $1 Unlocks ~$50 in Clean Energy Infrastructure
 					</h2>
 					<p className="mt-1 max-w-[72ch] text-[#d7deee]">
-						A $36,000 site sponsorship triggers a 50× match through grants, tax
+						A $36,000 site tranche can trigger a ~50× match through grants, tax
 						credits, and sponsorship—qualifying a bank of fast chargers at a
 						Tribal business with <em>no out-of-pocket</em> to the Tribe.
+						Investor participation is milestone-indexed and detailed in the term
+						sheet.
 					</p>
 					<div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
 						{KPIS.map(({ label, value }) => (
@@ -366,12 +414,13 @@ export default function Page() {
 							<div className="flex-1">
 								<h3 className="text-lg font-semibold">50x Multiplier</h3>
 								<p className="mt-1">
-									$36k in sponsorship unlocks $1.8 million in funding—enough to
-									fully fund TEN fast chargers.
+									$36k seed unlocks ~$1.8M in program/go-to-market enablement
+									per Tribe (≈10 ports @ ~$180k all-in/port). Returns are tied
+									to milestone progress.
 								</p>
 							</div>
 							<figure>
-								<div className="flex flex-wrap items-end gap-4 mt-2">
+								<div className="mt-2 flex flex-wrap items-end gap-4">
 									<Cylinder percent={20} label="$36k" />
 									<span className="text-2xl">=</span>
 									<div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
@@ -381,34 +430,23 @@ export default function Page() {
 									</div>
 								</div>
 								<figcaption className="sr-only">
-									Seed funding at 20% unlocks ten fully funded ports.
+									Seed funding at ~20% unlocks ten fully funded ports.
 								</figcaption>
 							</figure>
 						</div>
 						<div className="rounded-2xl border border-[#1b2450] bg-card p-4 lg:col-span-5">
-							{/* <div className="relative mb-3 aspect-[16/9] w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
-								<Image
-									src="/placeholder-flow.svg"
-									alt="Funds flow visual placeholder"
-									fill
-									sizes="(min-width: 1024px) 40vw, 100vw"
-									className="object-cover opacity-85"
-								/>
-							</div> */}
 							<h3 className="text-lg font-semibold">How Funds Flow</h3>
 							<p>
-								Sponsorships fund outreach, site surveys, and grant execution
-								that make Tribal host eligible and “unlock” state and federal
-								program dollars and private sponsorships. Funds over all{" "}
-								<em>
-									hardware, engineering, installation, maintenance, and utility
-									bills
-								</em>
-								.
+								Participation funds Tribal readiness that qualifies sites for
+								CALeVIP awards and federal credits. Cash is custodied at a
+								Native-owned FDIC bank (CD) with a CD-backed line of credit;
+								draw limits throttle downside. Upside is tied to sites reaching
+								shovel-ready and then grant approval. Term sheet covers the
+								schedule.
 								<br />
 								<br />
-								Hurry! California matching ends October 29 and Federal matching
-								ends June 30, 2026.
+								Hurry—California matching ends Oct 29, and federal matching
+								sunsets June 30, 2026.
 							</p>
 						</div>
 					</div>
@@ -422,7 +460,7 @@ export default function Page() {
 						{[
 							{
 								title: "$1,000,000+ Annual Revenue",
-								body: "EV DC Fast Charger sessions + increased foot traffic support Native-owned businesses and tourism.",
+								body: "EV DC Fast Charger sessions + incremental foot traffic support Native-owned businesses and tourism.",
 								image: "/ten6.jpg",
 							},
 							{
@@ -456,8 +494,9 @@ export default function Page() {
 					</div>
 				</section>
 
+				{/* Use of Proceeds (renamed) */}
 				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">What Your Sponsorship Covers</h2>
+					<h2 className="text-[28px] font-bold">Use of Proceeds</h2>
 					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
 							<h3 className="text-lg font-semibold">Readiness & Execution</h3>
@@ -503,7 +542,7 @@ export default function Page() {
 							<h3 className="text-lg font-semibold">Budget Snapshot</h3>
 							<figure className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
 								<PieChart
-									title="Use of $36,000 site sponsorship"
+									title="Use of $36,000 site tranche"
 									desc="Tribal Community Liaison $10,000; Accounting and Grant Management $8,000; Site Assessments and Surveys $3,000; Preliminary Engineering $4,000; Final Design and Stamped Plans $6,000; Permitting Support $5,000."
 									segments={BUDGET}
 								/>
@@ -541,6 +580,35 @@ export default function Page() {
 					</div>
 				</section>
 
+				{/* NEW: Risk & Return Mechanics */}
+				<section id="mechanics" className="mx-auto max-w-[1100px] p-6">
+					<h2 className="text-[28px] font-bold">Risk & Return Mechanics</h2>
+					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
+						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
+							<h3 className="text-lg font-semibold">Downside Controls</h3>
+							<ul className="mt-2 grid gap-2">
+								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+									Custody via Native-owned FDIC bank CD; capital access via
+									CD-backed line of credit with draw limits.
+								</li>
+								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+									Staged draws only as sites hit milestones (e.g., shovel-ready,
+									scheduled install).
+								</li>
+							</ul>
+						</div>
+						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
+							<h3 className="text-lg font-semibold">Return Triggers</h3>
+							<p>
+								Returns accrue as sites achieve milestones (shovel-ready → grant
+								approval). See the deck for schedules and modeled outcomes tied
+								to 10-site completion.
+							</p>
+						</div>
+					</div>
+				</section>
+
+				{/* See the Sites */}
 				<section className="mx-auto grid max-w-[1100px] grid-cols-1 items-stretch gap-4 p-6 lg:grid-cols-2">
 					<div>
 						<h2 className="text-[28px] font-bold">See the Sites</h2>
@@ -562,7 +630,7 @@ export default function Page() {
 							Open TEN Map
 						</button>
 					</div>
-					<div className="relative w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d] h-48 lg:self-stretch">
+					<div className="relative h-48 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d] lg:self-stretch">
 						<Image
 							src="/ten9.png"
 							alt="TEN Map preview"
@@ -580,8 +648,9 @@ export default function Page() {
 					</div>
 				</section>
 
+				{/* Participation Options (renamed from Ways to Give) */}
 				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Ways to Give</h2>
+					<h2 className="text-[28px] font-bold">Participation Options</h2>
 					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
 						{TIERS.map((t) => (
 							<div
@@ -626,10 +695,12 @@ export default function Page() {
 						))}
 					</div>
 					<p className="mt-3 text-[#aebce5]">
-						Prefer ACH or check? Let us know in your request.
+						Prefer to start with an intro call? Use “Request Intro Call” and
+						we’ll schedule time.
 					</p>
 				</section>
 
+				{/* Transparency & Compliance */}
 				<section className="mx-auto max-w-[1100px] p-6">
 					<h2 className="text-[28px] font-bold">
 						Transparency & Accountability
@@ -639,25 +710,25 @@ export default function Page() {
 							<h3 className="text-lg font-semibold">Reporting</h3>
 							<p>
 								We’ll share site activation photos, progress reports, and an
-								annual impact summary. Sponsorship funds are restricted to
-								outreach, surveys, and grant execution for eligible Tribal
-								businesses. Depending on your support, additional reporting may
-								be provided.
+								annual impact summary. Use-of-proceeds is restricted to Tribal
+								readiness and grant execution for eligible businesses. Depending
+								on participation, additional reporting may be provided.
 							</p>
 						</div>
 						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
 							<h3 className="text-lg font-semibold">Compliance</h3>
 							<p>
-								This page solicits sponsorships to support Tribal infrastructure
-								and does not publicly offer any investment, security, or
-								guaranteed return. If you wish to discuss private sponsorship or
-								investment, request the Sponsor Packet and we will follow up
-								individually.
+								This page is informational and not an offer to sell or a
+								solicitation to buy any security. Any investment will be made
+								only pursuant to definitive documents and may be limited to
+								qualified or accredited parties; no guarantees of performance
+								are made. Request the term sheet for details.
 							</p>
 						</div>
 					</div>
 				</section>
 
+				{/* FAQ (structure unchanged) */}
 				<section className="mx-auto max-w-[1100px] p-6">
 					<h2 className="text-[28px] font-bold">FAQ</h2>
 					<div className="mt-2 grid gap-3">
@@ -675,6 +746,7 @@ export default function Page() {
 				</section>
 			</main>
 
+			{/* FOOTER unchanged */}
 			<footer className="bg-[#0a0f24] text-[#a5b3d5]">
 				<div className="mx-auto max-w-[1100px] p-6">
 					<div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
@@ -695,36 +767,6 @@ export default function Page() {
 								</div>
 							</div>
 						</div>
-						{/* <div>
-							<h3 className="mt-0 text-[#e7eeff]">Quick Links</h3>
-							<ul className="grid gap-2">
-								<li>
-									<a
-										className="underline"
-										href="https://go.amerindnation.com/ten"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Program Overview
-									</a>
-								</li>
-								<li>
-									<a className="underline" href="#donate">
-										Give Now
-									</a>
-								</li>
-								<li>
-									<a className="underline" href="#opportunity">
-										Opportunity
-									</a>
-								</li>
-								<li>
-									<a className="underline" href="#map">
-										TEN Map
-									</a>
-								</li>
-							</ul>
-						</div> */}
 					</div>
 					<p className="mt-4 text-xs">
 						© {new Date().getFullYear()} Amerind Nation LLC — Tribal Energy
@@ -738,12 +780,12 @@ export default function Page() {
 					className="fixed inset-0 grid place-items-center bg-black/60 backdrop-blur-sm"
 					role="dialog"
 					aria-modal="true"
-					aria-label="Request Sponsor Packet"
+					aria-label="Request Term Sheet"
 				>
 					<div className="w-[92%] max-w-[640px] rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5">
 						<div className="mb-2 flex flex-wrap items-center justify-between gap-2">
 							<h3 className="m-0 text-lg font-semibold">
-								{BOOKING_URL ? BOOKING_TITLE : "Request Sponsor Packet"}
+								{BOOKING_URL ? BOOKING_TITLE : "Request Term Sheet"}
 							</h3>
 							<button
 								type="button"
@@ -758,17 +800,14 @@ export default function Page() {
 						) : (
 							<>
 								<p className="text-[#cfe0ff]">
-									Share your details and we’ll follow up one-on-one to discuss
-									site sponsorship, naming recognition, and (if requested)
-									private investment structures.
+									Share your details and we’ll follow up 1:1 with the term
+									sheet, site pipeline, and milestone-based schedules.
 								</p>
 								<form
 									className="mt-3"
 									onSubmit={(e) => {
 										e.preventDefault();
-										alert(
-											"Thanks! We'll follow up one-on-one within 1 business day.",
-										);
+										alert("Thanks! We'll follow up within 1 business day.");
 										setModalOpen(false);
 									}}
 								>
@@ -825,11 +864,11 @@ export default function Page() {
 												name="interest"
 												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 											>
-												<option>Sponsor a Site ($36,000)</option>
-												<option>Sponsor a Port ($3,600)</option>
+												<option>Tribal Site Note ($36,000)</option>
+												<option>Per-Port Participation ($3,600)</option>
+												<option>Strategic Partner</option>
 												<option>Corporate Sponsorship</option>
 												<option>Private Placement / Investment</option>
-												<option>General Donation</option>
 											</select>
 										</div>
 									</div>
@@ -842,7 +881,7 @@ export default function Page() {
 										</label>
 										<textarea
 											rows={4}
-											placeholder="e.g., I want to sponsor Paskenta Rancheria"
+											placeholder="e.g., Preference for Paskenta Rancheria; amount & timeline"
 											className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 										/>
 									</div>
