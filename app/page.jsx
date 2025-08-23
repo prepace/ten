@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 
 const GOAL = 360000;
 
-// ---- COPY PIVOT: Participation tiers (keeps same layout/images) ----
 const TIERS = [
 	{
 		key: "site",
@@ -81,9 +80,12 @@ function currency(n) {
 	}).format(n);
 }
 
-function StatCard({ label, children }) {
+function StatCard({ id, label, children }) {
 	return (
-		<div className="flex-1 min-w-[180px] rounded-2xl border border-[#1b2450] bg-card p-4">
+		<div
+			id={id}
+			className="flex-1 min-w-[180px] rounded-2xl border border-[#1b2450] bg-card p-4"
+		>
 			<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
 				{label}
 			</div>
@@ -92,7 +94,7 @@ function StatCard({ label, children }) {
 	);
 }
 
-function Countdown({ target }) {
+function Countdown({ id, target }) {
 	const [out, setOut] = useState("—");
 	useEffect(() => {
 		const tick = () => {
@@ -105,16 +107,20 @@ function Countdown({ target }) {
 			setOut(`${d}d ${h}h ${m}m`);
 		};
 		tick();
-		const id = setInterval(tick, 60000);
-		return () => clearInterval(id);
+		const idInt = setInterval(tick, 60000);
+		return () => clearInterval(idInt);
 	}, [target]);
-	return <>{out}</>;
+	return <span id={id}>{out}</span>;
 }
 
-function Cylinder({ percent = 100, label }) {
+function Cylinder({ id, percent = 100, label }) {
 	const pct = Math.max(0, Math.min(100, percent));
 	return (
-		<div className="flex flex-col items-center gap-1" aria-hidden="true">
+		<div
+			id={id}
+			className="flex flex-col items-center gap-1"
+			aria-hidden="true"
+		>
 			<div className="relative h-24 w-8 overflow-hidden rounded-full border border-[#22306b] bg-[#0b2545]">
 				<div
 					className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#21c55d,#a6ffcb)]"
@@ -129,6 +135,7 @@ function Cylinder({ percent = 100, label }) {
 }
 
 function PieChart({
+	id,
 	segments,
 	size = 220,
 	innerRatio = 0.58,
@@ -171,10 +178,15 @@ function PieChart({
 	});
 
 	return (
-		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img">
+		<svg
+			id={id}
+			width={size}
+			height={size}
+			viewBox={`0 0 ${size} ${size}`}
+			role="img"
+		>
 			<title>{title}</title>
 			{desc ? <desc>{desc}</desc> : null}
-			{/* background ring */}
 			<circle cx={fmt(cx)} cy={fmt(cy)} r={fmt(rOuter)} fill="#0b2545" />
 			<circle cx={fmt(cx)} cy={fmt(cy)} r={fmt(rInner)} fill="#0f1a3d" />
 			{paths.map((p) => (
@@ -185,11 +197,11 @@ function PieChart({
 }
 
 export default function Page() {
-	const [raised] = useState(0); // display only; not changing behavior
+	const [raised] = useState(0);
 	const [modalOpen, setModalOpen] = useState(false);
 	const sitesFunded = useMemo(() => Math.floor(raised / 36000), [raised]);
 	const progressPct = Math.max(0, Math.min(100, (raised / GOAL) * 100));
-	const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || ""; // set in .env.local
+	const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
 	const BOOKING_TITLE = process.env.NEXT_PUBLIC_BOOKING_TITLE || "Book a call";
 
 	useEffect(() => {
@@ -201,17 +213,18 @@ export default function Page() {
 		return () => window.removeEventListener("keydown", onKey);
 	}, [modalOpen]);
 
-	function CalendarEmbed({ src, title }) {
+	function CalendarEmbed({ id, src, title }) {
 		return (
-			<div>
+			<div id={id}>
 				<iframe
+					id={`${id}-iframe`}
 					src={src}
 					title={title}
 					loading="lazy"
 					className="h-[70vh] w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537]"
 					allow="fullscreen; geolocation *; microphone *; camera *"
 				/>
-				<p className="mt-2 text-sm text-[#cfe0ff]">
+				<p id={`${id}-help`} className="mt-2 text-sm text-[#cfe0ff]">
 					Trouble loading?{" "}
 					<a
 						className="underline"
@@ -229,26 +242,38 @@ export default function Page() {
 
 	return (
 		<>
-			{/* HERO */}
-			<header className="relative overflow-hidden bg-[radial-gradient(1200px_400px_at_70%_-20%,rgba(0,208,255,.25),transparent),linear-gradient(180deg,#0b1020,#0b1020_55%,#0a0f24)]">
-				<div className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-7 p-6 py-12 lg:grid-cols-[1.1fr_.9fr]">
-					<div>
-						<div className="inline-block rounded-full border border-[#1c2f67] bg-[#10214a] px-2.5 py-1 text-[13px] text-[#bcd2ff]">
+			<header
+				id="hero"
+				className="relative overflow-hidden bg-[radial-gradient(1200px_400px_at_70%_-20%,rgba(0,208,255,.25),transparent),linear-gradient(180deg,#0b1020,#0b1020_55%,#0a0f24)]"
+			>
+				<div
+					id="hero-inner"
+					className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-7 p-6 py-12 lg:grid-cols-[1.1fr_.9fr]"
+				>
+					<div id="hero-left">
+						<div
+							id="hero-badge"
+							className="inline-block rounded-full border border-[#1c2f67] bg-[#10214a] px-2.5 py-1 text-[13px] text-[#bcd2ff]"
+						>
 							Fundraising ends <strong>Aug 31, 2025</strong> • CALeVIP Tribal
 							window closes <strong>Oct 29, 2025</strong>
 						</div>
-						<h1 className="mt-3 text-[40px] font-extrabold leading-[1.05] tracking-tight">
+						<h1
+							id="hero-title"
+							className="mt-3 text-[40px] font-extrabold leading-[1.05] tracking-tight"
+						>
 							Launch the Tribal Energy Network: Finance 10 Tribal Fast-Charge
 							Sites
 						</h1>
-						<p className="mt-3 text-[18px] text-muted">
+						<p id="hero-subtitle" className="mt-3 text-[18px] text-muted">
 							A <strong>$36k</strong> site tranche can unlock ~
 							<strong>$1.8M</strong> per Tribe via CALeVIP grants, federal
 							credits, and network sponsors. Investor participation is
 							milestone-indexed; see the deck for terms.
 						</p>
-						<div className="mt-5 flex flex-wrap gap-3">
+						<div id="hero-cta" className="mt-5 flex flex-wrap gap-3">
 							<button
+								id="btn-request-term-sheet"
 								type="button"
 								className="btn btn-primary"
 								onClick={() => setModalOpen(true)}
@@ -256,6 +281,7 @@ export default function Page() {
 								Request Term Sheet
 							</button>
 							<button
+								id="btn-learn-calevip"
 								type="button"
 								className="btn btn-outline"
 								onClick={() =>
@@ -268,15 +294,22 @@ export default function Page() {
 								Learn More about CALeVIP
 							</button>
 						</div>
-						<div className="mt-5 flex flex-wrap gap-4">
-							<div className="min-w-[260px] flex-1 card">
-								<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
+						<div id="hero-stats" className="mt-5 flex flex-wrap gap-4">
+							<div id="goal-card" className="min-w-[260px] flex-1 card">
+								<div
+									id="goal-card-label"
+									className="text-[12px] uppercase tracking-wider text-[#a8b3cf]"
+								>
 									Goal
 								</div>
-								<div className="mt-1 text-[22px] font-extrabold">
+								<div
+									id="goal-card-value"
+									className="mt-1 text-[22px] font-extrabold"
+								>
 									$360,000 by Aug 31
 								</div>
 								<div
+									id="goal-progress"
 									className="relative h-4 overflow-hidden rounded-xl border border-[#1b2450] bg-[#0f1a3d]"
 									aria-label="progress to goal"
 									role="progressbar"
@@ -285,25 +318,42 @@ export default function Page() {
 									aria-valuenow={Math.round(progressPct)}
 								>
 									<span
+										id="goal-progress-fill"
 										style={{ width: `${progressPct}%` }}
 										className="absolute inset-y-0 left-0 bg-[linear-gradient(90deg,#21c55d,#a6ffcb)]"
 									/>
 								</div>
-								<div className="mt-1 text-[13px] text-[#b8c4e3]">
+								<div
+									id="goal-progress-caption"
+									className="mt-1 text-[13px] text-[#b8c4e3]"
+								>
 									{currency(raised)} raised • {sitesFunded}/10 sites funded
 								</div>
 							</div>
-							<StatCard label="Countdown to Aug 31">
-								<Countdown target="2025-08-31T23:59:59-05:00" />
+							<StatCard id="stat-deadline-aug31" label="Countdown to Aug 31">
+								<Countdown
+									id="countdown-aug31"
+									target="2025-08-31T23:59:59-05:00"
+								/>
 							</StatCard>
-							<StatCard label="Countdown to Oct 29 (CALeVIP Grant Deadline)">
-								<Countdown target="2025-10-29T23:59:59-05:00" />
+							<StatCard
+								id="stat-deadline-oct29"
+								label="Countdown to Oct 29 (CALeVIP Grant Deadline)"
+							>
+								<Countdown
+									id="countdown-oct29"
+									target="2025-10-29T23:59:59-05:00"
+								/>
 							</StatCard>
 						</div>
 					</div>
-					<div>
-						<div className="relative mb-2 aspect-[6/3] w-full overflow-hidden rounded-2xl border border-[#22306b] bg-[#0f1a3d]">
+					<div id="hero-right">
+						<div
+							id="hero-image-wrap"
+							className="relative mb-2 aspect-[6/3] w-full overflow-hidden rounded-2xl border border-[#22306b] bg-[#0f1a3d]"
+						>
 							<Image
+								id="hero-image"
 								src="/ten0.jpg"
 								alt="Hero visual placeholder"
 								fill
@@ -312,21 +362,33 @@ export default function Page() {
 								priority
 							/>
 						</div>
-						<div className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4 text-[#cfe0ff]">
+						<div
+							id="mission-note"
+							className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4 text-[#cfe0ff]"
+						>
 							<strong>Mission-First:</strong> Participation strengthens Tribal
 							infrastructure. For private sponsorship or investment, request the
 							term sheet and we’ll follow up 1:1.
 						</div>
-						<ul className="mt-2 grid gap-2">
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+						<ul id="hero-bullets" className="mt-2 grid gap-2">
+							<li
+								id="hero-bullet-1"
+								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
+							>
 								CALeVIP Fast Charge California Project: up to{" "}
 								<strong>$55,000 per port</strong> with Tribal priority.
 							</li>
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+							<li
+								id="hero-bullet-2"
+								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
+							>
 								Federal incentives: Per ~$180,000 port, 30% tax credits cover ~
 								<strong>$54,000 per port</strong>.
 							</li>
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+							<li
+								id="hero-bullet-3"
+								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
+							>
 								Private network sponsorships complete funding for installation
 								and operations.
 							</li>
@@ -335,16 +397,21 @@ export default function Page() {
 				</div>
 			</header>
 
-			{/* NEW: Investment Overview Deck (Canva) */}
-			<section id="deck" className="mx-auto max-w-[1100px] p-6">
-				<h2 className="text-[28px] font-bold">Investment Overview Deck</h2>
-				<p className="mt-1 max-w-[72ch] text-[#d7deee]">
+			<section id="deck" className="mx-auto max-w=[1100px] p-6 max-w-[1100px]">
+				<h2 id="deck-title" className="text-[28px] font-bold">
+					Investment Overview Deck
+				</h2>
+				<p id="deck-subtitle" className="mt-1 max-w-[72ch] text-[#d7deee]">
 					Walk through the structure, risk controls, milestones, and modeled
 					returns. For a detailed term sheet, use the “Request Term Sheet”
 					button.
 				</p>
-				<div className="relative mt-4 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
+				<div
+					id="deck-frame-wrap"
+					className="relative mt-4 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]"
+				>
 					<div
+						id="deck-frame-aspect"
 						style={{
 							position: "relative",
 							width: "100%",
@@ -356,6 +423,7 @@ export default function Page() {
 						}}
 					>
 						<iframe
+							id="deck-iframe"
 							loading="lazy"
 							title="AN-TEN Sponsorship"
 							src="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?embed"
@@ -369,9 +437,10 @@ export default function Page() {
 							}}
 						/>
 					</div>
-					<p className="mt-2 text-sm text-[#cfe0ff]">
+					<p id="deck-help" className="mt-2 text-sm text-[#cfe0ff]">
 						Trouble loading?{" "}
 						<a
+							id="deck-open-link"
 							className="underline"
 							href="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?utm_content=DAGwLBmZn74&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
 							target="_blank"
@@ -385,58 +454,96 @@ export default function Page() {
 			</section>
 
 			<main id="main">
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
+				<section id="opportunity" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="opportunity-title" className="text-[28px] font-bold">
 						Your $1 Unlocks ~$50 in Clean Energy Infrastructure
 					</h2>
-					<p className="mt-1 max-w-[72ch] text-[#d7deee]">
+					<p id="opportunity-body" className="mt-1 max-w-[72ch] text-[#d7deee]">
 						A $36,000 site tranche can trigger a ~50× match through grants, tax
 						credits, and sponsorship—qualifying a bank of fast chargers at a
 						Tribal business with <em>no out-of-pocket</em> to the Tribe.
 						Investor participation is milestone-indexed and detailed in the term
 						sheet.
 					</p>
-					<div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-						{KPIS.map(({ label, value }) => (
+					<div
+						id="opportunity-kpis"
+						className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+					>
+						{KPIS.map(({ label, value }, idx) => (
 							<div
+								id={`kpi-${idx}`}
 								key={label}
 								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4"
 							>
-								<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
+								<div
+									id={`kpi-${idx}-label`}
+									className="text-[12px] uppercase tracking-wider text-[#a8b3cf]"
+								>
 									{label}
 								</div>
-								<div className="mt-1 text-[22px] font-extrabold">{value}</div>
+								<div
+									id={`kpi-${idx}-value`}
+									className="mt-1 text-[22px] font-extrabold"
+								>
+									{value}
+								</div>
 							</div>
 						))}
 					</div>
-					<div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
-						<div className="flex flex-col rounded-2xl border border-[#1b2450] gap-4 bg-card p-4 lg:col-span-7">
-							<div className="flex-1">
-								<h3 className="text-lg font-semibold">50x Multiplier</h3>
-								<p className="mt-1">
+					<div
+						id="opportunity-grid"
+						className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12"
+					>
+						<div
+							id="multiplier-card"
+							className="flex flex-col rounded-2xl border border-[#1b2450] gap-4 bg-card p-4 lg:col-span-7"
+						>
+							<div id="multiplier-copy" className="flex-1">
+								<h3 id="multiplier-title" className="text-lg font-semibold">
+									50x Multiplier
+								</h3>
+								<p id="multiplier-desc" className="mt-1">
 									$36k seed unlocks ~$1.8M in program/go-to-market enablement
 									per Tribe (≈10 ports @ ~$180k all-in/port). Returns are tied
 									to milestone progress.
 								</p>
 							</div>
-							<figure>
-								<div className="mt-2 flex flex-wrap items-end gap-4">
-									<Cylinder percent={20} label="$36k" />
-									<span className="text-2xl">=</span>
-									<div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
-										{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-											<Cylinder key={`full-${n}`} percent={100} label="$180k" />
+							<figure id="multiplier-figure">
+								<div
+									id="multiplier-bars"
+									className="mt-2 flex flex-wrap items-end gap-4"
+								>
+									<Cylinder id="multiplier-seed" percent={20} label="$36k" />
+									<span id="multiplier-sep" className="text-2xl">
+										=
+									</span>
+									<div
+										id="multiplier-ports"
+										className="grid grid-cols-5 gap-3 sm:grid-cols-10"
+									>
+										{[...Array(10)].map((_, n) => (
+											<Cylinder
+												key={`full-${n + 1}`}
+												id={`multiplier-port-${n + 1}`}
+												percent={100}
+												label="$180k"
+											/>
 										))}
 									</div>
 								</div>
-								<figcaption className="sr-only">
+								<figcaption id="multiplier-caption" className="sr-only">
 									Seed funding at ~20% unlocks ten fully funded ports.
 								</figcaption>
 							</figure>
 						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4 lg:col-span-5">
-							<h3 className="text-lg font-semibold">How Funds Flow</h3>
-							<p>
+						<div
+							id="flow-card"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4 lg:col-span-5"
+						>
+							<h3 id="flow-title" className="text-lg font-semibold">
+								How Funds Flow
+							</h3>
+							<p id="flow-desc">
 								Participation funds Tribal readiness that qualifies sites for
 								CALeVIP awards and federal credits. Cash is custodied at a
 								Native-owned FDIC bank (CD) with a CD-backed line of credit;
@@ -452,34 +559,45 @@ export default function Page() {
 					</div>
 				</section>
 
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
+				<section id="benefits" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="benefits-title" className="text-[28px] font-bold">
 						How This Helps Tribes & Native-Owned Businesses
 					</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
+					<div
+						id="benefits-grid"
+						className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3"
+					>
 						{[
 							{
+								key: "revenue",
 								title: "$1,000,000+ Annual Revenue",
 								body: "EV DC Fast Charger sessions + incremental foot traffic support Native-owned businesses and tourism.",
 								image: "/ten6.jpg",
 							},
 							{
+								key: "resilience",
 								title: "Tribal Energy Resilience",
 								body: "Upgrades that pave the way for solar, storage, and microgrids, strengthening Tribal energy sovereignty.",
 								image: "/ten7.jpg",
 							},
 							{
+								key: "space",
 								title: "No Indoor Space Required",
 								body: "Unlike ATMs or kiosks, chargers use parking stalls and bring new and high net-worth customers to the door.",
 								image: "/ten2.jpg",
 							},
 						].map((c) => (
 							<div
+								id={`benefit-${c.key}`}
 								key={c.title}
 								className="rounded-2xl border border-[#1b2450] bg-card p-4"
 							>
-								<div className="relative mb-3 h-28 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
+								<div
+									id={`benefit-${c.key}-imgwrap`}
+									className="relative mb-3 h-28 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]"
+								>
 									<Image
+										id={`benefit-${c.key}-img`}
 										src={c.image}
 										alt="Benefit visual placeholder"
 										fill
@@ -487,27 +605,44 @@ export default function Page() {
 										className="object-cover opacity-85"
 									/>
 								</div>
-								<h3 className="text-lg font-semibold">{c.title}</h3>
-								<p className="text-[#cdd6f4]">{c.body}</p>
+								<h3
+									id={`benefit-${c.key}-title`}
+									className="text-lg font-semibold"
+								>
+									{c.title}
+								</h3>
+								<p id={`benefit-${c.key}-body`} className="text-[#cdd6f4]">
+									{c.body}
+								</p>
 							</div>
 						))}
 					</div>
 				</section>
 
-				{/* Use of Proceeds (renamed) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Use of Proceeds</h2>
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Readiness & Execution</h3>
-							<ul className="mt-2 grid gap-2">
+				<section id="use-of-proceeds" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="use-title" className="text-[28px] font-bold">
+						Use of Proceeds
+					</h2>
+					<div
+						id="use-grid-top"
+						className="grid grid-cols-1 gap-4 lg:grid-cols-2"
+					>
+						<div
+							id="use-readiness"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3 id="use-readiness-title" className="text-lg font-semibold">
+								Readiness & Execution
+							</h3>
+							<ul id="use-readiness-list" className="mt-2 grid gap-2">
 								{[
 									"Tribal liaison & outreach",
 									"Site surveys & travel",
 									"Grant writing & submissions",
 									"Project coordination & admin",
-								].map((i) => (
+								].map((i, idx) => (
 									<li
+										id={`use-readiness-item-${idx}`}
 										key={i}
 										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
 									>
@@ -516,18 +651,22 @@ export default function Page() {
 								))}
 							</ul>
 						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">
+						<div
+							id="use-program"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3 id="use-program-title" className="text-lg font-semibold">
 								Where Program Dollars Go
 							</h3>
-							<ul className="mt-2 grid gap-2">
+							<ul id="use-program-list" className="mt-2 grid gap-2">
 								{[
 									"Hardware & engineering",
 									"Installation & commissioning",
 									"Warranty & maintenance",
 									"Infrastructure upgrades",
-								].map((i) => (
+								].map((i, idx) => (
 									<li
+										id={`use-program-item-${idx}`}
 										key={i}
 										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
 									>
@@ -537,42 +676,68 @@ export default function Page() {
 							</ul>
 						</div>
 					</div>
-					<div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Budget Snapshot</h3>
-							<figure className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+					<div
+						id="use-grid-bottom"
+						className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2"
+					>
+						<div
+							id="budget-card"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3 id="budget-title" className="text-lg font-semibold">
+								Budget Snapshot
+							</h3>
+							<figure
+								id="budget-figure"
+								className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:items-start"
+							>
 								<PieChart
+									id="budget-pie"
 									title="Use of $36,000 site tranche"
 									desc="Tribal Community Liaison $10,000; Accounting and Grant Management $8,000; Site Assessments and Surveys $3,000; Preliminary Engineering $4,000; Final Design and Stamped Plans $6,000; Permitting Support $5,000."
 									segments={BUDGET}
 								/>
-								<figcaption className="sm:ml-4">
-									<ul className="grid gap-2">
-										{BUDGET.map((s) => (
+								<figcaption id="budget-legend" className="sm:ml-4">
+									<ul id="budget-legend-list" className="grid gap-2">
+										{BUDGET.map((s, idx) => (
 											<li
+												id={`budget-legend-item-${idx}`}
 												key={s.label}
 												className="flex items-center gap-2 text-[#cdd6f4]"
 											>
 												<span
+													id={`budget-legend-swatch-${idx}`}
 													className="inline-block h-3 w-3 rounded-sm"
 													style={{ backgroundColor: s.color }}
 												/>
-												<span className="text-sm">{s.label}</span>
+												<span
+													id={`budget-legend-label-${idx}`}
+													className="text-sm"
+												>
+													{s.label}
+												</span>
 											</li>
 										))}
 									</ul>
 								</figcaption>
 							</figure>
 						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Timeline</h3>
-							<ul className="mt-2 grid gap-2">
-								{TIMELINE.map((t) => (
+						<div
+							id="timeline-card"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3 id="timeline-title" className="text-lg font-semibold">
+								Timeline
+							</h3>
+							<ul id="timeline-list" className="mt-2 grid gap-2">
+								{TIMELINE.map((t, idx) => (
 									<li
+										id={`timeline-item-${idx}`}
 										key={t.date}
 										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
 									>
-										<strong>{t.date}:</strong> {t.text}
+										<strong id={`timeline-date-${idx}`}>{t.date}:</strong>{" "}
+										<span id={`timeline-text-${idx}`}>{t.text}</span>
 									</li>
 								))}
 							</ul>
@@ -580,26 +745,52 @@ export default function Page() {
 					</div>
 				</section>
 
-				{/* NEW: Risk & Return Mechanics */}
 				<section id="mechanics" className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Risk & Return Mechanics</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Downside Controls</h3>
-							<ul className="mt-2 grid gap-2">
-								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+					<h2 id="mechanics-title" className="text-[28px] font-bold">
+						Risk & Return Mechanics
+					</h2>
+					<div
+						id="mechanics-grid"
+						className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2"
+					>
+						<div
+							id="mechanics-downside"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3
+								id="mechanics-downside-title"
+								className="text-lg font-semibold"
+							>
+								Downside Controls
+							</h3>
+							<ul id="mechanics-downside-list" className="mt-2 grid gap-2">
+								<li
+									id="mechanics-downside-1"
+									className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
+								>
 									Custody via Native-owned FDIC bank CD; capital access via
 									CD-backed line of credit with draw limits.
 								</li>
-								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
+								<li
+									id="mechanics-downside-2"
+									className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
+								>
 									Staged draws only as sites hit milestones (e.g., shovel-ready,
 									scheduled install).
 								</li>
 							</ul>
 						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Return Triggers</h3>
-							<p>
+						<div
+							id="mechanics-returns"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3
+								id="mechanics-returns-title"
+								className="text-lg font-semibold"
+							>
+								Return Triggers
+							</h3>
+							<p id="mechanics-returns-body">
 								Returns accrue as sites achieve milestones (shovel-ready → grant
 								approval). See the deck for schedules and modeled outcomes tied
 								to 10-site completion.
@@ -608,15 +799,20 @@ export default function Page() {
 					</div>
 				</section>
 
-				{/* See the Sites */}
-				<section className="mx-auto grid max-w-[1100px] grid-cols-1 items-stretch gap-4 p-6 lg:grid-cols-2">
-					<div>
-						<h2 className="text-[28px] font-bold">See the Sites</h2>
-						<p className="mt-1 max-w-[72ch] text-[#d7deee]">
+				<section
+					id="sites"
+					className="mx-auto grid max-w-[1100px] grid-cols-1 items-stretch gap-4 p-6 lg:grid-cols-2"
+				>
+					<div id="sites-left">
+						<h2 id="sites-title" className="text-[28px] font-bold">
+							See the Sites
+						</h2>
+						<p id="sites-body" className="mt-1 max-w-[72ch] text-[#d7deee]">
 							Explore the proposed Tribal locations and track activation
 							progress.
 						</p>
 						<button
+							id="btn-open-map"
 							type="button"
 							className="mt-3 btn btn-outline"
 							onClick={() =>
@@ -630,8 +826,12 @@ export default function Page() {
 							Open TEN Map
 						</button>
 					</div>
-					<div className="relative h-48 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d] lg:self-stretch">
+					<div
+						id="sites-image-wrap"
+						className="relative h-48 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d] lg:self-stretch"
+					>
 						<Image
+							id="sites-image"
 							src="/ten9.png"
 							alt="TEN Map preview"
 							fill
@@ -648,17 +848,26 @@ export default function Page() {
 					</div>
 				</section>
 
-				{/* Participation Options (renamed from Ways to Give) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Participation Options</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
+				<section id="participation" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="participation-title" className="text-[28px] font-bold">
+						Participation Options
+					</h2>
+					<div
+						id="participation-grid"
+						className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3"
+					>
 						{TIERS.map((t) => (
 							<div
+								id={`tier-${t.key}`}
 								key={t.key}
 								className="flex flex-col gap-3 rounded-2xl border border-[#1b2450] bg-card p-4"
 							>
-								<div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
+								<div
+									id={`tier-${t.key}-imgwrap`}
+									className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]"
+								>
 									<Image
+										id={`tier-${t.key}-img`}
 										src={t.image}
 										alt={`${t.name} visual placeholder`}
 										fill
@@ -667,22 +876,39 @@ export default function Page() {
 									/>
 								</div>
 								{t.badge && (
-									<div className="inline-flex items-center gap-2 rounded-full border border-[#1c2f67] bg-[#10214a] px-3 py-2 text-[13px] text-[#bcd2ff]">
+									<div
+										id={`tier-${t.key}-badge`}
+										className="inline-flex items-center gap-2 rounded-full border border-[#1c2f67] bg-[#10214a] px-3 py-2 text-[13px] text-[#bcd2ff]"
+									>
 										{t.badge}
 									</div>
 								)}
-								<h3 className="text-lg font-semibold">{t.name}</h3>
-								<div className="text-2xl font-extrabold">
+								<h3
+									id={`tier-${t.key}-title`}
+									className="text-lg font-semibold"
+								>
+									{t.name}
+								</h3>
+								<div
+									id={`tier-${t.key}-price`}
+									className="text-2xl font-extrabold"
+								>
 									{t.price >= 1000
 										? `$${t.price.toLocaleString()}`
 										: `$${t.price}+`}
 								</div>
-								<ul className="list-disc pl-5 text-[#cdd6f4]">
-									{t.features.map((f) => (
-										<li key={f}>{f}</li>
+								<ul
+									id={`tier-${t.key}-features`}
+									className="list-disc pl-5 text-[#cdd6f4]"
+								>
+									{t.features.map((f, i) => (
+										<li id={`tier-${t.key}-feature-${i}`} key={f}>
+											{f}
+										</li>
 									))}
 								</ul>
 								<button
+									id={`tier-${t.key}-action`}
 									type="button"
 									className={t.primary ? "btn btn-primary" : "btn btn-outline"}
 									onClick={() => {
@@ -694,30 +920,45 @@ export default function Page() {
 							</div>
 						))}
 					</div>
-					<p className="mt-3 text-[#aebce5]">
+					<p id="participation-note" className="mt-3 text-[#aebce5]">
 						Prefer to start with an intro call? Use “Request Intro Call” and
 						we’ll schedule time.
 					</p>
 				</section>
 
-				{/* Transparency & Compliance */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
+				<section id="compliance" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="compliance-title" className="text-[28px] font-bold">
 						Transparency & Accountability
 					</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Reporting</h3>
-							<p>
+					<div
+						id="compliance-grid"
+						className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2"
+					>
+						<div
+							id="compliance-reporting"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3
+								id="compliance-reporting-title"
+								className="text-lg font-semibold"
+							>
+								Reporting
+							</h3>
+							<p id="compliance-reporting-body">
 								We’ll share site activation photos, progress reports, and an
 								annual impact summary. Use-of-proceeds is restricted to Tribal
 								readiness and grant execution for eligible businesses. Depending
 								on participation, additional reporting may be provided.
 							</p>
 						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Compliance</h3>
-							<p>
+						<div
+							id="compliance-legal"
+							className="rounded-2xl border border-[#1b2450] bg-card p-4"
+						>
+							<h3 id="compliance-legal-title" className="text-lg font-semibold">
+								Compliance
+							</h3>
+							<p id="compliance-legal-body">
 								This page is informational and not an offer to sell or a
 								solicitation to buy any security. Any investment will be made
 								only pursuant to definitive documents and may be limited to
@@ -728,47 +969,57 @@ export default function Page() {
 					</div>
 				</section>
 
-				{/* FAQ (structure unchanged) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">FAQ</h2>
-					<div className="mt-2 grid gap-3">
-						{FAQS.map((f) => (
+				<section id="faq" className="mx-auto max-w-[1100px] p-6">
+					<h2 id="faq-title" className="text-[28px] font-bold">
+						FAQ
+					</h2>
+					<div id="faq-list" className="mt-2 grid gap-3">
+						{FAQS.map((f, idx) => (
 							<div
+								id={`faq-item-${idx}`}
 								key={f.q}
 								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4"
 							>
-								<strong>{f.q}</strong>
+								<strong id={`faq-q-${idx}`}>{f.q}</strong>
 								<br />
-								{f.a}
+								<span id={`faq-a-${idx}`}>{f.a}</span>
 							</div>
 						))}
 					</div>
 				</section>
 			</main>
 
-			{/* FOOTER unchanged */}
-			<footer className="bg-[#0a0f24] text-[#a5b3d5]">
-				<div className="mx-auto max-w-[1100px] p-6">
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
-						<div>
-							<h3 className="mt-0 text-[#e7eeff]">Contact</h3>
-							<div className="flex flex-wrap gap-4">
-								<div>
-									<p className="mt-2">
+			<footer id="footer" className="bg-[#0a0f24] text-[#a5b3d5]">
+				<div id="footer-inner" className="mx-auto max-w-[1100px] p-6">
+					<div
+						id="footer-grid"
+						className="grid grid-cols-1 gap-4 lg:grid-cols-1"
+					>
+						<div id="footer-contact">
+							<h3 id="footer-contact-title" className="mt-0 text-[#e7eeff]">
+								Contact
+							</h3>
+							<div id="footer-contact-grid" className="flex flex-wrap gap-4">
+								<div id="footer-contact-jen">
+									<p id="footer-contact-jen-name" className="mt-2">
 										Jennifer Schlosberg — CEO, Amerind Nation LLC
 									</p>
-									<p>jenni@amerindnation.com • 918-271-8477</p>
+									<p id="footer-contact-jen-info">
+										jenni@amerindnation.com • 918-271-8477
+									</p>
 								</div>
-								<div>
-									<p className="mt-2">
+								<div id="footer-contact-pace">
+									<p id="footer-contact-pace-name" className="mt-2">
 										Pace Ellsworth — CIO, Amerind Nation LLC
 									</p>
-									<p>pace@amerindnation.com • 480-636-0927</p>
+									<p id="footer-contact-pace-info">
+										pace@amerindnation.com • 480-636-0927
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<p className="mt-4 text-xs">
+					<p id="footer-copy" className="mt-4 text-xs">
 						© {new Date().getFullYear()} Amerind Nation LLC — Tribal Energy
 						Network
 					</p>
@@ -777,17 +1028,25 @@ export default function Page() {
 
 			{modalOpen && (
 				<div
+					id="modal-overlay"
 					className="fixed inset-0 grid place-items-center bg-black/60 backdrop-blur-sm"
 					role="dialog"
 					aria-modal="true"
 					aria-label="Request Term Sheet"
 				>
-					<div className="w-[92%] max-w-[640px] rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5">
-						<div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-							<h3 className="m-0 text-lg font-semibold">
+					<div
+						id="modal-card"
+						className="w-[92%] max-w-[640px] rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5"
+					>
+						<div
+							id="modal-header"
+							className="mb-2 flex flex-wrap items-center justify-between gap-2"
+						>
+							<h3 id="modal-title" className="m-0 text-lg font-semibold">
 								{BOOKING_URL ? BOOKING_TITLE : "Request Term Sheet"}
 							</h3>
 							<button
+								id="modal-close"
 								type="button"
 								className="rounded-2xl border border-[#17406f] bg-[#0b2545] px-4 py-2 font-bold text-[#cfe9ff]"
 								onClick={() => setModalOpen(false)}
@@ -796,14 +1055,19 @@ export default function Page() {
 							</button>
 						</div>
 						{BOOKING_URL ? (
-							<CalendarEmbed src={BOOKING_URL} title={BOOKING_TITLE} />
+							<CalendarEmbed
+								id="calendar-embed"
+								src={BOOKING_URL}
+								title={BOOKING_TITLE}
+							/>
 						) : (
 							<>
-								<p className="text-[#cfe0ff]">
+								<p id="modal-intro" className="text-[#cfe0ff]">
 									Share your details and we’ll follow up 1:1 with the term
 									sheet, site pipeline, and milestone-based schedules.
 								</p>
 								<form
+									id="modal-form"
 									className="mt-3"
 									onSubmit={(e) => {
 										e.preventDefault();
@@ -811,28 +1075,32 @@ export default function Page() {
 										setModalOpen(false);
 									}}
 								>
-									<div className="flex flex-wrap gap-3">
-										<div className="min-w-[220px] flex-1">
+									<div id="modal-row-1" className="flex flex-wrap gap-3">
+										<div id="field-name-wrap" className="min-w-[220px] flex-1">
 											<label
-												htmlFor="name"
+												id="label-name"
+												htmlFor="input-name"
 												className="text-[13px] text-[#a8b3cf]"
 											>
 												Full Name
 											</label>
 											<input
+												id="input-name"
 												name="name"
 												required
 												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 											/>
 										</div>
-										<div className="min-w-[220px] flex-1">
+										<div id="field-email-wrap" className="min-w-[220px] flex-1">
 											<label
-												htmlFor="email"
+												id="label-email"
+												htmlFor="input-email"
 												className="text-[13px] text-[#a8b3cf]"
 											>
 												Email
 											</label>
 											<input
+												id="input-email"
 												type="email"
 												name="email"
 												required
@@ -840,27 +1108,34 @@ export default function Page() {
 											/>
 										</div>
 									</div>
-									<div className="mt-3 flex flex-wrap gap-3">
-										<div className="min-w-[220px] flex-1">
+									<div id="modal-row-2" className="mt-3 flex flex-wrap gap-3">
+										<div id="field-phone-wrap" className="min-w-[220px] flex-1">
 											<label
-												htmlFor="phone"
+												id="label-phone"
+												htmlFor="input-phone"
 												className="text-[13px] text-[#a8b3cf]"
 											>
 												Phone
 											</label>
 											<input
+												id="input-phone"
 												name="phone"
 												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 											/>
 										</div>
-										<div className="min-w-[220px] flex-1">
+										<div
+											id="field-interest-wrap"
+											className="min-w-[220px] flex-1"
+										>
 											<label
-												htmlFor="interest"
+												id="label-interest"
+												htmlFor="select-interest"
 												className="text-[13px] text-[#a8b3cf]"
 											>
 												Interest
 											</label>
 											<select
+												id="select-interest"
 												name="interest"
 												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 											>
@@ -872,21 +1147,24 @@ export default function Page() {
 											</select>
 										</div>
 									</div>
-									<div className="mt-3">
+									<div id="modal-row-3" className="mt-3">
 										<label
-											htmlFor="message"
+											id="label-notes"
+											htmlFor="textarea-notes"
 											className="text-[13px] text-[#a8b3cf]"
 										>
 											Notes (optional)
 										</label>
 										<textarea
+											id="textarea-notes"
 											rows={4}
 											placeholder="e.g., Preference for Paskenta Rancheria; amount & timeline"
 											className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 										/>
 									</div>
-									<div className="mt-3 flex justify-end">
+									<div id="modal-actions" className="mt-3 flex justify-end">
 										<button
+											id="modal-submit"
 											className="rounded-2xl bg-primary px-4 py-3 font-bold text-[#062b15] shadow-glow"
 											type="submit"
 										>

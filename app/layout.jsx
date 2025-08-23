@@ -1,4 +1,5 @@
 import "./globals.css";
+import Script from "next/script";
 
 export const metadata = {
 	title: "Tribal Energy Network — CALeVIP Fundraiser",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
 					Skip to content
 				</a>
 				{children}
+				<Script src="/guido.js" strategy="afterInteractive" />
 			</body>
 		</html>
 	);

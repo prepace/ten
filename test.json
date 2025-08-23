@@ -1,0 +1,59 @@
+{
+	"proposal": {
+		"title": "Finish Cancelling Bills and Delete Old Email Accounts Today (Frustration-Free, 15-min Approval)",
+		"guarantee": "100% completion of cancellations and old email account data handling as described, or we extend the service at no extra charge until completed; if a provider blocks cancellation, we escalate and document the outcome.",
+		"why_it_helps": "Cancelling recurring charges and cleaning out old email accounts removes daily annoyances, protects you from unwanted charges, and frees up mental energy. With your $200 value, this plan delivers 5–10x value by stopping future bills, preserving your time, and reducing data clutter—all without you doing the heavy lifting.",
+		"risk_mitigation": [
+			"Back up data before deletion (export emails/attachments/contacts to a secure archive)",
+			"Proceed only with explicit confirmations for each cancellation",
+			"Keep essential access until all cancellations are confirmed and documented",
+			"If a cancellation cannot complete immediately, we will provide a fallback (e.g., freezing autopay) with ETA"
+		],
+		"total_value_usd": 1120,
+		"success_criteria": [
+			"All listed subscriptions canceled or paused with no further charges",
+			"Old email accounts backed up (where requested) and deleted or archived per your preference",
+			"No critical services disrupted; you have a clean, charge-free status",
+			"Audit log delivered with receipts and clear next steps; 7-day follow-up completed"
+		],
+		"suggested_price_usd": 350,
+		"deliverables_to_user": [
+			{
+				"value_usd": 420,
+				"description": "Cancellation confirmations/receipts for all targeted subscriptions and services"
+			},
+			{
+				"value_usd": 180,
+				"description": "Updates to autopay settings and reminders to prevent future charges"
+			},
+			{
+				"value_usd": 250,
+				"description": "Data export/backup of old email accounts (critical emails, contacts, and attachments)"
+			},
+			{
+				"value_usd": 150,
+				"description": "Deletion of old email accounts with data deletion confirmation"
+			},
+			{
+				"value_usd": 120,
+				"description": "Cancellation audit log, receipts, and a 7-day follow-up plan"
+			}
+		],
+		"est_time_hours_today": 1.5,
+		"steps_agent_will_do_today": [
+			"1) Create a master cancellation docket: gather a list of all subscriptions/services and old email accounts you want canceled or deleted, plus any known billing method (for autopay updates).",
+			"2) Prioritize cancellations by impact and ease (start with high-cost or easily cancelable items), and draft generic cancellation scripts or emails for providers when needed.",
+			"3) Draft and submit cancellations: send cancellation emails/forms or initiate calls where required; apply autopay updates or account pauses where appropriate; document confirmations/receipts.",
+			"4) Handle old email accounts: export/backup critical data (emails, contacts, attachments) and then proceed with deletion steps on each provider’s platform; revoke access where possible.",
+			"5) Compile final audit log: list all cancellations with confirmations, attach receipts, and outline next steps (e.g., refunds, credits, or further follow-up if needed).",
+			"6) Schedule a 7-day post-completion check-in to ensure no stray charges or lingering data hiccups."
+		],
+		"dependencies_or_access_needed": [
+			"List of subscriptions/services to cancel (names, URLs, current billing method)",
+			"List of old email accounts to delete (and any preferred backup options)",
+			"Consent to draft and submit cancellation requests on your behalf (no password sharing required)",
+			"Any one-time verification codes or confirmations providers may require"
+		]
+	},
+	"quick_note_for_agent": "The user wants this done today with minimal input. If they approve, use a simple, fast approval workflow: they reply 'Proceed' and attach the required lists of subscriptions and old email accounts. Do not request sensitive passwords; rely on existing credentials and one-time verifications. Deliver confirmations and receipts in a clean summary."
+}
