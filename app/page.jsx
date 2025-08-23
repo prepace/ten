@@ -2,14 +2,14 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
-const GOAL = 360000;
+const GOAL = 500000;
 
 // ---- COPY PIVOT: Participation tiers (keeps same layout/images) ----
 const TIERS = [
 	{
 		key: "site",
 		name: "Tribal Site Note",
-		price: 36000,
+		price: 50000,
 		badge: "Top Tribal Impact",
 		features: ["Milestone-linked returns", "Named recognition at host site"],
 		image: "/ten5.jpg",
@@ -18,8 +18,8 @@ const TIERS = [
 	},
 	{
 		key: "port",
-		name: "Per-Port Participation",
-		price: 3600,
+		name: "Per-Station Participation",
+		price: 10000,
 		badge: "On-Site Recognition",
 		features: ["Port-level allocation", "QR-linked recognition"],
 		image: "/ten3.jpg",
@@ -28,7 +28,7 @@ const TIERS = [
 	{
 		key: "circle",
 		name: "Strategic Partner",
-		price: 1000,
+		price: 5000,
 		badge: "Support the Cause",
 		features: ["Partner listing", "Project briefings"],
 		image: "/ten8.jpg",
@@ -59,7 +59,7 @@ const FAQS = [
 ];
 
 const TIMELINE = [
-	{ date: "Aug 13", text: "Capital launch" },
+	{ date: "Aug 23", text: "Capital launch" },
 	{ date: "Aug 31", text: "Target to secure all 10 sites" },
 	{ date: "Oct 29", text: "CALeVIP Tribal priority window closes" },
 	{ date: "Dec–Jun", text: "Installations & activation" },
@@ -187,7 +187,7 @@ function PieChart({
 export default function Page() {
 	const [raised] = useState(0); // display only; not changing behavior
 	const [modalOpen, setModalOpen] = useState(false);
-	const sitesFunded = useMemo(() => Math.floor(raised / 36000), [raised]);
+	const sitesFunded = useMemo(() => Math.floor(raised / 50000), [raised]);
 	const progressPct = Math.max(0, Math.min(100, (raised / GOAL) * 100));
 	const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || ""; // set in .env.local
 	const BOOKING_TITLE = process.env.NEXT_PUBLIC_BOOKING_TITLE || "Book a call";
@@ -242,7 +242,7 @@ export default function Page() {
 							Sites
 						</h1>
 						<p className="mt-3 text-[18px] text-muted">
-							A <strong>$36k</strong> site tranche can unlock ~
+							A <strong>$50k</strong> site tranche can unlock ~
 							<strong>$1.8M</strong> per Tribe via CALeVIP grants, federal
 							credits, and network sponsors. Investor participation is
 							milestone-indexed; see the deck for terms.
@@ -274,7 +274,7 @@ export default function Page() {
 									Goal
 								</div>
 								<div className="mt-1 text-[22px] font-extrabold">
-									$360,000 by Aug 31
+									$500,000 by Aug 31
 								</div>
 								<div
 									className="relative h-4 overflow-hidden rounded-xl border border-[#1b2450] bg-[#0f1a3d]"
@@ -390,7 +390,7 @@ export default function Page() {
 						Your $1 Unlocks ~$50 in Clean Energy Infrastructure
 					</h2>
 					<p className="mt-1 max-w-[72ch] text-[#d7deee]">
-						A $36,000 site tranche can trigger a ~50× match through grants, tax
+						A $50,000 site tranche can trigger a ~36× match through grants, tax
 						credits, and sponsorship—qualifying a bank of fast chargers at a
 						Tribal business with <em>no out-of-pocket</em> to the Tribe.
 						Investor participation is milestone-indexed and detailed in the term
@@ -542,8 +542,8 @@ export default function Page() {
 							<h3 className="text-lg font-semibold">Budget Snapshot</h3>
 							<figure className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
 								<PieChart
-									title="Use of $36,000 site tranche"
-									desc="Tribal Community Liaison $10,000; Accounting and Grant Management $8,000; Site Assessments and Surveys $3,000; Preliminary Engineering $4,000; Final Design and Stamped Plans $6,000; Permitting Support $5,000."
+									title="Use of $50,000 site tranche"
+									desc="Tribal Community Liaison $13,000; Accounting and Grant Management $11,000; Site Assessments and Surveys $4,000; Preliminary Engineering $6,000; Final Design and Stamped Plans $9,000; Permitting Support $7,000."
 									segments={BUDGET}
 								/>
 								<figcaption className="sm:ml-4">
@@ -864,8 +864,8 @@ export default function Page() {
 												name="interest"
 												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
 											>
-												<option>Tribal Site Note ($36,000)</option>
-												<option>Per-Port Participation ($3,600)</option>
+												<option>Tribal Site Note ($50,000)</option>
+												<option>Per-Station Participation ($10,000)</option>
 												<option>Strategic Partner</option>
 												<option>Corporate Sponsorship</option>
 												<option>Private Placement / Investment</option>
