@@ -39,13 +39,13 @@ const TIERS = [
 const KPIS = [
 	{ label: "CALeVIP per port (cap)", value: "$55,000" },
 	{ label: "Federal incentives (30%)", value: "$54,000" },
-	{ label: "Sponsor match effect", value: "50×" },
+	{ label: "Sponsor match effect", value: "36×" },
 	{ label: "Ports per Tribe (target)", value: "10" },
 ];
 
 const FAQS = [
 	{
-		q: "How does my participation unlock 50×?",
+		q: "How does my participation unlock 36×?",
 		a: "Your tranche funds Tribal readiness (liaison, surveys, engineering, permits) that qualifies host sites for CALeVIP awards and federal credits. These program dollars plus private sponsors cover equipment and operations, multiplying the effect of your capital across ~10 ports per site.",
 	},
 	{
@@ -387,7 +387,7 @@ export default function Page() {
 			<main id="main">
 				<section className="mx-auto max-w-[1100px] p-6">
 					<h2 className="text-[28px] font-bold">
-						Your $1 Unlocks ~$50 in Clean Energy Infrastructure
+						Your $1 Unlocks ~$36 in Clean Energy Infrastructure
 					</h2>
 					<p className="mt-1 max-w-[72ch] text-[#d7deee]">
 						A $50,000 site tranche can trigger a ~36× match through grants, tax
@@ -412,7 +412,7 @@ export default function Page() {
 					<div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
 						<div className="flex flex-col rounded-2xl border border-[#1b2450] gap-4 bg-card p-4 lg:col-span-7">
 							<div className="flex-1">
-								<h3 className="text-lg font-semibold">50x Multiplier</h3>
+								<h3 className="text-lg font-semibold">36x Multiplier</h3>
 								<p className="mt-1">
 									$36k seed unlocks ~$1.8M in program/go-to-market enablement
 									per Tribe (≈10 ports @ ~$180k all-in/port). Returns are tied
