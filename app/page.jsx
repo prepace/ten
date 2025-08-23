@@ -414,14 +414,14 @@ export default function Page() {
 							<div className="flex-1">
 								<h3 className="text-lg font-semibold">36x Multiplier</h3>
 								<p className="mt-1">
-									$36k seed unlocks ~$1.8M in program/go-to-market enablement
+									$50k seed unlocks ~$1.8M in program/go-to-market enablement
 									per Tribe (≈10 ports @ ~$180k all-in/port). Returns are tied
 									to milestone progress.
 								</p>
 							</div>
 							<figure>
 								<div className="mt-2 flex flex-wrap items-end gap-4">
-									<Cylinder percent={20} label="$36k" />
+									<Cylinder percent={28} label="$50k" />
 									<span className="text-2xl">=</span>
 									<div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
 										{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
