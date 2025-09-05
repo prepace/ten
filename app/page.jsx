@@ -50,7 +50,7 @@ const FAQS = [
 	},
 	{
 		q: "Can I focus on a specific Tribe or site?",
-		a: "Yes. Note your preference in the request form. Allocation can be assigned to a host site with your review; if not selected by Aug 31, we’ll follow up to discuss options.",
+		a: "Yes. Note your preference in the request form. Allocation can be assigned to a host site with your review; if not selected by Sep 30, we’ll follow up to discuss options.",
 	},
 	{
 		q: "How are returns structured?",
@@ -60,7 +60,7 @@ const FAQS = [
 
 const TIMELINE = [
 	{ date: "Aug 23", text: "Capital launch" },
-	{ date: "Aug 31", text: "Target to secure all 10 sites" },
+	{ date: "Sep 30", text: "Target to submit all 10 sites" },
 	{ date: "Oct 29", text: "CALeVIP Tribal priority window closes" },
 	{ date: "Dec–Jun", text: "Installations & activation" },
 ];
@@ -234,7 +234,7 @@ export default function Page() {
 				<div className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-7 p-6 py-12 lg:grid-cols-[1.1fr_.9fr]">
 					<div>
 						<div className="inline-block rounded-full border border-[#1c2f67] bg-[#10214a] px-2.5 py-1 text-[13px] text-[#bcd2ff]">
-							Fundraising ends <strong>Aug 31, 2025</strong> • CALeVIP Tribal
+							Fundraising ends <strong>Sep 30, 2025</strong> • CALeVIP Tribal
 							window closes <strong>Oct 29, 2025</strong>
 						</div>
 						<h1 className="mt-3 text-[40px] font-extrabold leading-[1.05] tracking-tight">
@@ -274,7 +274,7 @@ export default function Page() {
 									Goal
 								</div>
 								<div className="mt-1 text-[22px] font-extrabold">
-									$500,000 by Aug 31
+									$500,000 by Sep 30
 								</div>
 								<div
 									className="relative h-4 overflow-hidden rounded-xl border border-[#1b2450] bg-[#0f1a3d]"
@@ -293,8 +293,8 @@ export default function Page() {
 									{currency(raised)} raised • {sitesFunded}/10 sites funded
 								</div>
 							</div>
-							<StatCard label="Countdown to Aug 31">
-								<Countdown target="2025-08-31T23:59:59-05:00" />
+							<StatCard label="Countdown to Sep 30">
+								<Countdown target="2025-09-30T23:59:59-05:00" />
 							</StatCard>
 							<StatCard label="Countdown to Oct 29 (CALeVIP Grant Deadline)">
 								<Countdown target="2025-10-29T23:59:59-05:00" />
