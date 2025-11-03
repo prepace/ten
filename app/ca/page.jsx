@@ -53,6 +53,23 @@ export default function Page() {
     @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } .kpis { grid-template-columns: 1fr; } }
   `;
 
+  const rate = 160;
+  const hours = { pm: 58, grants: 52, ee: 24, finance: 34, gis: 16, cs: 28, qa: 4 };
+  const totalHours = Object.values(hours).reduce((a, b) => a + b, 0);
+  const basePerSite = totalHours * rate;
+  const projectBudgetPerSite = 700000;
+  const grantPerSite = 210000;
+  const taxCreditPercent = 0.30;
+  const taxCreditPerSite = Math.round((projectBudgetPerSite * taxCreditPercent) / 10000) * 10000;
+  const perSiteDiscount = (sites) => 1 - 0.1 * (sites - 1);
+  const totalFee = (sites) => basePerSite * sites * perSiteDiscount(sites);
+  const totalProject = (sites) => projectBudgetPerSite * sites;
+  const totalGrant = (sites) => grantPerSite * sites;
+  const totalCredit = (sites) => taxCreditPerSite * sites;
+  const pctOfProject = (sites) => (totalFee(sites) / totalProject(sites)) * 100;
+  const fmtUSD = (n) => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  const fmtUSD2 = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   return (
     <main>
       <style>{css}</style>
@@ -71,8 +88,8 @@ export default function Page() {
               <a className="btn ghost" href="#details">See Pricing &amp; Scope</a>
             </div>
             <div className="kpis">
-              <div className="kpi"><div className="big">4 L3 Ports</div><div className="sub">2× 150–160 kW cabinets, power‑sharing</div></div>
-              <div className="kpi"><div className="big">$300k Grant</div><div className="sub">Per site target ask (illustrative)</div></div>
+              <div className="kpi"><div className="big">4 L3 Ports</div><div className="sub">2× 320–400 kW cabinets, power‑sharing</div></div>
+              <div className="kpi"><div className="big">$210k Grant</div><div className="sub">Per site target ask (illustrative)</div></div>
               <div className="kpi"><div className="big">30% EVI Credit</div><div className="sub">Elective pay — cash back</div></div>
             </div>
           </div>
@@ -105,27 +122,27 @@ export default function Page() {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>$34,560</td>
-                  <td>$430,000</td>
-                  <td>$300,000</td>
-                  <td>$130,000</td>
-                  <td className="pct">8.03%</td>
+                  <td>${fmtUSD(totalFee(1))}</td>
+                  <td>${fmtUSD(totalProject(1))}</td>
+                  <td>${fmtUSD(totalGrant(1))}</td>
+                  <td>${fmtUSD(totalCredit(1))}</td>
+                  <td className="pct">{pctOfProject(1).toFixed(2)}%</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>$62,208</td>
-                  <td>$860,000</td>
-                  <td>$600,000</td>
-                  <td>$260,000</td>
-                  <td className="pct">7.23%</td>
+                  <td>${fmtUSD(totalFee(2))}</td>
+                  <td>${fmtUSD(totalProject(2))}</td>
+                  <td>${fmtUSD(totalGrant(2))}</td>
+                  <td>${fmtUSD(totalCredit(2))}</td>
+                  <td className="pct">{pctOfProject(2).toFixed(2)}%</td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>$82,944</td>
-                  <td>$1,290,000</td>
-                  <td>$900,000</td>
-                  <td>$390,000</td>
-                  <td className="pct">6.43%</td>
+                  <td>${fmtUSD(totalFee(3))}</td>
+                  <td>${fmtUSD(totalProject(3))}</td>
+                  <td>${fmtUSD(totalGrant(3))}</td>
+                  <td>${fmtUSD(totalCredit(3))}</td>
+                  <td className="pct">{pctOfProject(3).toFixed(2)}%</td>
                 </tr>
               </tbody>
             </table>
@@ -152,10 +169,10 @@ export default function Page() {
                 <tr><td style={{ textAlign: 'left' }}>GIS / Mapping</td><td>16</td></tr>
                 <tr><td style={{ textAlign: 'left' }}>Client Success / Communications</td><td>28</td></tr>
                 <tr><td style={{ textAlign: 'left' }}>Admin / QA</td><td>4</td></tr>
-                <tr><th style={{ textAlign: 'left' }}>Total</th><th>216</th></tr>
+                <tr><th style={{ textAlign: 'left' }}>Total</th><th>{totalHours}</th></tr>
               </tbody>
             </table>
-            <p className="note" style={{ marginTop: 10 }}><strong>Blended rate:</strong> $160/hr &nbsp;•&nbsp; <strong>Application‑prep total (per site):</strong> $34,560 (discounts applied for 2nd/3rd site).</p>
+            <p className="note" style={{ marginTop: 10 }}><strong>Blended rate:</strong> $160/hr &nbsp;•&nbsp; <strong>Application‑prep total (per site):</strong> ${fmtUSD(basePerSite)} (discounts applied for 2nd/3rd site).</p>
           </div>
         </section>
 
@@ -178,19 +195,19 @@ export default function Page() {
                   <td style={{ textAlign: 'left' }}>Project start / kickoff invoice</td>
                   <td>At start</td>
                   <td>20%</td>
-                  <td style={{ textAlign: 'left' }}>1 site: $6,912 • 2 sites: $12,441.60 • 3 sites: $16,588.80</td>
+                  <td style={{ textAlign: 'left' }}>1 site: ${fmtUSD2(totalFee(1) * 0.2)} • 2 sites: ${fmtUSD2(totalFee(2) * 0.2)} • 3 sites: ${fmtUSD2(totalFee(3) * 0.2)}</td>
                 </tr>
                 <tr>
                   <td style={{ textAlign: 'left' }}>Progress payment</td>
                   <td>Dec 5</td>
                   <td>40%</td>
-                  <td style={{ textAlign: 'left' }}>1 site: $13,824 • 2 sites: $24,883.20 • 3 sites: $33,177.60</td>
+                  <td style={{ textAlign: 'left' }}>1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: ${fmtUSD2(totalFee(2) * 0.4)} • 3 sites: ${fmtUSD2(totalFee(3) * 0.4)}</td>
                 </tr>
                 <tr>
                   <td style={{ textAlign: 'left' }}>Final delivery payment</td>
                   <td>Dec 18</td>
                   <td>40%</td>
-                  <td style={{ textAlign: 'left' }}>1 site: $13,824 • 2 sites: $24,883.20 • 3 sites: $33,177.60</td>
+                  <td style={{ textAlign: 'left' }}>1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: ${fmtUSD2(totalFee(2) * 0.4)} • 3 sites: ${fmtUSD2(totalFee(3) * 0.4)}</td>
                 </tr>
               </tbody>
             </table>
@@ -215,21 +232,21 @@ export default function Page() {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>$31,104.00</td>
-                  <td>$34,560.00</td>
-                  <td>$41,472.00</td>
+                  <td>${fmtUSD2(totalFee(1) * 0.9)}</td>
+                  <td>${fmtUSD2(totalFee(1) * 1.0)}</td>
+                  <td>${fmtUSD2(totalFee(1) * 1.2)}</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>$55,987.20</td>
-                  <td>$62,208.00</td>
-                  <td>$74,649.60</td>
+                  <td>${fmtUSD2(totalFee(2) * 0.9)}</td>
+                  <td>${fmtUSD2(totalFee(2) * 1.0)}</td>
+                  <td>${fmtUSD2(totalFee(2) * 1.2)}</td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>$74,649.60</td>
-                  <td>$82,944.00</td>
-                  <td>$99,532.80</td>
+                  <td>${fmtUSD2(totalFee(3) * 0.9)}</td>
+                  <td>${fmtUSD2(totalFee(3) * 1.0)}</td>
+                  <td>${fmtUSD2(totalFee(3) * 1.2)}</td>
                 </tr>
               </tbody>
             </table>
