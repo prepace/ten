@@ -254,9 +254,9 @@ export default function Page() {
         </section>
 
         {/* CALL TO ACTION */}
-        <section id="contact" className="grid">
+        <section id="contact" className="grid mt-12">
           <div className="card">
-            <h2>Ready to move?</h2>
+            <h3 className="text-2xl">Ready to move?</h3>
             <p>We’ll handle the paperwork, mapping score strategy, host letters, and budgets. You focus on choosing locations and vendors. We coordinate directly with the program administrator as your authorized representative.</p>
             <ul className="list">
               <li><strong>Limited window:</strong> 30% EVI credit elective‑pay (cash) — current window ends June 30.</li>
@@ -269,7 +269,7 @@ export default function Page() {
             </div>
           </div>
           <div className="card">
-            <h2>What you’ll need</h2>
+            <h3 className="text-2xl">What you’ll need</h3>
             <ul className="list">
               <li>Lead applicant info &amp; signer details</li>
               <li>Site address(es) &amp; public access confirmation</li>
