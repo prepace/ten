@@ -280,7 +280,7 @@ export default function Page() {
 									<th>Date</th>
 									<th>Percent</th>
 									<th style={{ textAlign: "left" }}>
-										Example amount (Normal price)
+										Example amount (Standard price)
 									</th>
 								</tr>
 							</thead>
@@ -328,24 +328,24 @@ export default function Page() {
 
 				{/* PRICING WINDOWS */}
 				<section>
-					<h2>Pricing Windows — Early Bird, Normal, Rush</h2>
+					<h2>Pricing Windows — Early Bird, Standard, Rush</h2>
 					<div className="card">
 						<p className="note">
 							Windows are based on project start date/time (Pacific):{" "}
 							<strong>Start by Nov 14, 5:00 p.m. PT = Early Bird (−10%)</strong>{" "}
 							•{" "}
 							<strong>
-								Nov 14, 5:01 p.m. PT through Nov 28, 5:00 p.m. PT = Normal
+								Nov 14, 5:01 p.m. PT through Nov 28, 5:00 p.m. PT = Standard
 							</strong>{" "}
 							• <strong>Start after Nov 28, 5:00 p.m. PT = Rush (+20%)</strong>.{" "}
 							<strong>No applications accepted after Dec 19.</strong>
 						</p>
-						<table aria-label="Early Bird, Normal, and Rush pricing by sites">
+						<table aria-label="Early Bird, Standard, and Rush pricing by sites">
 							<thead>
 								<tr>
 									<th>Sites</th>
 									<th>Early Bird (by Nov 14, 5p PT)</th>
-									<th>Normal (Nov 14, 5:01p–Nov 28, 5p PT)</th>
+									<th>Standard (Nov 14, 5:01p–Nov 28, 5p PT)</th>
 									<th>Rush (after Nov 28, 5p PT)</th>
 								</tr>
 							</thead>

@@ -289,7 +289,7 @@ export default function Page() {
 										<th>Date</th>
 										<th>Percent</th>
 										<th style={{ textAlign: "left" }}>
-											Example amount (Normal price)
+											Example amount (Standard price)
 										</th>
 									</tr>
 								</thead>
@@ -331,7 +331,7 @@ export default function Page() {
 								</tbody>
 							</table>
 							<p className="note">
-								Amounts above use the <strong>normal multi‑site totals</strong>:
+								Amounts above use the <strong>Standard multi‑site totals</strong>:
 								1 site $17,280; 2 sites $31,104; 3 sites $41,472. If Early Bird
 								(−10%) or Rush (+20%) applies, milestone amounts scale by the
 								same percentage.
@@ -341,20 +341,20 @@ export default function Page() {
 
 					{/* PRICING WINDOWS SECTION */}
 					<section>
-						<h2>Pricing Windows — Early Bird, Normal, Rush</h2>
+						<h2>Pricing Windows — Early Bird, Standard, Rush</h2>
 						<div className="card">
 							<p className="note">
 								Windows are based on project start date:{" "}
 								<strong>Start by Nov 7 = Early Bird (−10%)</strong> •{" "}
-								<strong>Nov 8–Nov 21 = Normal</strong> •{" "}
+								<strong>Nov 8–Nov 21 = Standard</strong> •{" "}
 								<strong>Start after Nov 21 = Rush (+20%)</strong>.
 							</p>
-							<table aria-label="Early Bird, Normal, and Rush pricing by sites">
+							<table aria-label="Early Bird, Standard, and Rush pricing by sites">
 								<thead>
 									<tr>
 										<th>Sites</th>
 										<th>Early Bird (start by Nov 7)</th>
-										<th>Normal (Nov 8–Nov 21)</th>
+										<th>Standard (Nov 8–Nov 21)</th>
 										<th>Rush (start after Nov 21)</th>
 									</tr>
 								</thead>
