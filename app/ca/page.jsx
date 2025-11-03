@@ -1,0 +1,270 @@
+export const metadata = {
+  title: 'CALeVIP FCCP — Tribal Offer (Amerind Nation LLC)'
+};
+
+export default function Page() {
+  const css = `
+    :root {
+      --bg: #0b1020;
+      --card: #121935;
+      --ink: #e9eefc;
+      --muted: #a9b3d4;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; color: var(--ink); background: radial-gradient(1200px 700px at 25% -10%, #1b2450, var(--bg)); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
+    .badgebar { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px; }
+    .badge { background: linear-gradient(135deg, var(--accent-2), #8b5cf6); color:#041224; font-weight:700; padding:8px 12px; border-radius:999px; box-shadow: var(--shadow); }
+    .badge.alt { background: linear-gradient(135deg, #34d399, #a3e635); }
+    .h1 { font-size: clamp(28px, 4vw, 46px); line-height:1.05; margin: 6px 0 10px; font-weight: 800; letter-spacing: -.02em; }
+    .lead { color: var(--muted); font-size: clamp(16px, 2vw, 19px); }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+    .cta { display:flex; gap:12px; margin-top:18px; }
+    .btn { background: linear-gradient(135deg, var(--accent), #22c55e); color:#051b12; padding:12px 16px; border-radius:12px; text-decoration:none; font-weight:700; display:inline-block; box-shadow: var(--shadow); }
+    .btn.ghost { background: transparent; color: var(--ink); border:1px solid rgba(255,255,255,.25); }
+    .kpis { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:16px; }
+    .kpi { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 14px; padding:14px; text-align:center; }
+    .kpi .big { font-size: 28px; font-weight:800; letter-spacing:-.01em; }
+    .kpi .sub { color: var(--muted); font-size:13px; margin-top:4px; }
+
+    h2 { margin: 34px 0 12px; font-size: clamp(22px, 2.8vw, 30px); letter-spacing:-.01em; }
+    p { color: var(--ink); }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { text-align: right; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    thead th { color: var(--muted); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+    tbody tr:hover { background: rgba(255,255,255,.035); }
+    .pct { font-weight:800; color: var(--accent); }
+    .note { color: var(--muted); font-size: 13px; }
+
+    .pill { display:inline-block; padding:6px 10px; border:1px dashed rgba(255,255,255,.35); border-radius:999px; font-size:13px; color:#c7f9cc; background: rgba(17,94,89,.15); }
+
+    .list { margin: 10px 0 0 0; padding-left: 18px; color: var(--muted); }
+    .list li { margin: 6px 0; }
+
+    .footer { margin-top: 32px; font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } .kpis { grid-template-columns: 1fr; } }
+  `;
+
+  return (
+    <main>
+      <style>{css}</style>
+      <div className="wrap">
+        {/* HERO */}
+        <section className="hero">
+          <div>
+            <div className="badgebar">
+              <span className="badge">CALeVIP FCCP — Public DC Fast Charging (CA)</span>
+              <span className="badge alt">Tribal projects eligible • Equity‑prioritized</span>
+            </div>
+            <h1 className="h1">Amerind Nation LLC — Tribal Turn‑Key Application &amp; Delivery</h1>
+            <p className="lead">We handle strategy, application authoring, budgets, host letters, utility coordination, and contracting support. We coordinate directly with the program administrator (e.g., CSE/CEC) on your behalf.</p>
+            <div className="cta">
+              <a className="btn" href="#contact">Book a 20‑min Intake</a>
+              <a className="btn ghost" href="#details">See Pricing &amp; Scope</a>
+            </div>
+            <div className="kpis">
+              <div className="kpi"><div className="big">4 L3 Ports</div><div className="sub">2× 150–160 kW cabinets, power‑sharing</div></div>
+              <div className="kpi"><div className="big">$300k Grant</div><div className="sub">Per site target ask (illustrative)</div></div>
+              <div className="kpi"><div className="big">30% EVI Credit</div><div className="sub">Elective pay — cash back</div></div>
+            </div>
+          </div>
+          <div className="card">
+            <strong>Program Notes</strong>
+            <ul className="list">
+              <li>Public access at high‑trip Tribal business hubs (casino/hotel/c‑store) tends to score well.</li>
+              <li>Amerind serves as owner’s rep to streamline utility, permitting, and contracting.</li>
+              <li><span className="pill">Requirement:</span> Able to supply <strong>utility approval on or before Jan 15, 2026</strong>.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* OFFER TABLE */}
+        <section id="details">
+          <h2>Offer &amp; Project Sizing (CALeVIP FCCP)</h2>
+          <p className="note">Multi‑site discounts apply to additional sites for the same Tribe. Amounts assume 4 L3 ports per site and a $430,000 project budget (illustrative).</p>
+          <div className="card">
+            <table aria-label="Offer amounts and project sizes">
+              <thead>
+                <tr>
+                  <th>Sites</th>
+                  <th>Total app‑prep fee</th>
+                  <th>Total project size</th>
+                  <th>Grant funds</th>
+                  <th>30% EVI tax credit (elective pay)</th>
+                  <th>App fee as % of total project</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>$34,560</td>
+                  <td>$430,000</td>
+                  <td>$300,000</td>
+                  <td>$130,000</td>
+                  <td className="pct">8.03%</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>$62,208</td>
+                  <td>$860,000</td>
+                  <td>$600,000</td>
+                  <td>$260,000</td>
+                  <td className="pct">7.23%</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>$82,944</td>
+                  <td>$1,290,000</td>
+                  <td>$900,000</td>
+                  <td>$390,000</td>
+                  <td className="pct">6.43%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* HOURS TABLE */}
+        <section>
+          <h2>Work Justification — Application Preparation (216 hrs)</h2>
+          <p className="note">Scope includes strategy, application authoring, budgeting, host‑letter orchestration, mapping optimization, utility coordination, client communications, packaging, and submission QA.</p>
+          <div className="card">
+            <table aria-label="Application preparation hours by role">
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left' }}>Role</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ textAlign: 'left' }}>Project Lead / PM</td><td>58</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>Grants Specialist / Coordinator</td><td>52</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>Technical Engineer (EE)</td><td>24</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>Budget &amp; Finance Analyst</td><td>34</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>GIS / Mapping</td><td>16</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>Client Success / Communications</td><td>28</td></tr>
+                <tr><td style={{ textAlign: 'left' }}>Admin / QA</td><td>4</td></tr>
+                <tr><th style={{ textAlign: 'left' }}>Total</th><th>216</th></tr>
+              </tbody>
+            </table>
+            <p className="note" style={{ marginTop: 10 }}><strong>Blended rate:</strong> $160/hr &nbsp;•&nbsp; <strong>Application‑prep total (per site):</strong> $34,560 (discounts applied for 2nd/3rd site).</p>
+          </div>
+        </section>
+
+        {/* PAYMENT SCHEDULE */}
+        <section>
+          <h2>Payment Schedule — Application Preparation</h2>
+          <div className="card">
+            <p className="note">Milestones apply to the total agreed <strong>application‑prep fee</strong> for the order (after any Early Bird or Rush adjustments).</p>
+            <table aria-label="Payment schedule with dates">
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left' }}>Milestone</th>
+                  <th>Date</th>
+                  <th>Percent</th>
+                  <th style={{ textAlign: 'left' }}>Example amount (Normal price)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={{ textAlign: 'left' }}>Project start / kickoff invoice</td>
+                  <td>At start</td>
+                  <td>20%</td>
+                  <td style={{ textAlign: 'left' }}>1 site: $6,912 • 2 sites: $12,441.60 • 3 sites: $16,588.80</td>
+                </tr>
+                <tr>
+                  <td style={{ textAlign: 'left' }}>Progress payment</td>
+                  <td>Dec 5</td>
+                  <td>40%</td>
+                  <td style={{ textAlign: 'left' }}>1 site: $13,824 • 2 sites: $24,883.20 • 3 sites: $33,177.60</td>
+                </tr>
+                <tr>
+                  <td style={{ textAlign: 'left' }}>Final delivery payment</td>
+                  <td>Dec 18</td>
+                  <td>40%</td>
+                  <td style={{ textAlign: 'left' }}>1 site: $13,824 • 2 sites: $24,883.20 • 3 sites: $33,177.60</td>
+                </tr>
+              </tbody>
+            </table>
+            <p className="note">If Early Bird (−10%) or Rush (+20%) applies, milestone amounts scale by the same percentage.</p>
+          </div>
+        </section>
+
+        {/* PRICING WINDOWS */}
+        <section>
+          <h2>Pricing Windows — Early Bird, Normal, Rush</h2>
+          <div className="card">
+            <p className="note">Windows are based on project start date/time (Pacific): <strong>Start by Nov 14, 5:00 p.m. PT = Early Bird (−10%)</strong> • <strong>Nov 14, 5:01 p.m. PT through Nov 28, 5:00 p.m. PT = Normal</strong> • <strong>Start after Nov 28, 5:00 p.m. PT = Rush (+20%)</strong>. <strong>No applications accepted after Dec 19.</strong></p>
+            <table aria-label="Early Bird, Normal, and Rush pricing by sites">
+              <thead>
+                <tr>
+                  <th>Sites</th>
+                  <th>Early Bird (by Nov 14, 5p PT)</th>
+                  <th>Normal (Nov 14, 5:01p–Nov 28, 5p PT)</th>
+                  <th>Rush (after Nov 28, 5p PT)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>$31,104.00</td>
+                  <td>$34,560.00</td>
+                  <td>$41,472.00</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>$55,987.20</td>
+                  <td>$62,208.00</td>
+                  <td>$74,649.60</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>$74,649.60</td>
+                  <td>$82,944.00</td>
+                  <td>$99,532.80</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* CALL TO ACTION */}
+        <section id="contact" className="grid">
+          <div className="card">
+            <h2>Ready to move?</h2>
+            <p>We’ll handle the paperwork, mapping score strategy, host letters, and budgets. You focus on choosing locations and vendors. We coordinate directly with the program administrator as your authorized representative.</p>
+            <ul className="list">
+              <li><strong>Limited window:</strong> 30% EVI credit elective‑pay (cash) — current window ends June 30.</li>
+              <li><strong>Requirement:</strong> Must be able to supply <strong>utility approval on or before Jan 15, 2026</strong>.</li>
+              <li><strong>Deadline:</strong> <strong>No applications accepted after Dec 19.</strong></li>
+            </ul>
+            <div className="cta">
+              {/* <a className="btn" href="#contact">Start intake</a>
+              <a className="btn ghost" href="mailto:tribal@example.com">Email us</a> */}
+            </div>
+          </div>
+          <div className="card">
+            <h2>What you’ll need</h2>
+            <ul className="list">
+              <li>Lead applicant info &amp; signer details</li>
+              <li>Site address(es) &amp; public access confirmation</li>
+              <li>Utility contact (if any) and past correspondence</li>
+              <li>Preferred EPC/network approach (or we’ll RFP)</li>
+              <li>Host letter signer and schedule availability</li>
+            </ul>
+          </div>
+        </section>
+
+        <div className="footer">© <span>{new Date().getFullYear()}</span> Amerind Nation LLC • This is informational, not tax or legal advice. Program terms subject to funding and contracting. Numbers shown are illustrative.</div>
+      </div>
+    </main>
+  );
+}
