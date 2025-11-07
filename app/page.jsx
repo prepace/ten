@@ -1,904 +1,887 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
 
-const GOAL = 500000;
+import { useState } from "react";
+import Link from "next/link";
 
-// ---- COPY PIVOT: Participation tiers (keeps same layout/images) ----
-const TIERS = [
-	{
-		key: "site",
-		name: "Tribal Site Note",
-		price: 50000,
-		badge: "Top Tribal Impact",
-		features: ["Milestone-linked returns", "Named recognition at host site"],
-		image: "/ten5.jpg",
-		action: "Request Term Sheet",
-		primary: true,
-	},
-	{
-		key: "port",
-		name: "Per-Station Participation",
-		price: 10000,
-		badge: "On-Site Recognition",
-		features: ["Port-level allocation", "QR-linked recognition"],
-		image: "/ten3.jpg",
-		action: "Request Allocation",
-	},
-	{
-		key: "circle",
-		name: "Strategic Partner",
-		price: 5000,
-		badge: "Support the Cause",
-		features: ["Partner listing", "Project briefings"],
-		image: "/ten8.jpg",
-		action: "Request Intro Call",
-	},
-];
-
-const KPIS = [
-	{ label: "CALeVIP per port (cap)", value: "$55,000" },
-	{ label: "Federal incentives (30%)", value: "$54,000" },
-	{ label: "Sponsor match effect", value: "36×" },
-	{ label: "Ports per Tribe (target)", value: "10" },
-];
-
-const FAQS = [
-	{
-		q: "How does my participation unlock 36×?",
-		a: "Your tranche funds Tribal readiness (liaison, surveys, engineering, permits) that qualifies host sites for CALeVIP awards and federal credits. These program dollars plus private sponsors cover equipment and operations, multiplying the effect of your capital across ~10 ports per site.",
-	},
-	{
-		q: "Can I focus on a specific Tribe or site?",
-		a: "Yes. Note your preference in the request form. Allocation can be assigned to a host site with your review; if not selected by Sep 30, we’ll follow up to discuss options.",
-	},
-	{
-		q: "How are returns structured?",
-		a: "Returns are milestone-indexed (e.g., shovel-ready, scheduled install, grant approval) and described in the term sheet. Public site copy is informational; we share specifics 1:1.",
-	},
-];
-
-const TIMELINE = [
-	{ date: "Aug 23", text: "Capital launch" },
-	{ date: "Sep 30", text: "Target to submit all 10 sites" },
-	{ date: "Oct 29", text: "CALeVIP Tribal priority window closes" },
-	{ date: "Dec–Jun", text: "Installations & activation" },
-];
-
-const BUDGET = [
-	{ label: "Tribal Community Liaison", value: 10000, color: "#21c55d" },
-	{ label: "Accounting & Grant Management", value: 8000, color: "#00d0ff" },
-	{ label: "Site Assessments & Surveys", value: 3000, color: "#f59e0b" },
-	{ label: "Preliminary Engineering", value: 4000, color: "#60a5fa" },
-	{ label: "Final Design & Stamped Plans", value: 6000, color: "#a78bfa" },
-	{ label: "Permitting Support", value: 5000, color: "#ef4444" },
-];
-
-function currency(n) {
-	return new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency: "USD",
-	}).format(n);
-}
-
-function StatCard({ label, children }) {
-	return (
-		<div className="flex-1 min-w-[180px] rounded-2xl border border-[#1b2450] bg-card p-4">
-			<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
-				{label}
-			</div>
-			<div className="mt-1 text-[22px] font-extrabold">{children}</div>
-		</div>
-	);
-}
-
-function Countdown({ target }) {
-	const [out, setOut] = useState("—");
-	useEffect(() => {
-		const tick = () => {
-			const now = new Date();
-			const diff = new Date(target).getTime() - now.getTime();
-			if (diff <= 0) return setOut("0d 0h 0m");
-			const d = Math.floor(diff / 86400000);
-			const h = Math.floor((diff % 86400000) / 3600000);
-			const m = Math.floor((diff % 3600000) / 60000);
-			setOut(`${d}d ${h}h ${m}m`);
-		};
-		tick();
-		const id = setInterval(tick, 60000);
-		return () => clearInterval(id);
-	}, [target]);
-	return <>{out}</>;
-}
-
-function Cylinder({ percent = 100, label }) {
-	const pct = Math.max(0, Math.min(100, percent));
-	return (
-		<div className="flex flex-col items-center gap-1" aria-hidden="true">
-			<div className="relative h-24 w-8 overflow-hidden rounded-full border border-[#22306b] bg-[#0b2545]">
-				<div
-					className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#21c55d,#a6ffcb)]"
-					style={{ height: `${pct}%` }}
-				/>
-			</div>
-			{label ? (
-				<div className="text-[11px] leading-3 text-[#a8b3cf]">{label}</div>
-			) : null}
-		</div>
-	);
-}
-
-function PieChart({
-	segments,
-	size = 220,
-	innerRatio = 0.58,
-	title = "Budget Snapshot",
-	desc,
-}) {
-	const total = segments.reduce((s, x) => s + x.value, 0) || 1;
-	const cx = size / 2;
-	const cy = size / 2;
-	const rOuter = size / 2 - 6;
-	const rInner = rOuter * innerRatio;
-
-	const toRad = (deg) => (deg - 90) * (Math.PI / 180);
-	const fmt = (n) => Number(n.toFixed(6));
-	const pc = (r, angle) => ({
-		x: fmt(cx + r * Math.cos(toRad(angle))),
-		y: fmt(cy + r * Math.sin(toRad(angle))),
-	});
-	const ringSeg = (start, end) => {
-		const large = end - start > 180 ? 1 : 0;
-		const p1 = pc(rOuter, start);
-		const p2 = pc(rOuter, end);
-		const p3 = pc(rInner, end);
-		const p4 = pc(rInner, start);
-		return [
-			`M ${p1.x} ${p1.y}`,
-			`A ${fmt(rOuter)} ${fmt(rOuter)} 0 ${large} 1 ${p2.x} ${p2.y}`,
-			`L ${p3.x} ${p3.y}`,
-			`A ${fmt(rInner)} ${fmt(rInner)} 0 ${large} 0 ${p4.x} ${p4.y}`,
-			"Z",
-		].join(" ");
+const CAContent = () => {
+	const rate = 160;
+	const hours = {
+		pm: 58,
+		grants: 52,
+		ee: 24,
+		finance: 34,
+		gis: 16,
+		cs: 28,
+		qa: 4,
 	};
-
-	let angle = 0;
-	const paths = segments.map((seg, i) => {
-		const sweep = (seg.value / total) * 360;
-		const d = ringSeg(angle, angle + sweep);
-		angle += sweep;
-		return { d, color: seg.color, key: `${seg.label}-${i}` };
-	});
-
-	return (
-		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img">
-			<title>{title}</title>
-			{desc ? <desc>{desc}</desc> : null}
-			{/* background ring */}
-			<circle cx={fmt(cx)} cy={fmt(cy)} r={fmt(rOuter)} fill="#0b2545" />
-			<circle cx={fmt(cx)} cy={fmt(cy)} r={fmt(rInner)} fill="#0f1a3d" />
-			{paths.map((p) => (
-				<path key={p.key} d={p.d} fill={p.color} />
-			))}
-		</svg>
-	);
-}
-
-export default function Page() {
-	const [raised] = useState(0); // display only; not changing behavior
-	const [modalOpen, setModalOpen] = useState(false);
-	const sitesFunded = useMemo(() => Math.floor(raised / 50000), [raised]);
-	const progressPct = Math.max(0, Math.min(100, (raised / GOAL) * 100));
-	const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || ""; // set in .env.local
-	const BOOKING_TITLE = process.env.NEXT_PUBLIC_BOOKING_TITLE || "Book a call";
-
-	useEffect(() => {
-		if (!modalOpen) return;
-		const onKey = (e) => {
-			if (e.key === "Escape") setModalOpen(false);
-		};
-		window.addEventListener("keydown", onKey);
-		return () => window.removeEventListener("keydown", onKey);
-	}, [modalOpen]);
-
-	function CalendarEmbed({ src, title }) {
-		return (
-			<div>
-				<iframe
-					src={src}
-					title={title}
-					loading="lazy"
-					className="h-[70vh] w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537]"
-					allow="fullscreen; geolocation *; microphone *; camera *"
-				/>
-				<p className="mt-2 text-sm text-[#cfe0ff]">
-					Trouble loading?{" "}
-					<a
-						className="underline"
-						href={src}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Open booking page in a new tab
-					</a>
-					.
-				</p>
-			</div>
-		);
-	}
+	const totalHours = Object.values(hours).reduce((a, b) => a + b, 0);
+	const basePerSite = totalHours * rate;
+	const projectBudgetPerSite = 700000;
+	const grantPerSite = 210000;
+	const taxCreditPercent = 0.3;
+	const taxCreditPerSite =
+		Math.round((projectBudgetPerSite * taxCreditPercent) / 10000) * 10000;
+	const perSiteDiscount = (sites) => 1 - 0.1 * (sites - 1);
+	const totalFee = (sites) => basePerSite * sites * perSiteDiscount(sites);
+	const totalProject = (sites) => projectBudgetPerSite * sites;
+	const totalGrant = (sites) => grantPerSite * sites;
+	const totalCredit = (sites) => taxCreditPerSite * sites;
+	const pctOfProject = (sites) => (totalFee(sites) / totalProject(sites)) * 100;
+	const fmtUSD = (n) =>
+		n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+	const fmtUSD2 = (n) =>
+		n.toLocaleString("en-US", {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
 
 	return (
-		<>
+		<div className="wrap">
 			{/* HERO */}
-			<header className="relative overflow-hidden bg-[radial-gradient(1200px_400px_at_70%_-20%,rgba(0,208,255,.25),transparent),linear-gradient(180deg,#0b1020,#0b1020_55%,#0a0f24)]">
-				<div className="mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-7 p-6 py-12 lg:grid-cols-[1.1fr_.9fr]">
-					<div>
-						<div className="inline-block rounded-full border border-[#1c2f67] bg-[#10214a] px-2.5 py-1 text-[13px] text-[#bcd2ff]">
-							Fundraising ends <strong>Sep 30, 2025</strong> • CALeVIP Tribal
-							window closes <strong>Oct 29, 2025</strong>
-						</div>
-						<h1 className="mt-3 text-[40px] font-extrabold leading-[1.05] tracking-tight">
-							Launch the Tribal Energy Network: Finance 10 Tribal Fast-Charge
-							Sites
-						</h1>
-						<p className="mt-3 text-[18px] text-muted">
-							A <strong>$50k</strong> site tranche can unlock ~
-							<strong>$1.8M</strong> per Tribe via CALeVIP grants, federal
-							credits, and network sponsors. Investor participation is
-							milestone-indexed; see the deck for terms.
-						</p>
-						<div className="mt-5 flex flex-wrap gap-3">
-							<button
-								type="button"
-								className="btn btn-primary"
-								onClick={() => setModalOpen(true)}
-							>
-								Request Term Sheet
-							</button>
-							<button
-								type="button"
-								className="btn btn-outline"
-								onClick={() =>
-									window.open(
-										"https://calevip.org/fast-charge-california-project",
-										"_blank",
-									)
-								}
-							>
-								Learn More about CALeVIP
-							</button>
-						</div>
-						<div className="mt-5 flex flex-wrap gap-4">
-							<div className="min-w-[260px] flex-1 card">
-								<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
-									Goal
-								</div>
-								<div className="mt-1 text-[22px] font-extrabold">
-									$500,000 by Sep 30
-								</div>
-								<div
-									className="relative h-4 overflow-hidden rounded-xl border border-[#1b2450] bg-[#0f1a3d]"
-									aria-label="progress to goal"
-									role="progressbar"
-									aria-valuemin={0}
-									aria-valuemax={100}
-									aria-valuenow={Math.round(progressPct)}
-								>
-									<span
-										style={{ width: `${progressPct}%` }}
-										className="absolute inset-y-0 left-0 bg-[linear-gradient(90deg,#21c55d,#a6ffcb)]"
-									/>
-								</div>
-								<div className="mt-1 text-[13px] text-[#b8c4e3]">
-									{currency(raised)} raised • {sitesFunded}/10 sites funded
-								</div>
-							</div>
-							<StatCard label="Countdown to Sep 30">
-								<Countdown target="2025-09-30T23:59:59-05:00" />
-							</StatCard>
-							<StatCard label="Countdown to Oct 29 (CALeVIP Grant Deadline)">
-								<Countdown target="2025-10-29T23:59:59-05:00" />
-							</StatCard>
-						</div>
+			<section className="hero">
+				<div>
+					<div className="badgebar">
+						<span className="badge">
+							CALeVIP FCCP — Public DC Fast Charging (CA)
+						</span>
+						<span className="badge alt">
+							Tribal projects eligible • Equity‑prioritized
+						</span>
 					</div>
-					<div>
-						<div className="relative mb-2 aspect-[6/3] w-full overflow-hidden rounded-2xl border border-[#22306b] bg-[#0f1a3d]">
-							<Image
-								src="/ten0.jpg"
-								alt="Hero visual placeholder"
-								fill
-								sizes="(min-width: 1024px) 50vw, 100vw"
-								className="object-cover opacity-85"
-								priority
-							/>
+					<h1 className="h1">
+						Amerind Nation LLC — Tribal Turn‑Key Application &amp; Delivery
+					</h1>
+					<p className="lead">
+						We handle strategy, application authoring, budgets, host letters,
+						utility coordination, and contracting support. We coordinate
+						directly with the program administrator (e.g., CSE/CEC) on your
+						behalf.
+					</p>
+					<div className="cta">
+						<a className="btn" href="#contact">
+							Book a 20‑min Intake
+						</a>
+						<a className="btn ghost" href="#details">
+							See Pricing &amp; Scope
+						</a>
+					</div>
+					<div className="kpis">
+						<div className="kpi">
+							<div className="big">4 L3 Ports</div>
+							<div className="sub">2× 320–400 kW cabinets, power‑sharing</div>
 						</div>
-						<div className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4 text-[#cfe0ff]">
-							<strong>Mission-First:</strong> Participation strengthens Tribal
-							infrastructure. For private sponsorship or investment, request the
-							term sheet and we’ll follow up 1:1.
+						<div className="kpi">
+							<div className="big">$210k Grant</div>
+							<div className="sub">Per site target ask (illustrative)</div>
 						</div>
-						<ul className="mt-2 grid gap-2">
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-								CALeVIP Fast Charge California Project: up to{" "}
-								<strong>$55,000 per port</strong> with Tribal priority.
-							</li>
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-								Federal incentives: Per ~$180,000 port, 30% tax credits cover ~
-								<strong>$54,000 per port</strong>.
-							</li>
-							<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-								Private network sponsorships complete funding for installation
-								and operations.
-							</li>
-						</ul>
+						<div className="kpi">
+							<div className="big">30% EVI Credit</div>
+							<div className="sub">Elective pay — cash back</div>
+						</div>
 					</div>
 				</div>
-			</header>
+				<div className="card">
+					<strong>Program Notes</strong>
+					<ul className="list">
+						<li>
+							Public access at high‑trip Tribal business hubs (casino/hotel/c‑store)
+							tends to score well.
+						</li>
+						<li>
+							Amerind serves as owner's rep to streamline utility, permitting, and
+							contracting.
+						</li>
+						<li>
+							<span className="pill">Requirement:</span> Able to supply{" "}
+							<strong>utility approval on or before Jan 15, 2026</strong>.
+						</li>
+					</ul>
+				</div>
+			</section>
 
-			{/* NEW: Investment Overview Deck (Canva) */}
-			<section id="deck" className="mx-auto max-w-[1100px] p-6">
-				<h2 className="text-[28px] font-bold">Investment Overview Deck</h2>
-				<p className="mt-1 max-w-[72ch] text-[#d7deee]">
-					Walk through the structure, risk controls, milestones, and modeled
-					returns. For a detailed term sheet, use the “Request Term Sheet”
-					button.
+			{/* OFFER TABLE */}
+			<section id="details">
+				<h2>Offer &amp; Project Sizing (CALeVIP FCCP)</h2>
+				<p className="note">
+					Multi‑site discounts apply to additional sites for the same Tribe.
+					Amounts assume 4 L3 ports per site and a $430,000 project budget
+					(illustrative).
 				</p>
-				<div className="relative mt-4 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
-					<div
-						style={{
-							position: "relative",
-							width: "100%",
-							height: 0,
-							paddingTop: "56.25%",
-							boxShadow: "0 2px 8px rgba(63,69,81,0.16)",
-							overflow: "hidden",
-							borderRadius: 8,
-						}}
-					>
-						<iframe
-							loading="lazy"
-							title="AN-TEN Sponsorship"
-							src="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?embed"
-							allow="fullscreen"
-							style={{
-								position: "absolute",
-								inset: 0,
-								width: "100%",
-								height: "100%",
-								border: "none",
-							}}
-						/>
-					</div>
-					<p className="mt-2 text-sm text-[#cfe0ff]">
-						Trouble loading?{" "}
-						<a
-							className="underline"
-							href="https://www.canva.com/design/DAGwLBmZn74/su-79oMkSXQWohC1JzNkbg/view?utm_content=DAGwLBmZn74&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Open the deck in a new tab
-						</a>
-						.
+				<div className="card">
+					<table aria-label="Offer amounts and project sizes">
+						<thead>
+							<tr>
+								<th>Sites</th>
+								<th>Total app‑prep fee</th>
+								<th>Total project size</th>
+								<th>Grant funds</th>
+								<th>30% EVI tax credit (elective pay)</th>
+								<th>App fee as % of total project</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>${fmtUSD(totalFee(1))}</td>
+								<td>${fmtUSD(totalProject(1))}</td>
+								<td>${fmtUSD(totalGrant(1))}</td>
+								<td>${fmtUSD(totalCredit(1))}</td>
+								<td className="pct">{pctOfProject(1).toFixed(2)}%</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>${fmtUSD(totalFee(2))}</td>
+								<td>${fmtUSD(totalProject(2))}</td>
+								<td>${fmtUSD(totalGrant(2))}</td>
+								<td>${fmtUSD(totalCredit(2))}</td>
+								<td className="pct">{pctOfProject(2).toFixed(2)}%</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>${fmtUSD(totalFee(3))}</td>
+								<td>${fmtUSD(totalProject(3))}</td>
+								<td>${fmtUSD(totalGrant(3))}</td>
+								<td>${fmtUSD(totalCredit(3))}</td>
+								<td className="pct">{pctOfProject(3).toFixed(2)}%</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			{/* HOURS TABLE */}
+			<section>
+				<h2>Work Justification — Application Preparation (216 hrs)</h2>
+				<p className="note">
+					Scope includes strategy, application authoring, budgeting, host‑letter
+					orchestration, mapping optimization, utility coordination, client
+					communications, packaging, and submission QA.
+				</p>
+				<div className="card">
+					<table aria-label="Application preparation hours by role">
+						<thead>
+							<tr>
+								<th style={{ textAlign: "left" }}>Role</th>
+								<th>Hours</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style={{ textAlign: "left" }}>Project Lead / PM</td>
+								<td>58</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Grants Specialist / Coordinator
+								</td>
+								<td>52</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Technical Engineer (EE)</td>
+								<td>24</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Budget &amp; Finance Analyst
+								</td>
+								<td>34</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>GIS / Mapping</td>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Client Success / Communications
+								</td>
+								<td>28</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Admin / QA</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<th style={{ textAlign: "left" }}>Total</th>
+								<th>{totalHours}</th>
+							</tr>
+						</tbody>
+					</table>
+					<p className="note" style={{ marginTop: 10 }}>
+						<strong>Blended rate:</strong> $160/hr &nbsp;•&nbsp;{" "}
+						<strong>Application‑prep total (per site):</strong> $
+						{fmtUSD(basePerSite)} (discounts applied for 2nd/3rd site).
 					</p>
 				</div>
 			</section>
 
-			<main id="main">
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
-						Your $1 Unlocks ~$36 in Clean Energy Infrastructure
-					</h2>
-					<p className="mt-1 max-w-[72ch] text-[#d7deee]">
-						A $50,000 site tranche can trigger a ~36× match through grants, tax
-						credits, and sponsorship—qualifying a bank of fast chargers at a
-						Tribal business with <em>no out-of-pocket</em> to the Tribe.
-						Investor participation is milestone-indexed and detailed in the term
-						sheet.
+			{/* PAYMENT SCHEDULE */}
+			<section>
+				<h2>Payment Schedule — Application Preparation</h2>
+				<div className="card">
+					<p className="note">
+						Milestones apply to the total agreed{" "}
+						<strong>application‑prep fee</strong> for the order (after any
+						Early Bird or Rush adjustments).
 					</p>
-					<div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-						{KPIS.map(({ label, value }) => (
-							<div
-								key={label}
-								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4"
-							>
-								<div className="text-[12px] uppercase tracking-wider text-[#a8b3cf]">
-									{label}
-								</div>
-								<div className="mt-1 text-[22px] font-extrabold">{value}</div>
-							</div>
-						))}
-					</div>
-					<div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
-						<div className="flex flex-col rounded-2xl border border-[#1b2450] gap-4 bg-card p-4 lg:col-span-7">
-							<div className="flex-1">
-								<h3 className="text-lg font-semibold">36x Multiplier</h3>
-								<p className="mt-1">
-									$50k seed unlocks ~$1.8M in program/go-to-market enablement
-									per Tribe (≈10 ports @ ~$180k all-in/port). Returns are tied
-									to milestone progress.
-								</p>
-							</div>
-							<figure>
-								<div className="mt-2 flex flex-wrap items-end gap-4">
-									<Cylinder percent={28} label="$50k" />
-									<span className="text-2xl">=</span>
-									<div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
-										{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-											<Cylinder key={`full-${n}`} percent={100} label="$180k" />
-										))}
-									</div>
-								</div>
-								<figcaption className="sr-only">
-									Seed funding at ~20% unlocks ten fully funded ports.
-								</figcaption>
-							</figure>
-						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4 lg:col-span-5">
-							<h3 className="text-lg font-semibold">How Funds Flow</h3>
-							<p>
-								Participation funds Tribal readiness that qualifies sites for
-								CALeVIP awards and federal credits. Cash is custodied at a
-								Native-owned FDIC bank (CD) with a CD-backed line of credit;
-								draw limits throttle downside. Upside is tied to sites reaching
-								shovel-ready and then grant approval. Term sheet covers the
-								schedule.
-								<br />
-								<br />
-								Hurry—California matching ends Oct 29, and federal matching
-								sunsets June 30, 2026.
-							</p>
-						</div>
-					</div>
-				</section>
+					<table aria-label="Payment schedule with dates">
+						<thead>
+							<tr>
+								<th style={{ textAlign: "left" }}>Milestone</th>
+								<th>Date</th>
+								<th>Percent</th>
+								<th style={{ textAlign: "left" }}>
+									Example amount (Standard price)
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Project start / kickoff invoice
+								</td>
+								<td>At start</td>
+								<td>20%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.2)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.2)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.2)}
+								</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Progress payment</td>
+								<td>Dec 5</td>
+								<td>40%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.4)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.4)}
+								</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Final delivery payment</td>
+								<td>Dec 18</td>
+								<td>40%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.4)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.4)}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p className="note">
+						If Early Bird (−10%) or Rush (+20%) applies, milestone amounts scale
+						by the same percentage.
+					</p>
+				</div>
+			</section>
 
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
-						How This Helps Tribes & Native-Owned Businesses
-					</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
-						{[
-							{
-								title: "$1,000,000+ Annual Revenue",
-								body: "EV DC Fast Charger sessions + incremental foot traffic support Native-owned businesses and tourism.",
-								image: "/ten6.jpg",
-							},
-							{
-								title: "Tribal Energy Resilience",
-								body: "Upgrades that pave the way for solar, storage, and microgrids, strengthening Tribal energy sovereignty.",
-								image: "/ten7.jpg",
-							},
-							{
-								title: "No Indoor Space Required",
-								body: "Unlike ATMs or kiosks, chargers use parking stalls and bring new and high net-worth customers to the door.",
-								image: "/ten2.jpg",
-							},
-						].map((c) => (
-							<div
-								key={c.title}
-								className="rounded-2xl border border-[#1b2450] bg-card p-4"
-							>
-								<div className="relative mb-3 h-28 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
-									<Image
-										src={c.image}
-										alt="Benefit visual placeholder"
-										fill
-										sizes="(min-width: 1024px) 33vw, 100vw"
-										className="object-cover opacity-85"
-									/>
-								</div>
-								<h3 className="text-lg font-semibold">{c.title}</h3>
-								<p className="text-[#cdd6f4]">{c.body}</p>
-							</div>
-						))}
-					</div>
-				</section>
+			{/* PRICING WINDOWS */}
+			<section>
+				<h2>Pricing Windows — Early Bird, Standard, Rush</h2>
+				<div className="card">
+					<p className="note">
+						Windows are based on project start date/time (Pacific):{" "}
+						<strong>Start by Nov 21, 5:00 p.m. PT = Early Bird (−10%)</strong>{" "}
+						•{" "}
+						<strong>
+							Nov 21, 5:01 p.m. PT through Dec 5, 5:00 p.m. PT = Standard
+						</strong>{" "}
+						• <strong>Start after Dec 5, 5:00 p.m. PT = Rush (+20%)</strong>.{" "}
+						<strong>No applications accepted after Dec 19.</strong>
+					</p>
+					<table aria-label="Early Bird, Standard, and Rush pricing by sites">
+						<thead>
+							<tr>
+								<th>Sites</th>
+								<th>Early Bird (by Nov 21, 5p PT)</th>
+								<th>Standard (Nov 21, 5:01p–Dec 5, 5p PT)</th>
+								<th>Rush (after Dec 5, 5p PT)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>${fmtUSD2(totalFee(1) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(1) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(1) * 1.2)}</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>${fmtUSD2(totalFee(2) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(2) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(2) * 1.2)}</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>${fmtUSD2(totalFee(3) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(3) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(3) * 1.2)}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
 
-				{/* Use of Proceeds (renamed) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Use of Proceeds</h2>
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Readiness & Execution</h3>
-							<ul className="mt-2 grid gap-2">
-								{[
-									"Tribal liaison & outreach",
-									"Site surveys & travel",
-									"Grant writing & submissions",
-									"Project coordination & admin",
-								].map((i) => (
-									<li
-										key={i}
-										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
-									>
-										{i}
-									</li>
-								))}
-							</ul>
-						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">
-								Where Program Dollars Go
-							</h3>
-							<ul className="mt-2 grid gap-2">
-								{[
-									"Hardware & engineering",
-									"Installation & commissioning",
-									"Warranty & maintenance",
-									"Infrastructure upgrades",
-								].map((i) => (
-									<li
-										key={i}
-										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
-									>
-										{i}
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
-					<div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Budget Snapshot</h3>
-							<figure className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
-								<PieChart
-									title="Use of $50,000 site tranche"
-									desc="Tribal Community Liaison $13,000; Accounting and Grant Management $11,000; Site Assessments and Surveys $4,000; Preliminary Engineering $6,000; Final Design and Stamped Plans $9,000; Permitting Support $7,000."
-									segments={BUDGET}
-								/>
-								<figcaption className="sm:ml-4">
-									<ul className="grid gap-2">
-										{BUDGET.map((s) => (
-											<li
-												key={s.label}
-												className="flex items-center gap-2 text-[#cdd6f4]"
-											>
-												<span
-													className="inline-block h-3 w-3 rounded-sm"
-													style={{ backgroundColor: s.color }}
-												/>
-												<span className="text-sm">{s.label}</span>
-											</li>
-										))}
-									</ul>
-								</figcaption>
-							</figure>
-						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Timeline</h3>
-							<ul className="mt-2 grid gap-2">
-								{TIMELINE.map((t) => (
-									<li
-										key={t.date}
-										className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3"
-									>
-										<strong>{t.date}:</strong> {t.text}
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
-				</section>
-
-				{/* NEW: Risk & Return Mechanics */}
-				<section id="mechanics" className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Risk & Return Mechanics</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Downside Controls</h3>
-							<ul className="mt-2 grid gap-2">
-								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-									Custody via Native-owned FDIC bank CD; capital access via
-									CD-backed line of credit with draw limits.
-								</li>
-								<li className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-3">
-									Staged draws only as sites hit milestones (e.g., shovel-ready,
-									scheduled install).
-								</li>
-							</ul>
-						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Return Triggers</h3>
-							<p>
-								Returns accrue as sites achieve milestones (shovel-ready → grant
-								approval). See the deck for schedules and modeled outcomes tied
-								to 10-site completion.
-							</p>
-						</div>
-					</div>
-				</section>
-
-				{/* See the Sites */}
-				<section className="mx-auto grid max-w-[1100px] grid-cols-1 items-stretch gap-4 p-6 lg:grid-cols-2">
-					<div>
-						<h2 className="text-[28px] font-bold">See the Sites</h2>
-						<p className="mt-1 max-w-[72ch] text-[#d7deee]">
-							Explore the proposed Tribal locations and track activation
-							progress.
-						</p>
-						<button
-							type="button"
-							className="mt-3 btn btn-outline"
-							onClick={() =>
-								window.open(
-									"https://prepace.github.io/ten-map",
-									"_blank",
-									"noopener,noreferrer",
-								)
-							}
+			{/* CALL TO ACTION */}
+			<section id="contact" className="grid mt-12">
+				<div className="card">
+					<h3 className="text-2xl">Ready to move?</h3>
+					<p>
+						We'll handle the paperwork, mapping score strategy, host letters, and
+						budgets. You focus on choosing locations and vendors. We coordinate
+						directly with the program administrator as your authorized
+						representative.
+					</p>
+					<ul className="list">
+						<li>
+							<strong>Limited window:</strong> 30% EVI credit elective‑pay (cash) —
+							current window ends June 30.
+						</li>
+						<li>
+							<strong>Requirement:</strong> Must be able to supply{" "}
+							<strong>utility approval on or before Jan 15, 2026</strong>.
+						</li>
+						<li>
+							<strong>Deadline:</strong>{" "}
+							<strong>No applications accepted after Dec 19.</strong>
+						</li>
+					</ul>
+				</div>
+				<div className="card">
+					<h3 className="text-2xl">What you'll need</h3>
+					<ul className="list">
+						<li>Lead applicant info &amp; signer details</li>
+						<li>Site address(es) &amp; public access confirmation</li>
+						<li>Utility contact (if any) and past correspondence</li>
+						<li>Preferred EPC/network approach (or we'll RFP)</li>
+						<li>Host letter signer and schedule availability</li>
+					</ul>
+					<div className="cta">
+						<a
+							className="btn"
+							href="https://calendly.com/ampace"
+							target="_blank"
+							rel="noopener noreferrer"
 						>
-							Open TEN Map
-						</button>
-					</div>
-					<div className="relative h-48 w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d] lg:self-stretch">
-						<Image
-							src="/ten9.png"
-							alt="TEN Map preview"
-							fill
-							sizes="(min-width: 1024px) 33vw, 100vw"
-							className="object-cover opacity-85"
-							onClick={() =>
-								window.open(
-									"https://prepace.github.io/ten-map",
-									"_blank",
-									"noopener,noreferrer",
-								)
-							}
-						/>
-					</div>
-				</section>
-
-				{/* Participation Options (renamed from Ways to Give) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">Participation Options</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
-						{TIERS.map((t) => (
-							<div
-								key={t.key}
-								className="flex flex-col gap-3 rounded-2xl border border-[#1b2450] bg-card p-4"
-							>
-								<div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-[#22306b] bg-[#0f1a3d]">
-									<Image
-										src={t.image}
-										alt={`${t.name} visual placeholder`}
-										fill
-										sizes="(min-width: 1024px) 33vw, 100vw"
-										className="object-cover opacity-85"
-									/>
-								</div>
-								{t.badge && (
-									<div className="inline-flex items-center gap-2 rounded-full border border-[#1c2f67] bg-[#10214a] px-3 py-2 text-[13px] text-[#bcd2ff]">
-										{t.badge}
-									</div>
-								)}
-								<h3 className="text-lg font-semibold">{t.name}</h3>
-								<div className="text-2xl font-extrabold">
-									{t.price >= 1000
-										? `$${t.price.toLocaleString()}`
-										: `$${t.price}+`}
-								</div>
-								<ul className="list-disc pl-5 text-[#cdd6f4]">
-									{t.features.map((f) => (
-										<li key={f}>{f}</li>
-									))}
-								</ul>
-								<button
-									type="button"
-									className={t.primary ? "btn btn-primary" : "btn btn-outline"}
-									onClick={() => {
-										setModalOpen(true);
-									}}
-								>
-									{t.action}
-								</button>
-							</div>
-						))}
-					</div>
-					<p className="mt-3 text-[#aebce5]">
-						Prefer to start with an intro call? Use “Request Intro Call” and
-						we’ll schedule time.
-					</p>
-				</section>
-
-				{/* Transparency & Compliance */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">
-						Transparency & Accountability
-					</h2>
-					<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Reporting</h3>
-							<p>
-								We’ll share site activation photos, progress reports, and an
-								annual impact summary. Use-of-proceeds is restricted to Tribal
-								readiness and grant execution for eligible businesses. Depending
-								on participation, additional reporting may be provided.
-							</p>
-						</div>
-						<div className="rounded-2xl border border-[#1b2450] bg-card p-4">
-							<h3 className="text-lg font-semibold">Compliance</h3>
-							<p>
-								This page is informational and not an offer to sell or a
-								solicitation to buy any security. Any investment will be made
-								only pursuant to definitive documents and may be limited to
-								qualified or accredited parties; no guarantees of performance
-								are made. Request the term sheet for details.
-							</p>
-						</div>
-					</div>
-				</section>
-
-				{/* FAQ (structure unchanged) */}
-				<section className="mx-auto max-w-[1100px] p-6">
-					<h2 className="text-[28px] font-bold">FAQ</h2>
-					<div className="mt-2 grid gap-3">
-						{FAQS.map((f) => (
-							<div
-								key={f.q}
-								className="rounded-xl border border-[#22306b] bg-[#0f1a3d] p-4"
-							>
-								<strong>{f.q}</strong>
-								<br />
-								{f.a}
-							</div>
-						))}
-					</div>
-				</section>
-			</main>
-
-			{/* FOOTER unchanged */}
-			<footer className="bg-[#0a0f24] text-[#a5b3d5]">
-				<div className="mx-auto max-w-[1100px] p-6">
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
-						<div>
-							<h3 className="mt-0 text-[#e7eeff]">Contact</h3>
-							<div className="flex flex-wrap gap-4">
-								<div>
-									<p className="mt-2">
-										Jennifer Schlosberg — CEO, Amerind Nation LLC
-									</p>
-									<p>jenni@amerindnation.com • 918-271-8477</p>
-								</div>
-								<div>
-									<p className="mt-2">
-										Pace Ellsworth — CIO, Amerind Nation LLC
-									</p>
-									<p>pace@amerindnation.com • 480-636-0927</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<p className="mt-4 text-xs">
-						© {new Date().getFullYear()} Amerind Nation LLC — Tribal Energy
-						Network
-					</p>
-				</div>
-			</footer>
-
-			{modalOpen && (
-				<div
-					className="fixed inset-0 grid place-items-center bg-black/60 backdrop-blur-sm"
-					role="dialog"
-					aria-modal="true"
-					aria-label="Request Term Sheet"
-				>
-					<div className="w-[92%] max-w-[640px] rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5">
-						<div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-							<h3 className="m-0 text-lg font-semibold">
-								{BOOKING_URL ? BOOKING_TITLE : "Request Term Sheet"}
-							</h3>
-							<button
-								type="button"
-								className="rounded-2xl border border-[#17406f] bg-[#0b2545] px-4 py-2 font-bold text-[#cfe9ff]"
-								onClick={() => setModalOpen(false)}
-							>
-								Close
-							</button>
-						</div>
-						{BOOKING_URL ? (
-							<CalendarEmbed src={BOOKING_URL} title={BOOKING_TITLE} />
-						) : (
-							<>
-								<p className="text-[#cfe0ff]">
-									Share your details and we’ll follow up 1:1 with the term
-									sheet, site pipeline, and milestone-based schedules.
-								</p>
-								<form
-									className="mt-3"
-									onSubmit={(e) => {
-										e.preventDefault();
-										alert("Thanks! We'll follow up within 1 business day.");
-										setModalOpen(false);
-									}}
-								>
-									<div className="flex flex-wrap gap-3">
-										<div className="min-w-[220px] flex-1">
-											<label
-												htmlFor="name"
-												className="text-[13px] text-[#a8b3cf]"
-											>
-												Full Name
-											</label>
-											<input
-												name="name"
-												required
-												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
-											/>
-										</div>
-										<div className="min-w-[220px] flex-1">
-											<label
-												htmlFor="email"
-												className="text-[13px] text-[#a8b3cf]"
-											>
-												Email
-											</label>
-											<input
-												type="email"
-												name="email"
-												required
-												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
-											/>
-										</div>
-									</div>
-									<div className="mt-3 flex flex-wrap gap-3">
-										<div className="min-w-[220px] flex-1">
-											<label
-												htmlFor="phone"
-												className="text-[13px] text-[#a8b3cf]"
-											>
-												Phone
-											</label>
-											<input
-												name="phone"
-												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
-											/>
-										</div>
-										<div className="min-w-[220px] flex-1">
-											<label
-												htmlFor="interest"
-												className="text-[13px] text-[#a8b3cf]"
-											>
-												Interest
-											</label>
-											<select
-												name="interest"
-												className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
-											>
-												<option>Tribal Site Note ($50,000)</option>
-												<option>Per-Station Participation ($10,000)</option>
-												<option>Strategic Partner</option>
-												<option>Corporate Sponsorship</option>
-												<option>Private Placement / Investment</option>
-											</select>
-										</div>
-									</div>
-									<div className="mt-3">
-										<label
-											htmlFor="message"
-											className="text-[13px] text-[#a8b3cf]"
-										>
-											Notes (optional)
-										</label>
-										<textarea
-											rows={4}
-											placeholder="e.g., Preference for Paskenta Rancheria; amount & timeline"
-											className="w-full rounded-xl border border-[#1e2b5c] bg-[#0a1537] p-3 text-[#e9f2ff]"
-										/>
-									</div>
-									<div className="mt-3 flex justify-end">
-										<button
-											className="rounded-2xl bg-primary px-4 py-3 font-bold text-[#062b15] shadow-glow"
-											type="submit"
-										>
-											Send Request
-										</button>
-									</div>
-								</form>
-							</>
-						)}
+							Book Intake Session
+						</a>
+						<a className="btn ghost" href="mailto:pace@amerindnation.com">
+							Email us
+						</a>
+						<a className="btn ghost" href="tel:+17036720267">
+							Call us
+						</a>
 					</div>
 				</div>
-			)}
-		</>
+			</section>
+
+			<div className="footer">
+				© <span>{new Date().getFullYear()}</span> Amerind Nation LLC • This is
+				informational, not tax or legal advice. Program terms subject to
+				funding and contracting. Numbers shown are illustrative.
+			</div>
+		</div>
+	);
+};
+
+const WAContent = () => {
+	const rate = 160;
+	const hours = { pm: 29, grants: 26, ee: 12, finance: 17, gis: 8, cs: 14, qa: 2 };
+	const totalHours = Object.values(hours).reduce((a, b) => a + b, 0);
+	const basePerSite = totalHours * rate;
+	const projectBudgetPerSite = 430000;
+	const grantPerSite = 300000;
+	const taxCreditPercent = 0.3;
+	const taxCreditPerSite = Math.round((projectBudgetPerSite * taxCreditPercent) / 10000) * 10000;
+	const perSiteDiscount = (sites) => 1 - 0.1 * (sites - 1);
+	const totalFee = (sites) => basePerSite * sites * perSiteDiscount(sites);
+	const totalProject = (sites) => projectBudgetPerSite * sites;
+	const totalGrant = (sites) => grantPerSite * sites;
+	const totalCredit = (sites) => taxCreditPerSite * sites;
+	const pctOfProject = (sites) => (totalFee(sites) / totalProject(sites)) * 100;
+	const fmtUSD = (n) =>
+		n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+	const fmtUSD2 = (n) =>
+		n.toLocaleString("en-US", {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
+
+	return (
+		<div className="wrap">
+			{/* HERO */}
+			<section className="hero">
+				<div>
+					<div className="badgebar">
+						<span className="badge">WAEVCP2 — Public DC Fast Charging</span>
+						<span className="badge alt">
+							Minimum 10% of budget reserved for Tribes
+						</span>
+					</div>
+					<h1 className="h1">
+						Amerind Nation LLC — Tribal Turn‑Key Application &amp; Delivery
+					</h1>
+					<p className="lead">
+						We handle strategy, Exhibit A, Exhibit G budgets, host letters,
+						utility coordination, and contracting support.{" "}
+						<strong>
+							Tribal applicants receive waived items or maximum points
+						</strong>{" "}
+						on multiple requirements, accelerating approvals and delivery.
+					</p>
+					<div className="cta">
+						<a className="btn" href="#contact">
+							Book a 20‑min Intake
+						</a>
+						<a className="btn ghost" href="#details">
+							See Pricing &amp; Scope
+						</a>
+					</div>
+					<div className="kpis">
+						<div className="kpi">
+							<div className="big">4 L3 Ports</div>
+							<div className="sub">2× 150–160 kW cabinets, power‑sharing</div>
+						</div>
+						<div className="kpi">
+							<div className="big">$300k Grant</div>
+							<div className="sub">Per site target ask</div>
+						</div>
+						<div className="kpi">
+							<div className="big">30% EVI Credit</div>
+							<div className="sub">Elective pay — cash back</div>
+						</div>
+					</div>
+				</div>
+				<div className="card">
+					<strong>Why Tribal sites score well</strong>
+					<ul className="list">
+						<li>
+							Public access at high‑trip Tribal business hubs
+							(casino/hotel/c‑store) boosts mapping score.
+						</li>
+						<li>
+							Tribal applicants typically receive <em>maximum credit</em> or{" "}
+							<em>exemptions</em> on certain requirements (e.g., DBIP, EO 18‑03;
+							ownership proof on Tribal lands).
+						</li>
+						<li>
+							Amerind is authorized to coordinate directly with COMMERCE on your
+							behalf.
+						</li>
+						<li>
+							<span className="pill">30% EVI tax credit via elective pay</span>{" "}
+							— modeled below.
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			{/* OFFER TABLE */}
+			<section id="details">
+				<h2>Offer &amp; Project Sizing (WAEVCP2)</h2>
+				<p className="note">
+					Multi‑site discounts apply to additional sites for the same Tribe.
+					Amounts shown assume 4 L3 ports per site and a $430,000 project
+					budget.
+				</p>
+				<div className="card">
+					<table aria-label="Offer amounts and project sizes">
+						<thead>
+							<tr>
+								<th>Sites</th>
+								<th>Total app‑prep fee</th>
+								<th>Total project size</th>
+								<th>Grant funds</th>
+								<th>30% EVI tax credit (elective pay)</th>
+								<th>App fee as % of total project</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>${fmtUSD(totalFee(1))}</td>
+								<td>${fmtUSD(totalProject(1))}</td>
+								<td>${fmtUSD(totalGrant(1))}</td>
+								<td>${fmtUSD(totalCredit(1))}</td>
+								<td className="pct">{pctOfProject(1).toFixed(2)}%</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>${fmtUSD(totalFee(2))}</td>
+								<td>${fmtUSD(totalProject(2))}</td>
+								<td>${fmtUSD(totalGrant(2))}</td>
+								<td>${fmtUSD(totalCredit(2))}</td>
+								<td className="pct">{pctOfProject(2).toFixed(2)}%</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>${fmtUSD(totalFee(3))}</td>
+								<td>${fmtUSD(totalProject(3))}</td>
+								<td>${fmtUSD(totalGrant(3))}</td>
+								<td>${fmtUSD(totalCredit(3))}</td>
+								<td className="pct">{pctOfProject(3).toFixed(2)}%</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			{/* HOURS TABLE */}
+			<section>
+				<h2>Work Justification — Application Preparation (108 hrs)</h2>
+				<p className="note">
+					Scope includes strategy, Exhibit A authoring, Exhibit G budgeting,
+					Exhibit H orchestration, mapping optimization, utility coordination
+					(+12.5 hrs), client communications (+18 hrs), packaging, and
+					submission QA.
+				</p>
+				<div className="card">
+					<table aria-label="Application preparation hours by role">
+						<thead>
+							<tr>
+								<th style={{ textAlign: "left" }}>Role</th>
+								<th>Hours</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style={{ textAlign: "left" }}>Project Lead / PM</td>
+								<td>29</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Grants Specialist / Coordinator
+								</td>
+								<td>26</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Technical Engineer (EE)</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Budget &amp; Finance Analyst
+								</td>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>GIS / Mapping</td>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Client Success / Communications
+								</td>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Admin / QA</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th style={{ textAlign: "left" }}>Total</th>
+								<th>{totalHours}</th>
+							</tr>
+						</tbody>
+					</table>
+					<p className="note" style={{ marginTop: 10 }}>
+						<strong>Blended rate:</strong> $160/hr &nbsp;•&nbsp;{" "}
+						<strong>Application‑prep total:</strong> ${fmtUSD(basePerSite)} per
+						site (discounts applied for 2nd/3rd site).
+					</p>
+				</div>
+			</section>
+
+			{/* PAYMENT SCHEDULE SECTION */}
+			<section>
+				<h2>Payment Schedule — Application Preparation</h2>
+				<div className="card">
+					<p className="note">
+						Milestones apply to the total agreed{" "}
+						<strong>application‑prep fee</strong> for the order (after any Early
+						Bird or Rush adjustments).
+					</p>
+					<table aria-label="Payment schedule with dates">
+						<thead>
+							<tr>
+								<th style={{ textAlign: "left" }}>Milestone</th>
+								<th>Date</th>
+								<th>Percent</th>
+								<th style={{ textAlign: "left" }}>
+									Example amount (Standard price)
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style={{ textAlign: "left" }}>
+									Project start / kickoff invoice
+								</td>
+								<td>At start</td>
+								<td>20%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.2)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.2)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.2)}
+								</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Progress payment</td>
+								<td>Dec 5</td>
+								<td>40%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.4)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.4)}
+								</td>
+							</tr>
+							<tr>
+								<td style={{ textAlign: "left" }}>Final delivery payment</td>
+								<td>Dec 11</td>
+								<td>40%</td>
+								<td style={{ textAlign: "left" }}>
+									1 site: ${fmtUSD2(totalFee(1) * 0.4)} • 2 sites: $
+									{fmtUSD2(totalFee(2) * 0.4)} • 3 sites: $
+									{fmtUSD2(totalFee(3) * 0.4)}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p className="note">
+						Amounts above use the <strong>Standard multi‑site totals</strong>: 1
+						site $17,280; 2 sites $31,104; 3 sites $41,472. If Early Bird (−10%)
+						or Rush (+20%) applies, milestone amounts scale by the same
+						percentage.
+					</p>
+				</div>
+			</section>
+
+			{/* PRICING WINDOWS SECTION */}
+			<section>
+				<h2>Pricing Windows — Early Bird, Standard, Rush</h2>
+				<div className="card">
+					<p className="note">
+						Windows are based on project start date:{" "}
+						<strong>Start by Nov 14 = Early Bird (−10%)</strong> •{" "}
+						<strong>Nov 15–Nov 28 = Standard</strong> •{" "}
+						<strong>Start after Nov 28 = Rush (+20%)</strong>.
+					</p>
+					<table aria-label="Early Bird, Standard, and Rush pricing by sites">
+						<thead>
+							<tr>
+								<th>Sites</th>
+								<th>Early Bird (start by Nov 14)</th>
+								<th>Standard (Nov 15–Nov 28)</th>
+								<th>Rush (start after Nov 28)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>${fmtUSD2(totalFee(1) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(1) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(1) * 1.2)}</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>${fmtUSD2(totalFee(2) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(2) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(2) * 1.2)}</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>${fmtUSD2(totalFee(3) * 0.9)}</td>
+								<td>${fmtUSD2(totalFee(3) * 1.0)}</td>
+								<td>${fmtUSD2(totalFee(3) * 1.2)}</td>
+							</tr>
+						</tbody>
+					</table>
+					<p className="note">
+						Prices above reflect your multi‑site discounts (site 2 −20%, site 3
+						−40%) before applying the Early Bird or Rush window adjustments.
+					</p>
+				</div>
+			</section>
+
+			{/* CALL TO ACTION */}
+			<section id="contact" className="grid mt-12">
+				<div className="card">
+					<h3 className="text-2xl">Ready to move?</h3>
+					<p>
+						We'll handle the paperwork, mapping score strategy, host letters,
+						and budgets. You focus on choosing locations and vendors. We
+						coordinate directly with COMMERCE as your authorized representative.
+					</p>
+					<ul className="list">
+						<li>
+							<strong>Limited window:</strong> 30% EVI credit elective‑pay
+							(cash) — current window ends June 30.
+						</li>
+						<li>
+							<strong>
+								Minimum 10% of program budget reserved for Tribes.
+							</strong>
+						</li>
+						<li>
+							<strong>
+								Many requirements waived or awarded maximum points
+							</strong>{" "}
+							for Tribal applicants.
+						</li>
+					</ul>
+				</div>
+				<div className="card">
+					<h3 className="text-2xl">What you'll need</h3>
+					<ul className="list">
+						<li>Lead applicant info &amp; signer details</li>
+						<li>Site address(es) &amp; public access confirmation</li>
+						<li>Utility contact (if any) and past correspondence</li>
+						<li>Preferred EPC/network approach (or we'll RFP)</li>
+						<li>Exhibit B signature; Exhibit H host letter signer</li>
+					</ul>
+					<div className="cta">
+						<a
+							className="btn"
+							href="https://calendly.com/ampace"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Book Intake Session
+						</a>
+						<a className="btn ghost" href="mailto:pace@amerindnation.com">
+							Email us
+						</a>
+						<a className="btn ghost" href="tel:+17036720267">
+							Call us
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<div className="footer">
+				© <span>{new Date().getFullYear()}</span> Amerind Nation LLC • This is
+				informational, not tax or legal advice. Program terms subject to funding
+				and contracting. Numbers shown are illustrative.
+			</div>
+		</div>
+	);
+};
+
+export default function Page() {
+	const [selectedTribe, setSelectedTribe] = useState("ca");
+
+	const css = `
+    :root {
+      --bg: #0b1020;
+      --card: #121935;
+      --ink: #e9eefc;
+      --muted: #a9b3d4;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; color: var(--ink); background: radial-gradient(1200px 700px at 25% -10%, #1b2450, var(--bg)); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
+    .badgebar { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px; }
+    .badge { background: linear-gradient(135deg, var(--accent-2), #8b5cf6); color:#041224; font-weight:700; padding:8px 12px; border-radius:999px; box-shadow: var(--shadow); }
+    .badge.alt { background: linear-gradient(135deg, #34d399, #a3e635); }
+    .h1 { font-size: clamp(28px, 4vw, 46px); line-height:1.05; margin: 6px 0 10px; font-weight: 800; letter-spacing: -.02em; }
+    .lead { color: var(--muted); font-size: clamp(16px, 2vw, 19px); }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+    .cta { display:flex; gap:12px; margin-top:18px; }
+    .btn { background: linear-gradient(135deg, var(--accent), #22c55e); color:#051b12; padding:12px 16px; border-radius:12px; text-decoration:none; font-weight:700; display:inline-block; box-shadow: var(--shadow); border: none; cursor: pointer; }
+    .btn.ghost { background: transparent; color: var(--ink); border:1px solid rgba(255,255,255,.25); }
+    .kpis { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:16px; }
+    .kpi { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 14px; padding:14px; text-align:center; }
+    .kpi .big { font-size: 28px; font-weight:800; letter-spacing:-.01em; }
+    .kpi .sub { color: var(--muted); font-size:13px; margin-top:4px; }
+
+    h2 { margin: 34px 0 12px; font-size: clamp(22px, 2.8vw, 30px); letter-spacing:-.01em; }
+    p { color: var(--ink); }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+    .mt-12 { margin-top: 48px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { text-align: right; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    thead th { color: var(--muted); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+    tbody tr:hover { background: rgba(255,255,255,.035); }
+    .pct { font-weight:800; color: var(--accent); }
+    .note { color: var(--muted); font-size: 13px; }
+
+    .pill { display:inline-block; padding:6px 10px; border:1px dashed rgba(255,255,255,.35); border-radius:999px; font-size:13px; color:#c7f9cc; background: rgba(17,94,89,.15); }
+
+    .list { margin: 10px 0 0 0; padding-left: 18px; color: var(--muted); }
+    .list li { margin: 6px 0; }
+
+    .footer { margin-top: 32px; font-size: 13px; color: var(--muted); }
+
+    .tribe-selector {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .tribe-btn {
+      background: linear-gradient(135deg, var(--accent-2), #8b5cf6);
+      color: #041224;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .tribe-btn.active {
+      background: linear-gradient(135deg, var(--accent), #22c55e);
+      border-color: #fff;
+      transform: scale(1.05);
+    }
+
+    .tribe-btn:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: 1fr; }
+      .tribe-selector { flex-wrap: wrap; }
+    }
+  `;
+
+	return (
+		<main>
+			<style>{css}</style>
+			<div className="wrap">
+				{/* TRIBE SELECTOR */}
+				<div className="tribe-selector">
+					<button
+						type="button"
+						className={`tribe-btn ${selectedTribe === "ca" ? "active" : ""}`}
+						onClick={() => setSelectedTribe("ca")}
+					>
+						CA Tribes
+					</button>
+					<button
+						type="button"
+						className={`tribe-btn ${selectedTribe === "wa" ? "active" : ""}`}
+						onClick={() => setSelectedTribe("wa")}
+					>
+						WA Tribes
+					</button>
+				</div>
+
+				{/* RENDER SELECTED CONTENT */}
+				{selectedTribe === "ca" ? <CAContent /> : <WAContent />}
+			</div>
+		</main>
 	);
 }
