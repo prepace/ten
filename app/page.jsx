@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
 
 const CAContent = () => {
 	const rate = 160;
@@ -820,18 +820,24 @@ const WAContent = () => {
 
 export default function Page() {
 	const [selectedTribe, setSelectedTribe] = useState("ca");
-	const searchParams = useSearchParams();
 
-	// Set tribe from query param on mount
-	useEffect(() => {
-		const tribe = searchParams.get("tribe");
-		if (tribe === "wa" || tribe === "ca") {
-			setSelectedTribe(tribe);
-		}
-	}, [searchParams]);
+	// Sync selected tribe from query param within a Suspense boundary
+	function TribeParamSync({ onSet }) {
+		const sp = useSearchParams();
+		useEffect(() => {
+			const tribe = sp.get("tribe");
+			if (tribe === "wa" || tribe === "ca") {
+				onSet(tribe);
+			}
+		}, [sp, onSet]);
+		return null;
+	}
 
 	return (
 		<main className="">
+			<Suspense fallback={null}>
+				<TribeParamSync onSet={setSelectedTribe} />
+			</Suspense>
 			{/* LOGO HEADER */}
 			<div className="mb-8 py-2 px-6 bg-white flex flex-wrap items-center justify-between gap-6">
 				<Link href="/">
