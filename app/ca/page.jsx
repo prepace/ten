@@ -287,12 +287,9 @@ const CAContent = () => {
 				<div className="rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5">
 					<p className="text-[#a8b3cf] text-sm mb-4">
 						Windows are based on project start date/time (Pacific):{" "}
-						<strong>Start by Nov 21, 5:00 p.m. PT = Early Bird (−10%)</strong> •{" "}
-						<strong>
-							Nov 21, 5:01 p.m. PT through Dec 5, 5:00 p.m. PT = Standard
-						</strong>{" "}
-						• <strong>Start after Dec 5, 5:00 p.m. PT = Rush (+20%)</strong>.{" "}
-						<strong>No applications accepted after Dec 19.</strong>
+						<strong>Start by Nov 25 = Early Bird (−10%)</strong> •{" "}
+						<strong>Nov 26–Dec 5 = Standard</strong> •{" "}
+						<strong>Start after Dec 5 = Rush (+20%)</strong>.
 					</p>
 					<div className="overflow-x-auto">
 						<table className="w-full border-collapse">

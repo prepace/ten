@@ -7,13 +7,13 @@ import { useState } from "react";
 const WAContent = () => {
 	const rate = 160;
 	const hours = {
-		pm: 29,
-		grants: 26,
-		ee: 12,
-		finance: 17,
-		gis: 8,
-		cs: 14,
-		qa: 2,
+		pm: 35,
+		grants: 45,
+		ee: 21,
+		finance: 25,
+		gis: 12,
+		cs: 18,
+		qa: 6,
 	};
 	const totalHours = Object.values(hours).reduce((a, b) => a + b, 0);
 	const basePerSite = totalHours * rate;
@@ -247,13 +247,13 @@ const WAContent = () => {
 						</thead>
 						<tbody>
 							{[
-								{ role: "Project Lead / PM", hours: 29 },
-								{ role: "Grants Specialist / Coordinator", hours: 26 },
-								{ role: "Technical Engineer (EE)", hours: 12 },
-								{ role: "Budget &amp; Finance Analyst", hours: 17 },
-								{ role: "GIS / Mapping", hours: 8 },
-								{ role: "Client Success / Communications", hours: 14 },
-								{ role: "Admin / QA", hours: 2 },
+								{ role: "Project Lead / PM", hours: 35 },
+								{ role: "Grants Specialist / Coordinator", hours: 45 },
+								{ role: "Technical Engineer (EE)", hours: 21 },
+								{ role: "Budget &amp; Finance Analyst", hours: 25 },
+								{ role: "GIS / Mapping", hours: 12 },
+								{ role: "Client Success / Communications", hours: 18 },
+								{ role: "Admin / QA", hours: 6 },
 							].map((item) => (
 								<tr
 									key={item.role}
@@ -293,9 +293,9 @@ const WAContent = () => {
 				<div className="rounded-2xl border border-[#22306b] bg-[#0f1a3d] p-5">
 					<p className="text-[#a8b3cf] text-sm mb-4">
 						Windows are based on project start date:{" "}
-						<strong>Start by Nov 14 = Early Bird (−10%)</strong> •{" "}
-						<strong>Nov 15–Nov 28 = Standard</strong> •{" "}
-						<strong>Start after Nov 28 = Rush (+20%)</strong>.
+						<strong>Start by Nov 25 = Early Bird (−10%)</strong> •{" "}
+						<strong>Nov 26–Dec 5 = Standard</strong> •{" "}
+						<strong>Start after Dec 5 = Rush (+20%)</strong>.
 					</p>
 					<div className="overflow-x-auto">
 						<table className="w-full border-collapse">
