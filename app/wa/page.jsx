@@ -250,7 +250,7 @@ const WAContent = () => {
 								{ role: "Project Lead / PM", hours: 35 },
 								{ role: "Grants Specialist / Coordinator", hours: 45 },
 								{ role: "Technical Engineer (EE)", hours: 21 },
-								{ role: "Budget &amp; Finance Analyst", hours: 25 },
+								{ role: "Budget & Finance Analyst", hours: 25 },
 								{ role: "GIS / Mapping", hours: 12 },
 								{ role: "Client Success / Communications", hours: 18 },
 								{ role: "Admin / QA", hours: 6 },
@@ -272,7 +272,7 @@ const WAContent = () => {
 									Total
 								</th>
 								<th className="text-right p-3 text-xs uppercase tracking-wider text-[#a8b3cf] font-bold border-b border-white/10">
-									108
+									162
 								</th>
 							</tr>
 						</tbody>

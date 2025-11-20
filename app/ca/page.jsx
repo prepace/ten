@@ -244,7 +244,7 @@ const CAContent = () => {
 								{ role: "Project Lead / PM", hours: 58 },
 								{ role: "Grants Specialist / Coordinator", hours: 52 },
 								{ role: "Technical Engineer (EE)", hours: 24 },
-								{ role: "Budget &amp; Finance Analyst", hours: 34 },
+								{ role: "Budget & Finance Analyst", hours: 34 },
 								{ role: "GIS / Mapping", hours: 16 },
 								{ role: "Client Success / Communications", hours: 28 },
 								{ role: "Admin / QA", hours: 4 },
