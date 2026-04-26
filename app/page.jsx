@@ -811,11 +811,11 @@ export default function Page() {
 			<div className="value-strip">
 				<div className="value-grid">
 					<div className="val-card">
-						<div className="val-num">$1.35M</div>
+						<div className="val-num">$1.2M</div>
 						<div className="val-label">Grant per Station</div>
 					</div>
 					<div className="val-card">
-						<div className="val-num">6</div>
+						<div className="val-num">8</div>
 						<div className="val-label">DC Fast Charge Ports</div>
 					</div>
 					<div className="val-card">
@@ -946,21 +946,20 @@ export default function Page() {
 
 					<div className="big-callout">
 						<div className="big-callout-label">Your Total Cash Investment per Station</div>
-						<div className="big-callout-num">$168,750</div>
-						<div className="big-callout-sub">Out of a $1,687,500 fully built, commissioned, and maintained charging station</div>
+						<div className="big-callout-num">$150,000</div>
+						<div className="big-callout-sub">Out of a $1,500,000 fully built, commissioned, and maintained charging station</div>
 						<div className="big-callout-note">That&apos;s 10% of the project — the grant and your existing land cover the rest</div>
 					</div>
 
 					<div className="budget-stack">
 						<div className="budget-card">
 							<h3>What the Grant Covers (80%)</h3>
-							<div className="budget-line"><span>EVSE hardware (3 dual-port 180kW chargers)</span><span>$340,000</span></div>
-							<div className="budget-line"><span>Civil, electrical, and installation</span><span>$250,000</span></div>
-							<div className="budget-line"><span>Engineering, permitting, project management</span><span>$470,000</span></div>
-							<div className="budget-line"><span>Utility interconnection</span><span>$65,000</span></div>
-							<div className="budget-line"><span>5-year warranty, O&amp;M, and networking</span><span>$210,000</span></div>
-							<div className="budget-line"><span>Compliance, environmental, contingency</span><span>$15,000</span></div>
-							<div className="budget-line total"><span>CEC Grant Award</span><span>$1,350,000</span></div>
+							<div className="budget-line"><span>EVSE hardware (8 dual-port 180kW chargers)</span><span>$480,000</span></div>
+							<div className="budget-line"><span>Civil, electrical, and installation</span><span>$240,000</span></div>
+							<div className="budget-line"><span>Engineering, permitting, project management</span><span>$240,000</span></div>
+							<div className="budget-line"><span>Utility interconnection</span><span>$80,000</span></div>
+							<div className="budget-line"><span>5-year warranty, O&amp;M, and networking</span><span>$160,000</span></div>
+							<div className="budget-line total"><span>CEC Grant Award</span><span>$1,200,000</span></div>
 						</div>
 
 						<div className="budget-card">
@@ -972,31 +971,31 @@ export default function Page() {
 									<div className="match-cash">10%</div>
 								</div>
 								<div className="match-labels">
-									<span>$1,350,000</span>
+									<span>$1,200,000</span>
 									<span>In-kind</span>
 									<span>Cash</span>
 								</div>
 							</div>
 
 							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--sage)", marginBottom: "0.5rem"}}>In-Kind — $168,750 (value you already hold)</div>
-								<div className="budget-line"><span>Use of your land for the station</span><span>$120,000</span></div>
-								<div className="budget-line"><span>Staff time (facilities, environmental, admin)</span><span>$48,750</span></div>
+								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--sage)", marginBottom: "0.5rem"}}>In-Kind — $150,000 (value you already hold)</div>
+								<div className="budget-line"><span>Use of your land for the station</span><span>$100,000</span></div>
+								<div className="budget-line"><span>Staff time (facilities, environmental, admin)</span><span>$50,000</span></div>
 							</div>
 
 							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--gold)", marginBottom: "0.5rem"}}>Cash — $168,750</div>
+								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--gold)", marginBottom: "0.5rem"}}>Cash — $150,000</div>
 								<div className="budget-line"><span>Your $50K deposit (applied post-award)</span><span>$50,000</span></div>
-								<div className="budget-line"><span>Remaining balance</span><span>$118,750</span></div>
+								<div className="budget-line"><span>Remaining balance</span><span>$100,000</span></div>
 								<div className="budget-line" style={{fontSize: "0.82rem", color: "var(--muted)"}}><span>Payable at award, or financed against grant</span><span></span></div>
 							</div>
 
-							<div className="budget-line total"><span>Total Match</span><span>$337,500</span></div>
+							<div className="budget-line total"><span>Total Match</span><span>$300,000</span></div>
 						</div>
 					</div>
 
 					<div className="section-header" style={{marginBottom: "1rem"}}>
-						<h2 style={{fontFamily: "'Fraunces',serif", fontSize: "1.3rem"}}>How Fast Does $168,750 Pay for Itself?</h2>
+						<h2 style={{fontFamily: "'Fraunces',serif", fontSize: "1.3rem"}}>How Fast Does $150,000 Pay for Itself?</h2>
 						<p style={{color: "var(--muted)", fontSize: "0.92rem"}}>Your station earns revenue from every vehicle that charges. At California DCFC pricing ($0.40–$0.60/kWh) and 1,080 kW of total station capacity, the math works quickly.</p>
 					</div>
 					<div className="roi-scenarios">
@@ -1005,7 +1004,7 @@ export default function Page() {
 							<div className="roi-payback">14</div>
 							<div className="roi-payback-unit">months to payback</div>
 							<div className="roi-detail"><strong>10%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.45</strong>/kWh pricing</div>
+							<div className="roi-detail"><strong>$0.40</strong>/kWh pricing</div>
 							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$146K</strong> net revenue/yr</div>
 						</div>
 						<div className="roi-card moderate">
@@ -1013,7 +1012,7 @@ export default function Page() {
 							<div className="roi-payback">8</div>
 							<div className="roi-payback-unit">months to payback</div>
 							<div className="roi-detail"><strong>15%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.50</strong>/kWh pricing</div>
+							<div className="roi-detail"><strong>$0.44</strong>/kWh pricing</div>
 							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$256K</strong> net revenue/yr</div>
 						</div>
 						<div className="roi-card aggressive">
@@ -1021,7 +1020,7 @@ export default function Page() {
 							<div className="roi-payback">4</div>
 							<div className="roi-payback-unit">months to payback</div>
 							<div className="roi-detail"><strong>20%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.55</strong>/kWh pricing</div>
+							<div className="roi-detail"><strong>$0.48</strong>/kWh pricing</div>
 							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$465K</strong> net revenue/yr</div>
 						</div>
 					</div>
