@@ -1,0 +1,32 @@
+{
+	"tribesSignedOn": 0,
+	"currentGoal": 5,
+	"lastUpdated": "2026-05-02",
+	"signedTribes": [],
+	"milestones": [
+		{
+			"n": 5,
+			"label": "NMTC Activated",
+			"unlock": "Access New Markets Tax Credits — covers ~20% of total project costs across the portfolio.",
+			"role": "active"
+		},
+		{
+			"n": 10,
+			"label": "EV Charger Volume Pricing",
+			"unlock": "Preferred pricing on EV chargers via portfolio procurement.",
+			"role": "stretch"
+		},
+		{
+			"n": 15,
+			"label": "Battery Volume Pricing",
+			"unlock": "Preferred pricing on BESS systems via portfolio procurement.",
+			"role": "stretch"
+		},
+		{
+			"n": 20,
+			"label": "$100M Capital Unlocked",
+			"unlock": "Full access to bridge & permanent lending stack — SSBCI, USDA REAP, and additional facilities.",
+			"role": "stretch"
+		}
+	]
+}

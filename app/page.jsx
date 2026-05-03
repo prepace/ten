@@ -2,1169 +2,907 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import coalition from "../data/coalition.json";
+
+const bookingUrl =
+	process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendly.com/ampace";
+
+const sources = [
+	[
+		"CA NEVI",
+		"$0.80M",
+		"grant",
+		"Approx. 80% of eligible EVSE capex; reimbursement timing applies.",
+	],
+	[
+		"48E elective pay",
+		"$1.60M",
+		"refundable tax credit",
+		"Approx. 40% of $4M battery basis; subject to counsel and program rules.",
+	],
+	[
+		"NMTC net benefit target",
+		"$1.00M",
+		"incentive",
+		"Allocation, fees, eligibility, and portfolio approach required.",
+	],
+	[
+		"SSBCI / CDFI facility",
+		"$0.87M",
+		"repayable debt/credit facility",
+		"Construction liquidity that bridges grant and credit timing.",
+	],
+	[
+		"SGIP battery support",
+		"$0.63M",
+		"incentive",
+		"Program step, rate, storage tier, and cap mechanics apply.",
+	],
+	[
+		"TOE cash escrow",
+		"$0.10M",
+		"cash escrow",
+		"Tribal cash contribution via CD-secured escrow with Native bank partners.",
+	],
+];
+
+const uses = [
+	[
+		"EVSE",
+		"$1.00M",
+		"8 public DC fast-charging positions; final kW and connector mix optimized for CEC scoring and utility conditions.",
+	],
+	[
+		"BESS",
+		"$4.00M",
+		"Just-under-1 MW / up to 6 MWh battery system; sodium-ion or flow battery selected through procurement and eligibility review.",
+	],
+];
+
+const tranches = [
+	["June 2026", "$20k", "NEVI pre-development kickoff"],
+	["September 2026", "$20k", "NEVI application submission"],
+	["December 2026", "$20k", "NEVI grant conditional award"],
+	["March 2027", "$20k", "EVSE delivery"],
+	["June 2027", "$20k", "Substantial completion, prior to PTO"],
+];
+
+const qualificationStats = [
+	[
+		"25",
+		"Identified eligible Tribes",
+		"Along Alternative Fuel Corridors in California.",
+	],
+	[
+		"17",
+		"NMTC eligible census tracts",
+		"New Markets Tax Credit eligibility is verified by census tract.",
+	],
+	[
+		"9",
+		"Energy Community counties",
+		"Energy Community Tax Credit eligibility is screened by county.",
+	],
+	[
+		"2026+",
+		"Best-fit energy path",
+		"If NEVI 6 is not the fit, we identify the strongest Tribal energy opportunity.",
+	],
+];
+
+const partnerDetails = [
+	[
+		"Amerind Nation / TEN",
+		"100% Native-owned sponsor, grant strategist, capital-weaving lead, and long-term operating coordinator.",
+	],
+	[
+		"Colusa Indian Energy",
+		"California Tribal microgrid and EPC experience for resilience-forward energy infrastructure.",
+	],
+	[
+		"Allumia",
+		"Energy-efficiency and energy construction project-management platform.",
+	],
+	[
+		"7 Generations",
+		"Native-led advisory and deployment partner for Tribal infrastructure and clean-energy development.",
+	],
+	[
+		"InCharge Energy",
+		"EV charging partner candidate; final equipment and CPO roles remain procurement-dependent.",
+	],
+	[
+		"Sovereign Bank",
+		"Native-owned depository institution providing cash match escrow services and TEN credit facilities.",
+	],
+];
+
+const batteryNotes = [
+	[
+		"CCS + NACS EV charging ports",
+		"Our installation leverages dual-port ICE-180s with CCS and NACS connectors, able to flexibly support future charging standards.",
+	],
+	[
+		"Battery-first economics",
+		"EV charging alone can struggle under full project finance. The BESS is what manages peak demand, preserves off-peak energy economics, and supports site resilience.",
+	],
+	[
+		"Sodium-ion or flow baseline",
+		"Sodium-ion and vanadium-flow options are being screened for safety, footprint, warranty, domestic-content, and FEOC/MACR readiness.",
+	],
+	[
+		"480V three-phase integration",
+		"Controls should allow the chargers to use the grid directly while the battery shaves peak demand and shifts load when rates make it valuable.",
+	],
+	[
+		"Compact travel-center footprint",
+		"Canopy, cantilevered, containerized, and below-grade battery layouts are design options for sites where land is tight.",
+	],
+	[
+		"Forward compatibility",
+		"TEN's model optimizes maintenance & upgrades, and supports adding renewables and other site amenities over time to support sovereignty.",
+	],
+];
+
+const faqs = [
+	[
+		"What is CA NEVI 6?",
+		"California's next funding round under the National Electric Vehicle Infrastructure program to deploy public DC fast charging along designated corridors. We support Tribes in site readiness, application, award compliance, and delivery.",
+	],
+	[
+		"What's in the $5M per-site package?",
+		"A $1M EV fast charging build sized for competitive NEVI scoring plus a $4M battery system, including development, delivery coordination, and subcontracted O&M support.",
+	],
+	[
+		"How much cash does the Tribe put in?",
+		"$100,000 total through a wholly-owned TOE in CD-secured escrow, released in five $20,000 milestone tranches.",
+	],
+	[
+		"Why does the Tribe contribute cash at all?",
+		"Aligns incentives, supports pre-development momentum, and helps unlock the broader capital stack while keeping Tribal exposure capped and predictable.",
+	],
+	[
+		"Is SSBCI/CDFI free money?",
+		"No — it is repayable financing used to bridge timing gaps and reduce friction. Repaid from project cash flows and/or reimbursements.",
+	],
+	[
+		"Is NMTC guaranteed?",
+		"No. NMTC is allocation-based and requires CDE allocation. We model a target net benefit and pursue it at the portfolio level.",
+	],
+	[
+		"How does 48E elective pay work for Tribes?",
+		"Eligible Tribal entities can receive the credit value as a refundable payment, subject to wage/apprenticeship rules, domestic content, and compliance.",
+	],
+	[
+		"What is SGIP?",
+		"California's Self-Generation Incentive Program — incentive for energy storage. Availability depends on program step/rates and eligibility.",
+	],
+	[
+		"What if NEVI is not awarded?",
+		"Proceed with the battery + targeted energy improvements. EV charging can be pursued through other grant programs or later rounds.",
+	],
+	[
+		"Who owns the equipment?",
+		"TEN initially owns and operates. TOE receives a contractual share of net operational benefits, with a path to Tribal ownership via capacity certification.",
+	],
+	[
+		"What is capacity certification?",
+		"Verification the Tribe/TOE can assume ownership responsibly (operations, maintenance, compliance). TEN facilitates the process.",
+	],
+	[
+		"Do we need to hire staff?",
+		"No. TOE incurs no operating expense in the base structure; TEN manages O&M via subcontractors.",
+	],
+	[
+		"How is charging margin calculated?",
+		"Charging revenue minus energy costs, network/CPO fees, maintenance, and other operating expenses. Transparent waterfall and reporting in the agreement.",
+	],
+	[
+		"How does the battery save/make money?",
+		"Reducing peak demand costs, shifting energy usage to lower-cost periods, supporting reliability, and capturing permissible arbitrage/savings depending on tariffs and operating rules.",
+	],
+	[
+		"Is this a microgrid?",
+		"Microgrid-ready. True microgrid operation depends on site controls, interconnection permissions, and additional generation/controls.",
+	],
+	[
+		"Does this include LCFS revenue?",
+		"Presented before LCFS — treated as incremental upside if captured contractually.",
+	],
+	[
+		"What are the biggest risks?",
+		"Grant award uncertainty, reimbursement/credit timing, SGIP step availability, NMTC allocation availability, operational utilization. Mitigated by portfolio structuring, compliance-first procurement, conservative underwriting.",
+	],
+	[
+		"How long does deployment take?",
+		"Day 1 kickoff → Day 90+ submission → Day 180+ award → Day 270+ delivery → Day 360+ substantial completion. Actual timing depends on interconnection and permitting.",
+	],
+	[
+		"Can this scale?",
+		"Yes — designed for 2–20 Tribes with standardized package, portfolio procurement, and repeatable compliance.",
+	],
+	[
+		"Is this legal/tax advice?",
+		"No. Planning information only. Final structures and eligibility confirmed with qualified counsel and program administrators.",
+	],
+];
+
+function formatDate(value) {
+	return new Intl.DateTimeFormat("en", {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	}).format(new Date(`${value}T00:00:00`));
+}
+
+function Eyebrow({ children, className = "" }) {
+	return (
+		<p
+			className={`mb-3 font-mono font-semibold uppercase tracking-[0.11em] text-[#b36b1f] ${className}`}
+		>
+			{children}
+		</p>
+	);
+}
+
+function DisplayHeading({ children, id, className = "" }) {
+	return (
+		<h2
+			id={id}
+			className={`text-balance font-serif text-4xl leading-[1.05] text-[#1c1a15] md:text-5xl ${className}`}
+		>
+			{children}
+		</h2>
+	);
+}
+
+function Section({ children, className = "", id }) {
+	return (
+		<section
+			id={id}
+			className={`mx-auto max-w-7xl px-4 py-14 sm:px-8 ${className}`}
+		>
+			{children}
+		</section>
+	);
+}
+
+function SectionHead({ title, children, light = false }) {
+	return (
+		<div
+			className={`mb-6 grid gap-4 border-t pt-4 md:grid-cols-[1fr_minmax(18rem,40rem)] md:items-end ${
+				light ? "border-[#fffdf7]/65" : "border-[#1c1a15]"
+			}`}
+		>
+			<DisplayHeading className={light ? "text-[#fffdf7]" : ""}>
+				{title}
+			</DisplayHeading>
+			<p
+				className={`max-w-2xl ${
+					light ? "text-[#fffdf7]/75" : "text-[#3b3830]"
+				}`}
+			>
+				{children}
+			</p>
+		</div>
+	);
+}
+
+function PrimaryLink({
+	href,
+	children,
+	variant = "dark",
+	className = "",
+	newTab = false,
+}) {
+	const variants = {
+		dark: "border-[#1c1a15] bg-[#1c1a15] text-[#fffdf7]",
+		gold: "border-[#b36b1f] bg-[#b36b1f] text-[#1c1a15]",
+		glass: "border-[#fffdf7]/55 bg-[#fffdf7]/10 text-[#fffdf7]",
+	};
+
+	return (
+		<a
+			className={`inline-flex min-h-11 items-center justify-center border px-4 py-3 font-bold transition-transform hover:-translate-y-0.5 ${variants[variant]} ${className}`}
+			href={href}
+			target={newTab ? "_blank" : undefined}
+			rel={newTab ? "noopener noreferrer" : undefined}
+		>
+			{children}
+		</a>
+	);
+}
+
+function GridShell({ children, className = "" }) {
+	return (
+		<div
+			className={`grid gap-[2px] border-[2px] border-[#d9d2c2] bg-[#d9d2c2] ${className}`}
+		>
+			{children}
+		</div>
+	);
+}
+
+function StatCard({ value, label, note }) {
+	return (
+		<div className="bg-[#fffdf7] p-5">
+			<strong className="block font-serif text-4xl leading-none text-[#276449]">
+				{value}
+			</strong>
+			<span className="mt-2 block text-[0.92rem] text-[#3b3830]">
+				{label ? <b>{label}</b> : null}
+				{label && note ? " — " : null}
+				{note ?? label}
+			</span>
+		</div>
+	);
+}
+
+function SourceCard({ title, amount, type, children }) {
+	return (
+		<div className="bg-[#fffdf7] p-5">
+			<h3 className="mb-2 flex gap-4 text-balance font-serif text-2xl leading-tight text-[#1c1a15]">
+				<span>{title}</span>
+				{amount ? (
+					<span className="ml-auto whitespace-nowrap font-mono text-base text-[#276449]">
+						{amount}
+					</span>
+				) : null}
+			</h3>
+			{type ? (
+				<span className="mb-3 inline-flex font-mono text-[0.73rem] font-semibold uppercase tracking-[0.11em] text-[#6b6658]">
+					{type}
+				</span>
+			) : null}
+			<p className="m-0 text-[#3b3830]">{children}</p>
+		</div>
+	);
+}
+
+function Disclaimer({ children, dark = false }) {
+	return (
+		<div
+			className={`mt-4 border-l-4 border-[#b36b1f] p-4 ${
+				dark
+					? "bg-[#fffdf7]/10 text-[#fffdf7]/75"
+					: "bg-[#ece7dc] text-[#3b3830]"
+			}`}
+		>
+			{children}
+		</div>
+	);
+}
+
+function CheckList({ items }) {
+	return (
+		<ul className="grid gap-3">
+			{items.map((item) => (
+				<li
+					className="grid grid-cols-[1rem_1fr] gap-2 text-[#fffdf7]/80"
+					key={item}
+				>
+					<span className="font-bold text-[#b36b1f]">✓</span>
+					<span>{item}</span>
+				</li>
+			))}
+		</ul>
+	);
+}
+
+function CoalitionThermometer() {
+	const [visibleCount, setVisibleCount] = useState(0);
+	const ref = useRef(null);
+	const { tribesSignedOn, currentGoal, milestones, lastUpdated } = coalition;
+	const activeMilestone =
+		milestones.find((milestone) => milestone.n === currentGoal) ||
+		milestones.find((milestone) => milestone.role === "active") ||
+		milestones[0];
+	const stretchGoals = milestones.filter(
+		(milestone) => milestone.n > currentGoal,
+	);
+	const summary = `${tribesSignedOn} of ${currentGoal} Tribes signed on. Next milestone: ${activeMilestone.label} at ${currentGoal} Tribes. Stretch goals: ${stretchGoals.map((milestone) => `${milestone.label} at ${milestone.n}`).join(", ")}.`;
+
+	useEffect(() => {
+		const reduceMotion = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		).matches;
+
+		if (reduceMotion) {
+			setVisibleCount(tribesSignedOn);
+			return;
+		}
+
+		const element = ref.current;
+		if (!element) return;
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setVisibleCount(tribesSignedOn);
+					observer.disconnect();
+				}
+			},
+			{ threshold: 0.35 },
+		);
+
+		observer.observe(element);
+		return () => observer.disconnect();
+	}, [tribesSignedOn]);
+
+	return (
+		<section
+			className="relative z-10 mx-auto -mt-6 grid max-w-7xl border border-[#1c1a15] bg-[#1c1a15] md:grid-cols-[0.42fr_1fr]"
+			ref={ref}
+			aria-labelledby="coalition-title"
+		>
+			<div className="bg-[#fffdf7] p-5 md:p-8">
+				<Eyebrow>Coalition momentum</Eyebrow>
+				<DisplayHeading id="coalition-title">Tribes Signed On</DisplayHeading>
+				<p className="mt-3 text-[#3b3830]">
+					The count reflects signed Tribes only. Identified or in-diligence
+					sites stay in the pipeline until an agreement is signed.
+				</p>
+				<div className="mt-5 border-l-4 border-[#b36b1f] bg-[#ece7dc] p-4">
+					<h3 className="font-serif text-2xl leading-tight text-[#1c1a15]">
+						Key Dates
+					</h3>
+					<ul className="mt-3 grid gap-2 text-[#3b3830]">
+						<li>
+							<strong>5/15/26</strong> — Invite-only TEN slots open.
+						</li>
+						<li>
+							<strong>6/15/26</strong> — NEVI 6 application opens.
+						</li>
+						<li>
+							<strong>8/15/26</strong> — LAST DAY to join coalition!
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div className="border-t border-[#1c1a15] bg-[#fffdf7] p-5 md:border-l md:border-t-0 md:p-8">
+				<div className="mb-4 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
+					<div>
+						<strong className="block font-serif text-3xl leading-none text-[#1c1a15] md:text-5xl">
+							{tribesSignedOn} of {currentGoal} Tribes signed on
+						</strong>
+						<span className="mt-2 block font-mono text-xs uppercase tracking-[0.08em] text-[#6b6658]">
+							Last updated {formatDate(lastUpdated)}
+						</span>
+					</div>
+					<PrimaryLink href="#eligibility">Bring your Tribe</PrimaryLink>
+				</div>
+
+				<p className="sr-only">{summary}</p>
+				<div
+					className="flex h-12 overflow-hidden border border-[#d9d2c2] bg-[#ece7dc]"
+					role="progressbar"
+					aria-valuenow={tribesSignedOn}
+					aria-valuemin={0}
+					aria-valuemax={currentGoal}
+					aria-label={`Tribes signed on toward ${activeMilestone.label}`}
+				>
+					{Array.from({ length: currentGoal }, (_, index) => (
+						<span
+							aria-hidden="true"
+							className={`min-w-0 flex-1 border-r border-[#d9d2c2] transition-colors duration-700 last:border-r-0 motion-reduce:transition-none ${
+								index < visibleCount ? "bg-[#276449]" : "bg-transparent"
+							}`}
+							key={`progress-${index + 1}`}
+						/>
+					))}
+				</div>
+
+				<button
+					className="mt-4 grid w-full cursor-help grid-cols-[2.35rem_1fr] items-start gap-3 border-b border-[#d9d2c2] bg-transparent pb-5 text-left text-[#1c1a15]"
+					type="button"
+				>
+					<span
+						className={`grid h-10 w-10 place-items-center border font-mono font-bold ${
+							tribesSignedOn >= currentGoal
+								? "border-[#276449] bg-[#276449] text-[#fffdf7]"
+								: "border-[#d9d2c2] bg-[#ece7dc] text-[#1c1a15]"
+						}`}
+					>
+						{tribesSignedOn >= currentGoal ? "✓" : currentGoal}
+					</span>
+					<span>
+						<strong className="block text-[#1c1a15]">
+							Next milestone at {currentGoal} Tribes — {activeMilestone.label}
+						</strong>
+						<span className="mt-1 block text-[#3b3830]">
+							{activeMilestone.unlock}
+						</span>
+					</span>
+				</button>
+
+				<fieldset className="mt-4 grid gap-3 border-0 p-0 md:grid-cols-3">
+					<legend className="col-span-full mb-1 font-mono text-[0.73rem] font-semibold uppercase tracking-[0.11em] text-[#6b6658]">
+						Stretch goals
+					</legend>
+					{stretchGoals.map((milestone) => (
+						<button
+							className={`cursor-help border p-4 text-left text-[#6b6658] ${
+								tribesSignedOn >= milestone.n
+									? "border-[#276449] bg-[#e4eee7]"
+									: "border-[#d9d2c2] bg-[#f4f1ea]"
+							}`}
+							key={milestone.n}
+							title={milestone.unlock}
+							type="button"
+						>
+							<strong className="block text-[#1c1a15]">
+								{tribesSignedOn >= milestone.n ? "✓" : milestone.n} —{" "}
+								{milestone.label}
+							</strong>
+							<span className="mt-1 block text-sm">{milestone.unlock}</span>
+						</button>
+					))}
+				</fieldset>
+			</div>
+		</section>
+	);
+}
 
 export default function Page() {
 	return (
-		<>
-			<style>{`
-				@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,400&display=swap');
-
-				:root {
-					--sand: #f5f0e8;
-					--earth: #3d2b1f;
-					--clay: #8b5e3c;
-					--sage: #5a7247;
-					--sage-light: #7a9a63;
-					--turquoise: #3a8a8c;
-					--turquoise-deep: #2a6a6c;
-					--sunset: #c44b28;
-					--sunset-light: #e8693f;
-					--gold: #c9a84c;
-					--cream: #faf7f2;
-					--charcoal: #2c2c2c;
-					--muted: #7a7065;
-				}
-
-				* { margin: 0; padding: 0; box-sizing: border-box; }
-
-				body {
-					font-family: 'DM Sans', sans-serif;
-					background: var(--sand);
-					color: var(--earth);
-					line-height: 1.6;
-					-webkit-font-smoothing: antialiased;
-				}
-
-				.hero {
-					background: var(--earth);
-					color: var(--cream);
-					padding: 3.5rem 2rem 3rem;
-					position: relative;
-					overflow: hidden;
-				}
-				.hero::before {
-					content: '';
-					position: absolute;
-					top: 0; left: 0; right: 0; bottom: 0;
-					background: repeating-linear-gradient(
-						120deg,
-						transparent,
-						transparent 40px,
-						rgba(197,168,76,0.03) 40px,
-						rgba(197,168,76,0.03) 41px
-					);
-				}
-				.hero-inner {
-					max-width: 880px;
-					margin: 0 auto;
-					position: relative;
-					z-index: 1;
-				}
-				.invite-tag {
-					display: inline-block;
-					background: rgba(201,168,76,0.15);
-					border: 1px solid rgba(201,168,76,0.35);
-					color: var(--gold);
-					font-size: 0.78rem;
-					font-weight: 600;
-					text-transform: uppercase;
-					letter-spacing: 0.08em;
-					padding: 0.35rem 1rem;
-					border-radius: 100px;
-					margin-bottom: 1rem;
-				}
-				.hero h1 {
-					font-family: 'Fraunces', serif;
-					font-size: clamp(2rem, 5vw, 3rem);
-					font-weight: 800;
-					line-height: 1.15;
-					margin-bottom: 0.75rem;
-					letter-spacing: -0.03em;
-				}
-				.hero h1 span { color: var(--gold); }
-				.hero-sub {
-					font-size: 1.05rem;
-					color: rgba(255,255,255,0.75);
-					max-width: 640px;
-					margin-bottom: 1.5rem;
-					line-height: 1.7;
-				}
-				.hero-cta {
-					display: inline-flex;
-					align-items: center;
-					gap: 0.5rem;
-					background: var(--gold);
-					color: var(--earth);
-					padding: 0.85rem 1.75rem;
-					border-radius: 100px;
-					font-weight: 700;
-					font-size: 0.95rem;
-					text-decoration: none;
-					transition: transform 0.15s, box-shadow 0.15s;
-				}
-				.hero-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
-
-				.value-strip {
-					max-width: 880px;
-					margin: -1.5rem auto 0;
-					padding: 0 2rem;
-					position: relative;
-					z-index: 2;
-				}
-				.value-grid {
-					display: grid;
-					grid-template-columns: repeat(4, 1fr);
-					gap: 1px;
-					background: rgba(61,43,31,0.1);
-					border-radius: 12px;
-					overflow: hidden;
-					box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-				}
-				.val-card {
-					background: white;
-					padding: 1.4rem 1rem;
-					text-align: center;
-				}
-				.val-num {
-					font-family: 'Fraunces', serif;
-					font-size: 1.6rem;
-					font-weight: 700;
-					color: var(--turquoise-deep);
-					line-height: 1.1;
-				}
-				.val-label {
-					font-size: 0.73rem;
-					color: var(--muted);
-					margin-top: 0.3rem;
-					text-transform: uppercase;
-					letter-spacing: 0.06em;
-					font-weight: 500;
-				}
-
-				.section {
-					max-width: 880px;
-					margin: 0 auto;
-					padding: 3rem 2rem;
-				}
-				.section-header { margin-bottom: 1.5rem; }
-				.section-header h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.5rem;
-					font-weight: 700;
-					letter-spacing: -0.02em;
-					color: var(--earth);
-				}
-				.section-header p {
-					color: var(--muted);
-					margin-top: 0.3rem;
-					font-size: 0.92rem;
-				}
-
-				.network-intro {
-					background: white;
-					border-radius: 10px;
-					padding: 1.5rem;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-					margin-bottom: 1.5rem;
-					border-left: 4px solid var(--gold);
-					font-size: 0.92rem;
-					line-height: 1.6;
-				}
-				.network-intro strong { color: var(--clay); }
-				.site-table-wrap {
-					overflow-x: auto;
-					border-radius: 10px;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-				}
-				table {
-					width: 100%;
-					border-collapse: collapse;
-					background: white;
-					font-size: 0.88rem;
-				}
-				thead th {
-					background: var(--earth);
-					color: var(--cream);
-					padding: 0.7rem 1rem;
-					text-align: left;
-					font-weight: 600;
-					font-size: 0.78rem;
-					text-transform: uppercase;
-					letter-spacing: 0.05em;
-					white-space: nowrap;
-				}
-				tbody td {
-					padding: 0.55rem 1rem;
-					border-bottom: 1px solid rgba(0,0,0,0.05);
-				}
-				tbody tr:hover { background: rgba(90,114,71,0.04); }
-				.tribe-col { color: var(--clay); font-weight: 500; }
-				tbody tr:nth-child(even) { background: rgba(0,0,0,0.015); }
-				tbody tr:nth-child(even):hover { background: rgba(90,114,71,0.04); }
-
-				.two-col {
-					display: grid;
-					grid-template-columns: 1fr 1fr;
-					gap: 1.5rem;
-					margin-bottom: 2rem;
-				}
-				.col-card {
-					background: white;
-					border-radius: 10px;
-					padding: 1.5rem;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-				}
-				.col-card h3 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.05rem;
-					margin-bottom: 0.75rem;
-					color: var(--earth);
-				}
-				.col-card.yours { border-top: 4px solid var(--gold); }
-				.col-card.ours { border-top: 4px solid var(--turquoise); }
-				.checklist { list-style: none; padding: 0; }
-				.checklist li {
-					padding: 0.35rem 0;
-					font-size: 0.88rem;
-					padding-left: 1.5rem;
-					position: relative;
-				}
-				.checklist li::before {
-					content: '✓';
-					position: absolute;
-					left: 0;
-					font-weight: 700;
-				}
-				.col-card.yours .checklist li::before { color: var(--gold); }
-				.col-card.ours .checklist li::before { color: var(--turquoise); }
-
-				.budget-section {
-					background: linear-gradient(180deg, var(--cream) 0%, var(--sand) 100%);
-					border-top: 3px solid var(--gold);
-					padding: 3rem 2rem;
-				}
-				.budget-inner { max-width: 880px; margin: 0 auto; }
-				.budget-inner h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.5rem;
-					margin-bottom: 0.3rem;
-				}
-				.budget-sub {
-					color: var(--muted);
-					margin-bottom: 1.5rem;
-					font-size: 0.92rem;
-				}
-				.budget-stack {
-					display: grid;
-					grid-template-columns: 1fr 1fr;
-					gap: 1rem;
-					margin-bottom: 2rem;
-				}
-				.budget-card {
-					background: white;
-					border-radius: 10px;
-					padding: 1.5rem;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-				}
-				.budget-card h3 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.05rem;
-					margin-bottom: 0.75rem;
-					color: var(--earth);
-				}
-				.budget-line {
-					display: flex;
-					justify-content: space-between;
-					padding: 0.35rem 0;
-					font-size: 0.88rem;
-				}
-				.budget-line span:last-child {
-					font-weight: 600;
-					font-variant-numeric: tabular-nums;
-				}
-				.budget-line.total {
-					border-top: 2px solid var(--earth);
-					margin-top: 0.4rem;
-					padding-top: 0.5rem;
-					font-weight: 700;
-					font-size: 0.95rem;
-				}
-				.budget-line.sub-total {
-					border-top: 1px dashed rgba(0,0,0,0.12);
-					margin-top: 0.3rem;
-					padding-top: 0.4rem;
-					font-weight: 600;
-					color: var(--clay);
-				}
-				.match-bar-wrap { margin: 1rem 0; }
-				.match-bar {
-					display: flex;
-					border-radius: 8px;
-					overflow: hidden;
-					height: 36px;
-					margin-bottom: 0.4rem;
-				}
-				.match-grant { background: var(--turquoise); width: 80%; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 600; color: white; }
-				.match-inkind { background: var(--sage); width: 10%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: white; }
-				.match-cash { background: var(--gold); width: 10%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: var(--earth); }
-				.match-labels { display: flex; font-size: 0.75rem; color: var(--muted); }
-				.match-labels span:nth-child(1) { width: 80%; }
-				.match-labels span:nth-child(2) { width: 10%; }
-				.match-labels span:nth-child(3) { width: 10%; }
-
-				.big-callout {
-					background: white;
-					border-radius: 12px;
-					padding: 2rem;
-					text-align: center;
-					box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-					margin-bottom: 2rem;
-					border: 2px solid rgba(201,168,76,0.2);
-				}
-				.big-callout-label {
-					font-size: 0.78rem;
-					text-transform: uppercase;
-					letter-spacing: 0.08em;
-					color: var(--muted);
-					font-weight: 600;
-					margin-bottom: 0.3rem;
-				}
-				.big-callout-num {
-					font-family: 'Fraunces', serif;
-					font-size: 3rem;
-					font-weight: 800;
-					color: var(--turquoise-deep);
-					line-height: 1;
-				}
-				.big-callout-sub {
-					font-size: 0.95rem;
-					color: var(--muted);
-					margin-top: 0.4rem;
-				}
-				.big-callout-note {
-					font-size: 0.85rem;
-					color: var(--clay);
-					font-weight: 500;
-					margin-top: 0.75rem;
-				}
-
-				.roi-scenarios {
-					display: grid;
-					grid-template-columns: repeat(3, 1fr);
-					gap: 1rem;
-					margin-bottom: 1.5rem;
-				}
-				.roi-card {
-					background: white;
-					border-radius: 10px;
-					padding: 1.25rem;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-					text-align: center;
-				}
-				.roi-card.conservative { border-top: 4px solid var(--muted); }
-				.roi-card.moderate { border-top: 4px solid var(--turquoise); }
-				.roi-card.aggressive { border-top: 4px solid var(--sage); }
-				.roi-scenario-label {
-					font-size: 0.72rem;
-					text-transform: uppercase;
-					letter-spacing: 0.06em;
-					font-weight: 600;
-					color: var(--muted);
-					margin-bottom: 0.5rem;
-				}
-				.roi-card.moderate .roi-scenario-label { color: var(--turquoise-deep); }
-				.roi-card.aggressive .roi-scenario-label { color: var(--sage); }
-				.roi-payback {
-					font-family: 'Fraunces', serif;
-					font-size: 2rem;
-					font-weight: 800;
-					line-height: 1.1;
-				}
-				.roi-card.conservative .roi-payback { color: var(--muted); }
-				.roi-card.moderate .roi-payback { color: var(--turquoise-deep); }
-				.roi-card.aggressive .roi-payback { color: var(--sage); }
-				.roi-payback-unit {
-					font-size: 0.85rem;
-					color: var(--muted);
-					margin-bottom: 0.6rem;
-				}
-				.roi-detail {
-					font-size: 0.82rem;
-					color: var(--muted);
-					padding: 0.2rem 0;
-				}
-				.roi-detail strong { color: var(--earth); }
-
-				.phase2-callout {
-					background: linear-gradient(135deg, var(--earth), var(--turquoise-deep));
-					color: var(--cream);
-					border-radius: 12px;
-					padding: 1.75rem 2rem;
-					margin-top: 1.5rem;
-					position: relative;
-					overflow: hidden;
-				}
-				.phase2-callout::after {
-					content: '';
-					position: absolute;
-					top: 0; right: 0;
-					width: 200px;
-					height: 100%;
-					background: radial-gradient(circle at 100% 50%, rgba(201,168,76,0.15), transparent 70%);
-					pointer-events: none;
-				}
-				.phase2-label {
-					display: inline-block;
-					background: rgba(201,168,76,0.2);
-					color: var(--gold);
-					font-size: 0.72rem;
-					font-weight: 700;
-					text-transform: uppercase;
-					letter-spacing: 0.08em;
-					padding: 0.25rem 0.8rem;
-					border-radius: 100px;
-					margin-bottom: 0.75rem;
-				}
-				.phase2-title {
-					font-family: 'Fraunces', serif;
-					font-size: 1.25rem;
-					font-weight: 700;
-					margin-bottom: 0.5rem;
-					position: relative;
-					z-index: 1;
-				}
-				.phase2-grid {
-					display: grid;
-					grid-template-columns: 1fr 1fr;
-					gap: 1.5rem;
-					margin-top: 1.25rem;
-					position: relative;
-					z-index: 1;
-				}
-				.phase2-metric {
-					padding-right: 1rem;
-					border-right: 1px solid rgba(255,255,255,0.15);
-				}
-				.phase2-metric:last-child { border-right: none; }
-				.phase2-val {
-					font-family: 'Fraunces', serif;
-					font-size: 2.2rem;
-					font-weight: 800;
-					color: var(--gold);
-					line-height: 1;
-				}
-				.phase2-unit {
-					font-size: 0.78rem;
-					text-transform: uppercase;
-					letter-spacing: 0.06em;
-					color: rgba(255,255,255,0.6);
-					margin-top: 0.3rem;
-				}
-				.phase2-desc {
-					font-size: 0.88rem;
-					color: rgba(255,255,255,0.75);
-					line-height: 1.6;
-					margin-top: 0.5rem;
-					position: relative;
-					z-index: 1;
-				}
-				.phase2-desc strong { color: var(--gold); font-weight: 600; }
-
-				.retainer-callout {
-					background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(90,114,71,0.06));
-					border: 1px solid rgba(201,168,76,0.25);
-					border-radius: 10px;
-					padding: 1.25rem 1.5rem;
-					font-size: 0.9rem;
-					line-height: 1.6;
-					margin-top: 1.5rem;
-				}
-				.retainer-callout strong { color: var(--clay); }
-
-				.steps-section {
-					background: var(--earth);
-					color: var(--cream);
-					padding: 3rem 2rem;
-				}
-				.steps-inner { max-width: 880px; margin: 0 auto; }
-				.steps-inner h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.5rem;
-					margin-bottom: 1.5rem;
-				}
-				.steps-grid {
-					display: grid;
-					grid-template-columns: repeat(3, 1fr);
-					gap: 1rem;
-				}
-				.step-card {
-					background: rgba(255,255,255,0.05);
-					border: 1px solid rgba(255,255,255,0.08);
-					border-radius: 10px;
-					padding: 1.5rem;
-				}
-				.step-num {
-					font-family: 'Fraunces', serif;
-					font-size: 2rem;
-					font-weight: 800;
-					color: var(--gold);
-					line-height: 1;
-					margin-bottom: 0.5rem;
-				}
-				.step-title {
-					font-weight: 600;
-					font-size: 0.95rem;
-					margin-bottom: 0.4rem;
-				}
-				.step-desc {
-					font-size: 0.85rem;
-					color: rgba(255,255,255,0.6);
-					line-height: 1.5;
-				}
-				.step-fee {
-					display: inline-block;
-					margin-top: 0.75rem;
-					font-size: 0.78rem;
-					font-weight: 600;
-					color: var(--gold);
-					background: rgba(201,168,76,0.12);
-					padding: 0.25rem 0.75rem;
-					border-radius: 100px;
-				}
-
-				.pricing-strip {
-					max-width: 880px;
-					margin: 0 auto;
-					padding: 3rem 2rem;
-				}
-				.pricing-strip h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.5rem;
-					margin-bottom: 0.3rem;
-				}
-				.pricing-strip-sub {
-					color: var(--muted);
-					font-size: 0.92rem;
-					margin-bottom: 1.5rem;
-				}
-				.pricing-cards {
-					display: grid;
-					grid-template-columns: repeat(4, 1fr);
-					gap: 1rem;
-					margin-bottom: 1.5rem;
-				}
-				.price-card {
-					background: white;
-					border-radius: 10px;
-					padding: 1.25rem;
-					box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-					text-align: center;
-				}
-				.price-card.early { border-top: 4px solid var(--sage); position: relative; }
-				.price-card.early::before {
-					content: 'Best Rate';
-					position: absolute;
-					top: -10px;
-					left: 50%;
-					transform: translateX(-50%);
-					background: var(--sage);
-					color: white;
-					font-size: 0.68rem;
-					font-weight: 700;
-					text-transform: uppercase;
-					letter-spacing: 0.05em;
-					padding: 0.2rem 0.7rem;
-					border-radius: 100px;
-					white-space: nowrap;
-				}
-				.price-card.standard { border-top: 4px solid var(--turquoise); }
-				.price-card.rush { border-top: 4px solid var(--sunset); }
-				.price-card.closed { border-top: 4px solid var(--muted); opacity: 0.5; }
-				.price-window {
-					font-size: 0.75rem;
-					text-transform: uppercase;
-					letter-spacing: 0.06em;
-					font-weight: 600;
-					margin-bottom: 0.3rem;
-				}
-				.price-card.early .price-window { color: var(--sage); }
-				.price-card.standard .price-window { color: var(--turquoise-deep); }
-				.price-card.rush .price-window { color: var(--sunset); }
-				.price-card.closed .price-window { color: var(--muted); }
-				.price-dates {
-					font-size: 0.82rem;
-					color: var(--muted);
-					margin-bottom: 0.5rem;
-				}
-				.price-amount {
-					font-family: 'Fraunces', serif;
-					font-size: 1.6rem;
-					font-weight: 700;
-					color: var(--earth);
-				}
-				.price-card.closed .price-amount {
-					font-size: 1rem;
-					color: var(--muted);
-					font-family: 'DM Sans', sans-serif;
-					font-weight: 500;
-				}
-				.price-per { font-size: 0.78rem; color: var(--muted); }
-				.price-savings {
-					margin-top: 0.4rem;
-					font-size: 0.78rem;
-					font-weight: 600;
-				}
-				.price-card.early .price-savings { color: var(--sage); }
-				.price-card.rush .price-savings { color: var(--sunset); }
-
-				.timeline {
-					max-width: 880px;
-					margin: 0 auto;
-					padding: 0 2rem 3rem;
-				}
-				.timeline h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.5rem;
-					margin-bottom: 1.5rem;
-				}
-				.tl-items {
-					position: relative;
-					padding-left: 2rem;
-				}
-				.tl-items::before {
-					content: '';
-					position: absolute;
-					left: 6px;
-					top: 8px;
-					bottom: 8px;
-					width: 2px;
-					background: linear-gradient(to bottom, var(--turquoise), var(--sage), var(--gold), var(--sunset));
-				}
-				.tl-item {
-					position: relative;
-					margin-bottom: 1.25rem;
-				}
-				.tl-item::before {
-					content: '';
-					position: absolute;
-					left: -2rem;
-					top: 8px;
-					width: 14px;
-					height: 14px;
-					border-radius: 50%;
-					border: 3px solid var(--turquoise);
-					background: var(--sand);
-				}
-				.tl-item:nth-child(3)::before { border-color: var(--sage); }
-				.tl-item:nth-child(4)::before { border-color: var(--gold); }
-				.tl-item:nth-child(5)::before { border-color: var(--sunset); }
-				.tl-item:nth-child(6)::before { border-color: var(--sunset); background: var(--sunset); }
-				.tl-date {
-					font-size: 0.78rem;
-					font-weight: 600;
-					text-transform: uppercase;
-					letter-spacing: 0.06em;
-					color: var(--clay);
-				}
-				.tl-desc { font-size: 0.92rem; color: var(--earth); }
-
-				.cta-section {
-					background: linear-gradient(135deg, var(--turquoise-deep), var(--sage));
-					color: white;
-					padding: 3rem 2rem;
-					text-align: center;
-				}
-				.cta-section h2 {
-					font-family: 'Fraunces', serif;
-					font-size: 1.8rem;
-					margin-bottom: 0.5rem;
-				}
-				.cta-section p {
-					opacity: 0.85;
-					max-width: 560px;
-					margin: 0 auto 1.5rem;
-				}
-				.cta-buttons {
-					display: flex;
-					gap: 1rem;
-					justify-content: center;
-					flex-wrap: wrap;
-				}
-				.btn {
-					display: inline-flex;
-					align-items: center;
-					gap: 0.5rem;
-					padding: 0.85rem 1.75rem;
-					border-radius: 100px;
-					font-weight: 600;
-					font-size: 0.95rem;
-					text-decoration: none;
-					transition: transform 0.15s, box-shadow 0.15s;
-				}
-				.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
-				.btn-light { background: white; color: var(--earth); }
-				.btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
-
-				.needs-grid {
-					display: grid;
-					grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-					gap: 1rem;
-				}
-				.need-card {
-					background: white;
-					border-radius: 8px;
-					padding: 1.1rem;
-					box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-					font-size: 0.88rem;
-				}
-				.need-card strong {
-					display: block;
-					margin-bottom: 0.3rem;
-					color: var(--clay);
-					font-size: 0.82rem;
-					text-transform: uppercase;
-					letter-spacing: 0.04em;
-				}
-
-				.footer {
-					max-width: 880px;
-					margin: 0 auto;
-					padding: 2rem;
-					font-size: 0.78rem;
-					color: var(--muted);
-					text-align: center;
-				}
-				.footer a { color: var(--clay); }
-
-				@media (max-width: 700px) {
-					.hero { padding: 2rem 1.25rem; }
-					.section, .timeline, .pricing-strip { padding-left: 1.25rem; padding-right: 1.25rem; }
-					.steps-section, .budget-section { padding: 2rem 1.25rem; }
-					.value-strip { padding: 0 1.25rem; }
-					.value-grid { grid-template-columns: repeat(2, 1fr); }
-					.two-col { grid-template-columns: 1fr; }
-					.budget-stack { grid-template-columns: 1fr; }
-					.roi-scenarios { grid-template-columns: 1fr; }
-					.steps-grid { grid-template-columns: 1fr; }
-					.pricing-cards { grid-template-columns: 1fr 1fr; }
-					.phase2-grid { grid-template-columns: 1fr; }
-					.phase2-metric { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-right: 0; padding-bottom: 1rem; }
-					.phase2-metric:last-child { border-bottom: none; padding-bottom: 0; }
-				}
-			`}</style>
-
-			{/* LOGO HEADER */}
-			<div className="mb-8 py-2 px-6 bg-white flex flex-wrap items-center justify-between gap-6">
-				<Link href="/">
+		<div className="min-h-screen bg-[#f4f1ea] text-[#1c1a15] [font-family:IBM_Plex_Sans,system-ui,sans-serif]">
+			<header className="flex flex-wrap items-center justify-between gap-6 border-b border-[#d9d2c2] bg-[#fffdf7]/95 px-4 py-4 backdrop-blur sm:px-8 lg:px-12">
+				<Link
+					className="inline-flex"
+					href="/"
+					aria-label="Tribal Energy Network home"
+				>
 					<Image
-						src="/ten-logo.png"
-						alt="Tribal Energy Network logo"
-						width={300}
-						height={60}
+						src="/logo.png"
+						alt="Tribal Energy Network"
+						width={160}
+						height={80}
 						priority
-						sizes="(max-width: 768px) 250px, 300px"
 					/>
 				</Link>
-				<div className="flex gap-4 items-center">
+				<div className="flex items-center gap-4">
 					<Link
+						className="inline-flex"
 						href="https://www.amerindnation.com/"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Image
 							src="/an-logo.png"
-							alt="Amerind Nation logo"
-							width={240}
-							height={60}
+							alt="Amerind Nation"
+							width={210}
+							height={52}
 							priority
-							sizes="(max-width: 768px) 120px, 150px"
 						/>
 					</Link>
 					<Link
+						className="inline-flex"
 						href="https://www.7gnative.com/"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Image
 							src="/7g-logo.png"
-							alt="7G logo"
-							width={60}
-							height={60}
+							alt="7 Generations"
+							width={54}
+							height={54}
 							priority
-							sizes="(max-width: 768px) 40px, 40px"
 						/>
 					</Link>
 				</div>
-			</div>
+			</header>
 
-			{/* HERO */}
-			<section className="hero">
-				<div className="hero-inner">
-					<div className="invite-tag">Invite Only &middot; Pre-Vetted Sites</div>
-					<h1>Your Site Has Been Selected for <span>California NEVI 6</span></h1>
-					<p className="hero-sub">The California Energy Commission is awarding $79 million for DC fast charging stations along major corridors. Your location has been identified as a strong candidate and included in a coordinated tribal application. We handle the entire process — you provide the site and the commitment.</p>
-					<a href="https://calendly.com/ampace" className="hero-cta">Claim Your Spot →</a>
-				</div>
-			</section>
+			<main id="main" className="bg-[#f4f1ea]">
+				<section className="relative grid items-end overflow-hidden bg-[linear-gradient(90deg,rgba(28,26,21,0.9),rgba(28,26,21,0.58)_52%,rgba(28,26,21,0.28)),url('/ten2.jpg')] bg-cover bg-center px-4 pb-8 pt-20 text-[#fffdf7] after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-32 after:bg-gradient-to-t after:from-[#f4f1ea] after:to-transparent p-16">
+					<div className="relative z-10 mx-auto grid w-full max-w-7xl items-end gap-10 md:grid-cols-[1.12fr_minmax(280px,0.55fr)]">
+						<div>
+							<Eyebrow>CA NEVI 6 · EVSE + BESS portfolio</Eyebrow>
+							<h1 className="max-w-3xl text-balance font-serif text-6xl leading-[0.92] text-[#fffdf7] md:text-8xl">
+								Tribal EV Microgrid
+							</h1>
+							<p className="mt-5 max-w-3xl text-xl leading-relaxed text-[#fffdf7]/90 md:text-2xl">
+								$5M per-site EV fast charging + battery package designed to
+								limit Tribal cash exposure to $100k, while maximizing Tribal
+								energy sovereignty, battery economics, and capital weaving with
+								100% annual ROI.
+							</p>
+							<nav
+								className="mt-7 flex flex-wrap gap-3"
+								aria-label="Primary actions"
+							>
+								<PrimaryLink href="#eligibility" variant="gold">
+									Claim One of 20 Slots
+								</PrimaryLink>
+								{/* <PrimaryLink href="#downloads" variant="glass">
+									Download 1-Page Summary
+								</PrimaryLink> */}
+								<PrimaryLink href={bookingUrl} variant="glass" newTab>
+									Book a 30-Min Call
+								</PrimaryLink>
+							</nav>
+						</div>
 
-			{/* VALUE STRIP */}
-			<div className="value-strip">
-				<div className="value-grid">
-					<div className="val-card">
-						<div className="val-num">$1.2M</div>
-						<div className="val-label">Grant per Station</div>
-					</div>
-					<div className="val-card">
-						<div className="val-num">8</div>
-						<div className="val-label">DC Fast Charge Ports</div>
-					</div>
-					<div className="val-card">
-						<div className="val-num">180 kW</div>
-						<div className="val-label">Per Port Output</div>
-					</div>
-					<div className="val-card">
-						<div className="val-num">80%</div>
-						<div className="val-label">Grant-Funded</div>
-					</div>
-				</div>
-			</div>
-
-			{/* COHORT / NETWORK */}
-			<div className="section">
-				<div className="section-header">
-					<h2>You&apos;re in Good Company</h2>
-					<p>Your site is part of a coordinated California tribal application covering up to 20 high-traffic locations along Alternative Fuel Corridors. Strength in numbers: grouping eligible tribal sites into one application unlocks volume pricing, shared engineering costs, and a stronger competitive position with the CEC.</p>
-				</div>
-				<div className="network-intro">
-					<strong>Why this matters:</strong> The CEC&apos;s maximum award per applicant is 35% of the total solicitation ($27.65M). By applying as a coordinated tribal network rather than 20 separate single-site applications, we secure better pricing from EPC partners, avoid duplicating engineering and legal costs, and present a stronger, more cohesive proposal. Your site retains its own budget, grant allocation, and revenue stream — the network simply provides the scaffolding.
-				</div>
-				<div className="site-table-wrap">
-					<table>
-						<thead>
-							<tr>
-								<th>Site</th>
-								<th>Tribe</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr><td>Lucky 7</td><td className="tribe-col">Smith River / Tolowa Dee-ni&apos;</td></tr>
-							<tr><td>Tribal Fuel Mart</td><td className="tribe-col">Elk Valley</td></tr>
-							<tr><td>Pem Mey Fuel Mart</td><td className="tribe-col">Yurok</td></tr>
-							<tr><td>Rain Rock</td><td className="tribe-col">Karuk</td></tr>
-							<tr><td>Fuel &amp; Fun</td><td className="tribe-col">Blue Lake</td></tr>
-							<tr><td>Club at Mill Creek</td><td className="tribe-col">Big Lagoon</td></tr>
-							<tr><td>Pump and Play</td><td className="tribe-col">Rohnerville / Bear River</td></tr>
-							<tr><td>Rolling Hills</td><td className="tribe-col">Paskenta</td></tr>
-							<tr><td>Casino Gas Station</td><td className="tribe-col">Coyote Valley</td></tr>
-							<tr><td>Running Creek</td><td className="tribe-col">Upper Lake</td></tr>
-							<tr><td>Market &amp; Fuel</td><td className="tribe-col">Big Valley</td></tr>
-							<tr><td>Thunder Valley</td><td className="tribe-col">United Auburn</td></tr>
-							<tr><td>Red Hawk</td><td className="tribe-col">Shingle Springs</td></tr>
-							<tr><td>Sky River</td><td className="tribe-col">Wilton</td></tr>
-							<tr><td>TREDC</td><td className="tribe-col">Tule River</td></tr>
-							<tr><td>Chukchansi Gold</td><td className="tribe-col">Picayune</td></tr>
-							<tr><td>Golden Acorn</td><td className="tribe-col">Campo Kumeyaay</td></tr>
-							<tr><td>Cathedral City / Rancho Mirage</td><td className="tribe-col">Agua Caliente</td></tr>
-							<tr><td>Fantasy Springs</td><td className="tribe-col">Cabazon</td></tr>
-							<tr><td>Spotlight 29 / Shelee&apos;s</td><td className="tribe-col">Twenty-Nine Palms</td></tr>
-							<tr><td>Red Earth</td><td className="tribe-col">Torres-Martinez</td></tr>
-							<tr><td>Outlet Center / Pit Stop</td><td className="tribe-col">Viejas</td></tr>
-							<tr><td>Quechan</td><td className="tribe-col">Fort Yuma</td></tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			{/* WHAT WE HANDLE vs WHAT YOU PROVIDE */}
-			<div className="section" style={{paddingTop: 0}}>
-				<div className="section-header">
-					<h2>We Handle the Heavy Lifting</h2>
-					<p>This is a complex federal-state program with prevailing wage, environmental review, and utility coordination requirements. We manage all of it.</p>
-				</div>
-				<div className="two-col">
-					<div className="col-card ours">
-						<h3>What We Do</h3>
-						<ul className="checklist">
-							<li>Full grant application writing and strategy</li>
-							<li>Budget development for CEC submission</li>
-							<li>Preliminary site plans and engineering</li>
-							<li>CEQA and NEPA environmental forms</li>
-							<li>Utility verification and coordination</li>
-							<li>Letters of commitment orchestration</li>
-							<li>ECAMS portal registration and upload</li>
-							<li>Post-award project management</li>
-							<li>EPC procurement and vendor coordination</li>
-							<li>Davis-Bacon and prevailing wage compliance</li>
+						<ul className="grid list-none gap-px border border-[#fffdf7]/25 bg-[#fffdf7]/25 p-0">
+							{[
+								["$5.00M", "Total per-site project package"],
+								["$1M", "EVSE build sized for competitive NEVI scoring"],
+								["6 MWh", "Battery storage for demand control and resilience"],
+								["$100k", "Tribal cash match held in escrow, 100% annual ROI"],
+							].map(([value, label]) => (
+								<li className="bg-[#1c1a15]/50 p-4" key={label}>
+									<strong className="block font-serif text-3xl leading-none text-[#b36b1f]">
+										{value}
+									</strong>
+									<span className="mt-2 block text-sm text-[#fffdf7]/80">
+										{label}
+									</span>
+								</li>
+							))}
 						</ul>
 					</div>
-					<div className="col-card yours">
-						<h3>What You Provide</h3>
-						<ul className="checklist">
-							<li>Site address and confirmation of public access</li>
-							<li>Site control documentation (ownership or lease)</li>
-							<li>Utility provider contact information</li>
-							<li>Authorized signer for application</li>
-							<li>CA Secretary of State registration</li>
-							<li>$50,000 deposit to reserve your spot (held in trust until award)</li>
-						</ul>
+				</section>
+
+				<Section className="max-w-5xl"></Section>
+
+				<CoalitionThermometer />
+
+				<Section id="downloads">
+					<SectionHead title="A repeatable package for California Tribes">
+						TEN owns, operates, and maintains the EVSE + BESS through qualified
+						subcontractors while the Tribally-Owned Entity (TOE) receives a
+						contractual share of net operational benefits. The public cohort has
+						20 maximum slots for this CA NEVI 6 round.
+					</SectionHead>
+					<GridShell className="md:grid-cols-4">
+						<StatCard
+							value="8 CCS+NACS"
+							note="180kW Public DC fast-charging EV cabinets per site"
+						/>
+						<StatCard
+							value="6 MWh"
+							note="BESS storage capacity target to eliminate demand charges"
+						/>
+						<StatCard
+							value="≈$100k"
+							note="Target annual TOE benefit, subject to performance"
+						/>
+						<StatCard
+							value="0 Opex"
+							note="A PPA lets TO incurs no operating expenses, just savings + rev share"
+						/>
+					</GridShell>
+					<div className="pt-4">
+						<DisplayHeading>Why a coalition?</DisplayHeading>
+						<p className="mt-5 text-lg leading-relaxed text-[#3b3830]">
+							The capital stack scales with the coalition. Our first milestone
+							is <strong>5 Tribes</strong> — at which point NMTC becomes
+							practical at the portfolio level and covers roughly 20% of project
+							costs. Beyond that, the stretch goals compound: at{" "}
+							<strong>10</strong>, preferred pricing on EV chargers; at{" "}
+							<strong>15</strong>, on batteries; at{" "}
+							<strong>20 Tribes (approximately $100M)</strong>, the bridge and
+							permanent lending market — SSBCI, USDA REAP, and additional
+							facilities — opens fully. Joining earlier compounds the benefit
+							for every Tribe in the cohort.
+						</p>
 					</div>
-				</div>
-			</div>
+				</Section>
 
-			{/* HOW IT WORKS */}
-			<section className="steps-section">
-				<div className="steps-inner">
-					<h2>How It Works</h2>
-					<div className="steps-grid">
-						<div className="step-card">
-							<div className="step-num">1</div>
-							<div className="step-title">Reserve Your Spot</div>
-							<div className="step-desc">Confirm your site, provide basic information, and place your deposit. This secures your position in the tribal application and is held in trust — not billed until the grant is awarded and the CEC contract is executed.</div>
-							<div className="step-fee">20% of fee &middot; Deposit held in trust</div>
+				<Section>
+					<SectionHead title="Sources & uses, labeled plainly">
+						The model uses source-type labels throughout so finance teams can
+						distinguish grants, refundable credits, incentives, repayable
+						financing, and cash escrow without double-counting.
+					</SectionHead>
+					<GridShell className="md:grid-cols-4">
+						{uses.map(([label, amount, note]) => (
+							<StatCard key={label} value={amount} label={label} note={note} />
+						))}
+						<StatCard
+							value="$5.00M"
+							label="Total"
+							note="EV fast charging plus microgrid-ready battery storage."
+						/>
+						<StatCard
+							value="$100k"
+							label="Tribal cash"
+							note="Total contribution, equal to 10% of the EVSE budget and 2% of total project cost."
+						/>
+					</GridShell>
+
+					<GridShell className="mt-4 md:grid-cols-3">
+						{sources.map(([name, amount, type, note]) => (
+							<SourceCard key={name} title={name} amount={amount} type={type}>
+								{note}
+							</SourceCard>
+						))}
+					</GridShell>
+					<Disclaimer>
+						<strong>Planning model disclaimer:</strong> Presented before any
+						additional clean energy credits, LCFS revenue, utility programs, or
+						other incentives not yet identified. This information is not legal
+						or tax advice.
+					</Disclaimer>
+				</Section>
+
+				<Section>
+					<SectionHead title="Five easy $20k tranches">
+						The Tribal contribution is capped and milestone-based at 10% of the
+						EV portion (2% of the total $5 million project capital stack). All
+						funds are held in trust by Native bank partners as cash match
+						collateral for project financing.
+					</SectionHead>
+					<GridShell className="md:grid-cols-5">
+						{tranches.map(([date, amount, event]) => (
+							<div className="bg-[#fffdf7] p-5" key={date}>
+								<strong className="mb-2 block font-mono text-sm text-[#276449]">
+									{date}
+								</strong>
+								<b className="block text-xl text-[#1c1a15]">{amount}</b>
+								<p className="mt-2 text-sm text-[#3b3830]">{event}</p>
+							</div>
+						))}
+					</GridShell>
+					<Disclaimer>
+						<strong>WARNING: </strong>No Tribal partners may join the TEN
+						application after August 15, 2026, in order to ensure ALL coalition
+						members can meet the NEVI 6 application requirements.{" "}
+						<strong>Hurry!</strong> The application process requires
+						appointment-based eligibility review.
+					</Disclaimer>
+				</Section>
+
+				<section className="bg-[#1c1a15] text-[#fffdf7]">
+					<Section>
+						<SectionHead title="Sovereignty stays central." light>
+							The structure is designed to limit Tribal cash exposure, protect
+							operating capacity, and preserve a clear path to future TOE
+							ownership after capacity certification.
+						</SectionHead>
+						<div className="grid gap-5 md:grid-cols-2">
+							<div className="border border-[#fffdf7]/15 bg-[#fffdf7]/5 p-6 md:p-8">
+								<h3 className="mb-4 font-serif text-3xl leading-tight">
+									What the Tribe-Owned Entity provides
+								</h3>
+								<CheckList
+									items={[
+										"Tribally controlled land or site access, as applicable.",
+										"$100,000 cash match in escrow through five $20k milestones.",
+										"Site coordination and local approvals support.",
+										"Optional workforce coordination if desired.",
+									]}
+								/>
+							</div>
+							<div className="border border-[#fffdf7]/15 bg-[#fffdf7]/5 p-6 md:p-8">
+								<h3 className="mb-4 font-serif text-3xl leading-tight">
+									What Tribal Energy Network provides
+								</h3>
+								<CheckList
+									items={[
+										"Native-owned grant strategy, application management, and reporting.",
+										"Compliance, due diligence, procurement, EPC, and O&M coordination.",
+										"Transparent ROI waterfall: revenue → costs → distributions.",
+										"Paid-up PPA structure with capacity certification for  Tribal ownership.",
+									]}
+								/>
+							</div>
 						</div>
-						<div className="step-card">
-							<div className="step-num">2</div>
-							<div className="step-title">We Build &amp; Submit</div>
-							<div className="step-desc">Our team develops your full application — narrative, budget, site plans, environmental forms, utility verification — and submits everything through the CEC&apos;s ECAMS portal before the September 25 deadline.</div>
-							<div className="step-fee">40% of fee &middot; Due at submission</div>
-						</div>
-						<div className="step-card">
-							<div className="step-num">3</div>
-							<div className="step-title">Award &amp; Build</div>
-							<div className="step-desc">If awarded, we manage the full project — EPC procurement, construction oversight, commissioning, and 5-year operations setup. Your station opens and starts generating revenue for your tribe.</div>
-							<div className="step-fee">40% of fee &middot; Due at award</div>
-						</div>
+					</Section>
+				</section>
+
+				<Section>
+					<SectionHead title="Battery-first DCFC economics">
+						The TEN plan treats the battery as core infrastructure supporting
+						EVSE deployment. It is the control asset that makes fast charging
+						pencil, especially where demand charges would otherwise erase
+						margin.
+					</SectionHead>
+					<GridShell className="md:grid-cols-3">
+						{batteryNotes.map(([title, note]) => (
+							<SourceCard key={title} title={title}>
+								{note}
+							</SourceCard>
+						))}
+					</GridShell>
+				</Section>
+
+				<Section id="eligibility">
+					<SectionHead title="Determine your Tribe's best energy opportunity">
+						<strong>TEN participation is invite-only. </strong>We do not publish
+						eligible Tribe names or site candidates. We review eligibility
+						privately in an appointment, then map the best near-term and
+						long-term energy path according to your Tribal energy plans.
+					</SectionHead>
+					<GridShell className="mb-4 md:grid-cols-4">
+						{qualificationStats.map(([value, label, note]) => (
+							<StatCard key={label} value={value} label={label} note={note} />
+						))}
+					</GridShell>
+					<div className="grid gap-5 border border-[#d9d2c2] bg-[#fffdf7] p-5 md:grid-cols-[1fr_auto] md:items-center md:p-7">
+						<p className="max-w-3xl text-[#3b3830]">
+							We have identified 25 eligible Tribes along Alternative Fuel
+							Corridors in California. Of those, 17 are in New Markets Tax
+							Credit eligible census tracts and 9 are in Energy Community Tax
+							Credit eligible counties. Set an appointment to determine whether
+							your Tribe is eligible for the 2026 CA NEVI 6 cohort. If this
+							round is not the right fit, we can still identify the strongest
+							Tribal energy opportunities for your land, load, utility
+							territory, and capital position.
+						</p>
+						<PrimaryLink href={bookingUrl} newTab>
+							Set Eligibility Appointment
+						</PrimaryLink>
 					</div>
-				</div>
-			</section>
+				</Section>
 
-			{/* BUDGET, MATCH & ROI */}
-			<section className="budget-section">
-				<div className="budget-inner">
-					<h2>Your Investment &amp; Return</h2>
-					<p className="budget-sub">The CEC covers 80% of the project. Your tribe contributes 20% — half of which is value you already hold (land and staff time).</p>
-
-					<div className="big-callout">
-						<div className="big-callout-label">Your Total Cash Investment per Station</div>
-						<div className="big-callout-num">$150,000</div>
-						<div className="big-callout-sub">Out of a $1,500,000 fully built, commissioned, and maintained charging station</div>
-						<div className="big-callout-note">That&apos;s 10% of the project — the grant and your existing land cover the rest</div>
-					</div>
-
-					<div className="budget-stack">
-						<div className="budget-card">
-							<h3>What the Grant Covers (80%)</h3>
-							<div className="budget-line"><span>EVSE hardware (8 dual-port 180kW chargers)</span><span>$480,000</span></div>
-							<div className="budget-line"><span>Civil, electrical, and installation</span><span>$240,000</span></div>
-							<div className="budget-line"><span>Engineering, permitting, project management</span><span>$240,000</span></div>
-							<div className="budget-line"><span>Utility interconnection</span><span>$80,000</span></div>
-							<div className="budget-line"><span>5-year warranty, O&amp;M, and networking</span><span>$160,000</span></div>
-							<div className="budget-line total"><span>CEC Grant Award</span><span>$1,200,000</span></div>
-						</div>
-
-						<div className="budget-card">
-							<h3>Your 20% Match</h3>
-							<div className="match-bar-wrap">
-								<div className="match-bar">
-									<div className="match-grant">CEC Grant — 80%</div>
-									<div className="match-inkind">10%</div>
-									<div className="match-cash">10%</div>
+				<section className="bg-[#1c1a15] text-[#fffdf7]">
+					<Section>
+						<SectionHead title="Tribal Energy Partners" light>
+							Partner roles vary by geography, procurement outcome, and project
+							need. No manufacturer or EPC is represented as final until
+							contracted.
+						</SectionHead>
+						<div className="grid gap-px border border-[#fffdf7]/15 bg-[#fffdf7]/15 md:grid-cols-3">
+							{partnerDetails.map(([partner, description]) => (
+								<div className="bg-[#fffdf7]/5 p-5" key={partner}>
+									<strong className="block text-[#fffdf7]">{partner}</strong>
+									<span className="mt-2 block text-sm text-[#fffdf7]/75">
+										{description}
+									</span>
 								</div>
-								<div className="match-labels">
-									<span>$1,200,000</span>
-									<span>In-kind</span>
-									<span>Cash</span>
-								</div>
-							</div>
-
-							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--sage)", marginBottom: "0.5rem"}}>In-Kind — $150,000 (value you already hold)</div>
-								<div className="budget-line"><span>Use of your land for the station</span><span>$100,000</span></div>
-								<div className="budget-line"><span>Staff time (facilities, environmental, admin)</span><span>$50,000</span></div>
-							</div>
-
-							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--gold)", marginBottom: "0.5rem"}}>Cash — $150,000</div>
-								<div className="budget-line"><span>Your $50K deposit (applied post-award)</span><span>$50,000</span></div>
-								<div className="budget-line"><span>Remaining balance</span><span>$100,000</span></div>
-								<div className="budget-line" style={{fontSize: "0.82rem", color: "var(--muted)"}}><span>Payable at award, or financed against grant</span><span></span></div>
-							</div>
-
-							<div className="budget-line total"><span>Total Match</span><span>$300,000</span></div>
+							))}
 						</div>
-					</div>
+						<Disclaimer dark>
+							Partner roles vary by geography, procurement outcome, and project
+							need. No manufacturer or EPC is represented as final until
+							contracted.
+						</Disclaimer>
+					</Section>
+				</section>
 
-					<div className="section-header" style={{marginBottom: "1rem"}}>
-						<h2 style={{fontFamily: "'Fraunces',serif", fontSize: "1.3rem"}}>How Fast Does $150,000 Pay for Itself?</h2>
-						<p style={{color: "var(--muted)", fontSize: "0.92rem"}}>Your station earns revenue from every vehicle that charges. At California DCFC pricing ($0.40–$0.60/kWh) and 1,080 kW of total station capacity, the math works quickly.</p>
-					</div>
-					<div className="roi-scenarios">
-						<div className="roi-card conservative">
-							<div className="roi-scenario-label">Conservative</div>
-							<div className="roi-payback">14</div>
-							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>10%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.40</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$146K</strong> net revenue/yr</div>
-						</div>
-						<div className="roi-card moderate">
-							<div className="roi-scenario-label">Expected</div>
-							<div className="roi-payback">8</div>
-							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>15%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.44</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$256K</strong> net revenue/yr</div>
-						</div>
-						<div className="roi-card aggressive">
-							<div className="roi-scenario-label">Strong Market</div>
-							<div className="roi-payback">4</div>
-							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>20%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.48</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$465K</strong> net revenue/yr</div>
-						</div>
-					</div>
+				<Section id="faq">
+					<SectionHead title="FAQs">
+						<Link
+							className="inline-flex min-h-11 items-center justify-center border border-[#1c1a15] bg-[#1c1a15] px-4 py-3 font-bold text-[#fffdf7] transition-transform hover:-translate-y-0.5"
+							href={bookingUrl}
+						>
+							More questions? Book a Meeting
+						</Link>
+					</SectionHead>
+					<GridShell className="md:grid-cols-2">
+						{faqs.map(([question, answer]) => (
+							<details className="bg-[#fffdf7] p-5" key={question}>
+								<summary className="cursor-pointer font-bold text-[#1c1a15]">
+									{question}
+								</summary>
+								<p className="mt-3 text-[#3b3830]">{answer}</p>
+							</details>
+						))}
+					</GridShell>
+				</Section>
+			</main>
 
-					<div className="retainer-callout">
-						<strong>After payback, the station keeps earning.</strong> Your charging station has a useful life of 10+ years. Once you&apos;ve recouped your $168,750 investment — typically within the first year — the ongoing revenue is yours. At the expected utilization level, that&apos;s over $250,000 per year in net station revenue to your tribe, from an asset that was 80% grant-funded and built on land you already own.
+			<footer className="bg-[#1c1a15] px-4 py-8 text-sm text-[#fffdf7]/70 sm:px-8 lg:px-12">
+				<div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_1.3fr]">
+					<div>
+						<strong className="mb-1 block text-[#fffdf7]">
+							Tribal Energy Network
+						</strong>
+						Amerind Nation LLC · 100% Native-owned ·{" "}
+						<a href="mailto:pace@amerindnation.com">pace@amerindnation.com</a>
 					</div>
-
-					<div className="phase2-callout">
-						<span className="phase2-label">Phase 2 &middot; Battery Storage</span>
-						<div className="phase2-title">Add a Battery System — Capture Every Kilowatt at the Best Rate</div>
-						<p className="phase2-desc">Once your station is operational, we help you apply for California&apos;s Self-Generation Incentive Program (SGIP) to install a battery storage system. For qualifying tribal sites in high fire-threat districts or disadvantaged communities, SGIP can cover <strong>up to 100% of the battery cost</strong>. The battery charges overnight at low off-peak rates, then powers your chargers during expensive peak hours — eliminating demand charges and capturing pricing arbitrage.</p>
-						<div className="phase2-grid">
-							<div className="phase2-metric">
-								<div className="phase2-val">+$300K</div>
-								<div className="phase2-unit">Additional annual revenue</div>
-								<div className="phase2-desc" style={{marginTop: "0.5rem", fontSize: "0.82rem"}}>From demand charge avoidance and TOU arbitrage on the same charging load</div>
-							</div>
-							<div className="phase2-metric">
-								<div className="phase2-val">~$550K</div>
-								<div className="phase2-unit">Total annual revenue (expected)</div>
-								<div className="phase2-desc" style={{marginTop: "0.5rem", fontSize: "0.82rem"}}>Chargers + battery arbitrage combined, net of all operating costs</div>
-							</div>
-						</div>
+					<div>
+						<strong className="mb-1 block text-[#fffdf7]">Disclaimer</strong>
+						The funding model shown is a planning model and is contingent on
+						eligibility, award decisions, and program availability. Presented
+						before any additional clean energy credits, LCFS revenue, utility
+						programs, or other incentives not yet identified. This information
+						is not legal or tax advice.
 					</div>
 				</div>
-			</section>
-
-			{/* PRICING WINDOWS */}
-			<div className="pricing-strip">
-				<h2>Engagement Windows</h2>
-				<p className="pricing-strip-sub">Your deposit secures your spot and covers application preparation. Earlier commitment means a lower rate.</p>
-				<div className="pricing-cards">
-					<div className="price-card early">
-						<div className="price-window">Early Commitment</div>
-						<div className="price-dates">Before June 15</div>
-						<div className="price-amount">$40,000</div>
-						<div className="price-per">deposit per site</div>
-						<div className="price-savings">Save $10,000</div>
-					</div>
-					<div className="price-card standard">
-						<div className="price-window">Standard</div>
-						<div className="price-dates">June 15 – July 15</div>
-						<div className="price-amount">$50,000</div>
-						<div className="price-per">deposit per site</div>
-					</div>
-					<div className="price-card rush">
-						<div className="price-window">Late Entry</div>
-						<div className="price-dates">July 15 – Aug 15</div>
-						<div className="price-amount">$60,000</div>
-						<div className="price-per">deposit per site</div>
-						<div className="price-savings">+$10,000 expedite fee</div>
-					</div>
-					<div className="price-card closed">
-						<div className="price-window">Closed</div>
-						<div className="price-dates">After Aug 15</div>
-						<div className="price-amount">Not accepting new participants</div>
-					</div>
-				</div>
-				<div className="retainer-callout" style={{fontSize: "0.85rem"}}>
-					<strong>Your deposit is a long-term commitment to your tribe&apos;s energy future.</strong> The deposit is held in trust and not applied to any work until the CEC awards the grant and the contract is fully executed. If this particular application is not awarded, your deposit rolls forward — we apply it toward the next qualifying opportunity for your site, whether that&apos;s a future NEVI round, a SGIP battery storage project, or other federal and state energy programs. Your investment stays working until we secure a result.
-				</div>
-			</div>
-
-			{/* TIMELINE */}
-			<div className="timeline">
-				<h2>Program Timeline</h2>
-				<div className="tl-items">
-					<div className="tl-item">
-						<div className="tl-date">Now – June 14</div>
-						<div className="tl-desc">Early commitment window — reserve your spot at the best rate</div>
-					</div>
-					<div className="tl-item">
-						<div className="tl-date">June 15</div>
-						<div className="tl-desc">CEC begins accepting applications</div>
-					</div>
-					<div className="tl-item">
-						<div className="tl-date">August 15</div>
-						<div className="tl-desc">Last day to join — no new participants after this date</div>
-					</div>
-					<div className="tl-item">
-						<div className="tl-date">September 25</div>
-						<div className="tl-desc">Application deadline — 11:59 PM, no exceptions</div>
-					</div>
-					<div className="tl-item">
-						<div className="tl-date">December 2026</div>
-						<div className="tl-desc">Anticipated award announcements</div>
-					</div>
-					<div className="tl-item">
-						<div className="tl-date">Q2 2027</div>
-						<div className="tl-desc">Project start — construction and station buildout begins</div>
-					</div>
-				</div>
-			</div>
-
-			{/* CTA */}
-			<section className="cta-section">
-				<h2>Ready to Claim Your Station?</h2>
-				<p>Your site was selected because it&apos;s in the right location, with the right traffic, and the right infrastructure potential. Let&apos;s put the funding to work.</p>
-				<div className="cta-buttons">
-					<a href="https://calendly.com/ampace" className="btn btn-light">Schedule a Call →</a>
-					<a href="mailto:pace@amerindnation.com" className="btn btn-outline">Email Us</a>
-					<a href="tel:+17036720267" className="btn btn-outline">Call (703) 672-0267</a>
-				</div>
-			</section>
-
-			{/* WHAT TO HAVE READY */}
-			<div className="section">
-				<div className="section-header">
-					<h2>What to Have Ready</h2>
-				</div>
-				<div className="needs-grid">
-					<div className="need-card">
-						<strong>Site Address</strong>
-						Confirmed location with public access and 24/7 availability
-					</div>
-					<div className="need-card">
-						<strong>Site Ownership</strong>
-						Documentation showing your tribe owns or leases the property
-					</div>
-					<div className="need-card">
-						<strong>Utility Contact</strong>
-						Your electricity provider name and any existing account info
-					</div>
-					<div className="need-card">
-						<strong>Authorized Signer</strong>
-						Tribal council member or administrator authorized to sign agreements
-					</div>
-					<div className="need-card">
-						<strong>CA Registration</strong>
-						Active registration with the California Secretary of State
-					</div>
-					<div className="need-card">
-						<strong>Decision Timeline</strong>
-						Ability to commit within 30 days — spots are limited and time-sensitive
-					</div>
-				</div>
-			</div>
-
-			{/* FOOTER */}
-			<div className="footer">
-				&copy; 2026 Tribal Energy Network &middot; Amerind Nation LLC &middot; <a href="mailto:pace@amerindnation.com">pace@amerindnation.com</a><br />
-				This is informational, not tax or legal advice. Program terms subject to CEC solicitation manual GFO-25-603. Revenue and Phase 2 projections are illustrative and based on industry data; actual results will vary by location, utilization, and SGIP program availability.
-			</div>
-		</>
+			</footer>
+		</div>
 	);
 }

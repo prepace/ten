@@ -1,0 +1,751 @@
+AN-TEN - May 02
+VIEW RECORDING - 54 mins (No highlights): https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF
+
+---
+
+0:00 - Brad Fausett
+  Hey.
+
+0:02 - Pace Ellsworth (flyingovertime.org)
+  Hey, Brad.
+
+0:04 - Jenni
+  How's it going?
+
+0:06 - Pace Ellsworth (flyingovertime.org)
+  Good. Well, how about you?
+
+0:10 - Jenni
+  It's warm.
+
+0:12 - Brad Fausett
+  Are your lights out or do you have something covering your camera? Maybe I have something. There you go. Is better?  Yeah. I'm sweating like crazy.
+
+0:25 - Pace Ellsworth (flyingovertime.org)
+  Yeah, Brad is hot. Brad is telling me that the sun comes out like full at 5 a.m. in Coast Guard.
+
+0:32 - Jenni
+  Honduras.
+
+0:34 - Brad Fausett
+  Honduras, Honduras, right.
+
+0:35 - Pace Ellsworth (flyingovertime.org)
+  What is that all about? It's just, it's honestly, I think.
+
+0:39 - Brad Fausett
+  They don't have daylight savings.
+
+0:40 - Pace Ellsworth (flyingovertime.org)
+  They don't have daylight savings and it's the way that they chose to do their time zones. The way all of Central America does its time zones is in line with Mexico, but it's way further east than Mexico.  So, yeah, they don't do it right. How are looking, guys? So I went to two conferences this week at the same hotel in Reno, the Grand Sierra Resort, which is owned by the Washu tribe of Nevada and California.  And I spoke to the chairman of that tribe, too, who's at the energy part of it. It was good.  And he invited me, actually, to go on their website, contact the tribe, and see if there's some kind of digital transformation project we could do with them, too.  But the main things I found out were that there are just, you know, obviously tremendous opportunities in Indian country.  And a few of the things that changed recently, there's like a big tax change that's going to make it.  So any of the per cap stuff gets. Shunted over to being defined as welfare. So it's non-taxed. And that includes any income from any tribally owned entity, which is pretty cool.  You know, even if you heard about that. Yeah.
+
+2:17 - Brad Fausett
+  So it's good.
+
+2:19 - Pace Ellsworth (flyingovertime.org)
+  And the, but then the, that was that. So I learned that part in the National Association of, of, so the Native American Finance Officers Association is what it was.
+
+2:31 - Brad Fausett
+  Okay. NFOA.
+
+2:33 - Pace Ellsworth (flyingovertime.org)
+  But then after NFOA, people could stick around for another day and a half about tribal clean energy finance.
+
+2:41 - Brad Fausett
+  And that was sponsored by the Alliance for Tribal Clean Energy.
+
+2:45 - Pace Ellsworth (flyingovertime.org)
+  And it was really cool because they went through all of the different kind of like capital stack. They call it capital weaving because it's not just a stack.  It's not just a one-time thing because I'll be obviously hands-on. Their capital expenditure spreadsheet, basically where their priorities are.  More so the sources, right? What are the sources of funding?
+
+3:08 - Brad Fausett
+  I gotcha. And how do you qualify for those?
+
+3:11 - Pace Ellsworth (flyingovertime.org)
+  Because there are certain sources that you need to have a deposit for, and then certain sources that you need to have finished the construction and put it in operation.  That's all of the...
+
+3:23 - Brad Fausett
+  It has to be, yeah, the phases of the operation are in there, yes. Gotcha.
+
+3:27 - Pace Ellsworth (flyingovertime.org)
+  So the direct pay tax credits, the elective pay credits from the IRS, those are the ones that are, it's the IRA credit for solar and, you know, for power generation.  It's 48E for batteries.
+
+3:42 - Brad Fausett
+  Yeah. There was one 30E, right, for EY. It's my understanding that some of those, if they reach a certain megawatt, have to be in construction by July.  If they're under a certain megawatt, then they're good until 27, right?
+
+3:58 - Pace Ellsworth (flyingovertime.org)
+  mean, until... Yeah. until... Right. But we're not going to look at generation right now. We're staying away from it, partially because of just the timeframes of how fast you'd have to get things done.  It's probably better to wait until there's a more well-easily-defined market identifier for it on that side. That's policy too.
+
+4:25 - Brad Fausett
+  We're in a policy shift on generation. It's hard to invest in policy shifts.
+
+4:30 - Pace Ellsworth (flyingovertime.org)
+  There are two other sources that I didn't know anything about, but I'd heard of, but we hadn't really done anything with, because they're a little bit complex.  One is New Markets Tax Credit, which I've read a little bit about, but basically it works out to net about 15% to 25%, average 20% of the project cost.  And that could go for any project. doesn't matter what it is. doesn't have anything to do with clean energy specifically.  ... But if it's a project, you can use it, as long as there's some kind of a benefit to it.  And there are specific parcels that are eligible, or specific census tracts that are eligible, just like with the Energy Community Bonus Tax Credit, which I think that one's by county or congressional district or something, but this one's by census tract.  So there's that one. So that's 20%. And then I learned that there's also this SSBCI. That is like a use it or lose it thing.  Only like 200 tribes got allocations, and they don't have to necessarily be the same tribes that we would serve.  They could source loans from those tribes that got the allocations. And as long as they go into a project once and then they come back, then the tribe can use that money for whatever they want.  Right. That's my general understanding. I didn't get deep into the weeds on that one, but basically it seems like it's a good source of additional capital, and if they don't use it, they'll lose it.
+
+6:07 - Brad Fausett
+  Yeah.
+
+6:09 - Pace Ellsworth (flyingovertime.org)
+  And I don't know how short of a time frame they've got. They've pushed back the deadline a few times.  They'll probably keep pushing it back, but they've got maybe a year or two, and they're going to be pushed to use it.  And then I talked to some of their technical folks at the Alliance about what the best battery solutions would be for building battery storage systems that would support EV chargers.  Because... What'd they say? That, well, I got a specific paper from one of the guys. Let's see. It's around here.  Sodium?
+
+6:51 - Brad Fausett
+  Yep.
+
+6:52 - Pace Ellsworth (flyingovertime.org)
+  Yeah.
+
+6:53 - Brad Fausett
+  I think that's... I think because of space, you know, and you don't have to worry about space. They're small enough.  So the benefits to sodium ion that Dr.
+
+7:05 - Pace Ellsworth (flyingovertime.org)
+  Ramon Sanchez was saying was that it's even though it's more dense, that's the con. And so it's heavier. That doesn't matter in a fixed building, really.  And but the benefits are that doesn't heat up. No, like at all. No.
+
+7:22 - Brad Fausett
+  And and that's great.
+
+7:23 - Pace Ellsworth (flyingovertime.org)
+  The positive one charge.
+
+7:25 - Brad Fausett
+  I mean, it's really stable. It doesn't go crazy on you. get no thermal overloads. Super easy. But you just need 10 times more space.  And that's why. And it's like 100 times more weight. And that's why everybody's so hesitant about it, because most batteries are mobile devices.  Right. And weight is an issue. Size is an issue. But when it comes to like substation and infrastructure, a quarter acre is a quarter acre.  Doesn't really matter. Stack the damn Connex boxes on top of each other.
+
+7:53 - Pace Ellsworth (flyingovertime.org)
+  And we'll dig a hole, you know. Yeah. And we will fill them up with batteries.
+
+7:58 - Brad Fausett
+  It'll be fine. Yeah. And I think so. They've already taken off in China. Their whole supply chain in China is cranking.  I think that's a good answer.
+
+8:11 - Pace Ellsworth (flyingovertime.org)
+  So the other two alternatives he gave, one is secondhand automotive lithium batteries, which I think that's disqualified for just take any car battery that was lithium ion and then just take the cells out and build a new battery out of them.  Because everything else is recyclable, but those heavy metals are not very easily recyclable.
+
+8:35 - Brad Fausett
+  I know a lot of people are taking them and then because they're sitting at 70% to 80% and they can't run a car anymore, they put them on as backup storage for homes and integrate a microgrid to them.
+
+8:48 - Pace Ellsworth (flyingovertime.org)
+  That might be nice to do. The problem is...
+
+8:52 - Brad Fausett
+  Thermal runaway and then burning the house down. There's that.
+
+8:57 - Pace Ellsworth (flyingovertime.org)
+  Also just using them as... As the spotlight on a tax credit project, you can't really do it. It needs to be a new system.  Maybe there's a way we could work it in, but we also have to source them.
+
+9:11 - Brad Fausett
+  New recycling system for the batteries.
+
+9:13 - Pace Ellsworth (flyingovertime.org)
+  It has to be a manufactured new battery. so a post-value manufacturing supply line or these kinds of batteries.
+
+9:23 - Brad Fausett
+  I'm not sure that we could get a tax credit out of a recycled battery.
+
+9:27 - Pace Ellsworth (flyingovertime.org)
+  Yeah, okay.
+
+9:28 - Brad Fausett
+  But if you remanufacture them, we could. Maybe.
+
+9:32 - Pace Ellsworth (flyingovertime.org)
+  Yeah, if you did have a remanufacturer that did a decent job of packaging them in the U.S., then it would be just fine because their source was a U.S.  inventory or landfill or whatever.
+
+9:48 - Brad Fausett
+  Right, right, right.
+
+9:50 - Pace Ellsworth (flyingovertime.org)
+  And the place to get them are these dealers and stuff. But anyway, it's not an easy source because none of the dealers are listing their inventory.  I don't I I Of these, like, secondhand batteries. The last one was flow batteries, vanadium redox. Yeah. And I don't know anything about how they work, just except that they are basically part capacitor.  So you have an instant recharge.
+
+10:18 - Brad Fausett
+  Yeah, and that's the solution.
+
+10:20 - Pace Ellsworth (flyingovertime.org)
+  Or well unlimited voltage.
+
+10:22 - Brad Fausett
+  For the ones that are going to vary in voltage a lot, like your substation backup batteries or your UPS uninterrupted power supply systems, it almost has to have some kind of capacity to it.  That way it can store a certain amount of amps and then discharge and then re-up and then store. And if you can put that on the front line of where your load is and then put your battery tech right behind it.  So if you've got sodium ions that are holding the charge and then this capacitor bank is leveling the charge out, then your balance is, like, perfect, right?
+
+10:56 - Pace Ellsworth (flyingovertime.org)
+  Coming out of that battery all So we could use it as a giant charge controller. Like maybe it was just a half megawatt hour or something like that, or some smaller size flow battery, but have it in conjunction with a much cheaper, larger battery set for sodium ion.  Anyway, we could figure that out. So we needed to find that tech stack. But the idea here is that we're going after EV charging first as the door, because California is going to spend the NEVI grant this year.  They've already put out three of the proposals, and they have the fourth one that's coming out in June. And that one is not restricted to region.  The others were restricted to either SoCal or NorCal. This one says this is the last one. We've got the last of the federal money for EV charging stations, and we need to get it out of the way before we have to start spending state money again.  So California is administering it through California Energy Commission. They are, and it's an 80% grant that only requires 10% cash match.  So that by itself was still, was good. But then I got everybody asking me, how does that pencil? I'm like, what do you mean?  It has to pencil. Like you're charging more for the power than you're spending. Like it has to work, right?  Especially if you're getting it for free, but they're not thinking, they're not thinking about the grant. They're thinking like, does it pencil by itself without the grant?  And the answer is no, it doesn't. Right? So if you had to finance 100% of it, your finance charges would exceed the profit that you would have on the system on running it with high traffic, even in high traffic, especially high traffic, right?  Because it's actually worse if you have more demand charges. Yeah. But if you build batteries in at the same time, then everything stays off peak with no demand charges.
+
+12:59 - Brad Fausett
+  Right. Right. Right. you.
+
+13:01 - Pace Ellsworth (flyingovertime.org)
+  And even if that's higher than the national average, even if that's 14 cents a kilowatt hour or 18 cents a kilowatt hour, depending on where you are and how stressed the grid is in general, it's still way better with batteries.  So we're going to, I've defined, you know, based on the fact that we recently got a grant issued in Washington state, we're helping with one tribe's convenience store adding EV charging stations.  Um, we know what the pricing is for the EV part. So we're able to price it out so that we're able to get the grant in California because we know that they do it based off of the cheapest price per CCS port.  Um, it's possible that we, we like get out competed in certain, certain areas, certain sites, and maybe we need to be a little bit, if we can, if we can do it this way, then.  We might want to shunt more of the cost over onto the battery side and less onto the EV side just to make sure that we get the grant.  But we can work it out so that we do as much as possible. We get the incentive on the grant for California, and then we get the new market tax credit over the whole thing.  So there's a California incentive, a big California incentive for the batteries. It's not massive, massive, but it's pretty big.  And then there's federal credits for the batteries, too.
+
+14:45 - Brad Fausett
+  batteries solve a lot of problems for the DOE. So, I mean, the Fed should be... Yes. Add it all up.
+
+14:53 - Pace Ellsworth (flyingovertime.org)
+  It'll cover 90% to 95%, maybe over 100% of the cost for... Both systems. If we just keep it to about $5 million per tribe, and we can do up to 20 sites on the EV grant.  So that means if we do 20 sites and add batteries to all the sites, and we keep it to a $5 million total build, then it's $100 million that we could go after.  And what we have going against us is that the EV grant application is due in September, which is four months away.  That's a short time period to get 20 tribes to sign on.
+
+15:39 - Brad Fausett
+  I see what you're saying.
+
+15:41 - Pace Ellsworth (flyingovertime.org)
+  But it's not impossible, especially if everybody works together.
+
+15:48 - Brad Fausett
+  Eat that elephant one bite at a time. just start and get you some and go get you a few more and we'll just see where we're at.  We're like, hey, why are you going for 20?
+
+15:56 - Pace Ellsworth (flyingovertime.org)
+  Why not go for less? I'm like, it doesn't matter how many we get. Like, yeah. We can get three, can get five, we can get 10.
+
+16:02 - Brad Fausett
+  Yeah. But 20 would be awesome because we'll be at a hundred million. Exactly.
+
+16:06 - Pace Ellsworth (flyingovertime.org)
+  Yeah. So if we can get, I'm thinking to do it more of a bandwagon so that we can get there.
+
+16:12 - Brad Fausett
+  Volumize, volumize, volumize.
+
+16:14 - Pace Ellsworth (flyingovertime.org)
+  Because if we get five, that puts us in the range where we're really going to get 20% on new markets.  If we get 10, we're probably going to get better rates on the EV charging stations. If we get 15 to 20, we'll probably get much better rates on the batteries.
+
+16:30 - Brad Fausett
+  Who's making these sodium batteries? Do we know? Beredion.
+
+16:36 - Pace Ellsworth (flyingovertime.org)
+  They have, they're a UK company that was bought by an Indian company, but they manufacture them in the Salton Sea, which is right next to one of the tribes.  And in California too. So they probably have a California entity that's actually the immediate manufacturer.
+
+16:56 - Brad Fausett
+  Well, what I hear when you say that though, is we're going to pay. a top dollar for batteries.
+
+17:02 - Pace Ellsworth (flyingovertime.org)
+  Yes. And that's okay.
+
+17:05 - Brad Fausett
+  I mean, that's okay. I think we won't pay as much as we would for lithium. That's for sure. But we're going to pay out the nose for some sodium batteries in California.
+
+17:13 - Pace Ellsworth (flyingovertime.org)
+  Is that still cheaper than lithium? Oh, it will be. Yeah, you know.
+
+17:18 - Brad Fausett
+  And then there's also a company called, I think, Natron.
+
+17:22 - Pace Ellsworth (flyingovertime.org)
+  I'm going to look at that one too. Yeah, I've seen them before.
+
+17:26 - Brad Fausett
+  I've did some research on them not too long ago.
+
+17:28 - Pace Ellsworth (flyingovertime.org)
+  So, Natron Energy, oh, shuts down and ceases operations according to last month, last year.
+
+17:34 - Brad Fausett
+  Okay, never mind. Maybe not. Never mind. That might have been what I was researching. I mean, there's definitely some overseas, but a lot of people don't want to go there right now.
+
+17:42 - Pace Ellsworth (flyingovertime.org)
+  Yeah, maybe there's Samsung batteries that could be somehow pushed through because Samsung's got some great ones.
+
+17:48 - Brad Fausett
+  Yeah.
+
+17:48 - Pace Ellsworth (flyingovertime.org)
+  We might do that because we would pass FIAC, which is a requirement on the batteries, but not yet a requirement on the solar, where if it's a Chinese battery, it's out.  We can't do Chinese batteries. Which sucks because they have the big Chinese factories that make the Chinese batteries that are bad to the bone.  It's like, dang it. So who copied that plant? Who's doing that?
+
+18:14 - Brad Fausett
+  Who's doing the same thing somewhere else, right? Yeah. Samsung is good.
+
+18:19 - Pace Ellsworth (flyingovertime.org)
+  So we can look at that. We wouldn't get domestic content bonuses, which we might be able to get domestic content bonus and save more money if we do the other.  So actually, good point about maximizing, minimizing the cost on the EV so we can definitely get the grant. Because the margin is tight.  If we minimize it further, then we're better off. Yeah. But what we're going to do is we're going to ask the tribes to put in some percentage as cash match.  So if we make it more of like a one and four. Instead of 1.5 and 3.5, then it might be even easier for them to get their heads around.  And then we basically asked them to do 10% cash match on the EV, and that's only 2% of the total.
+
+19:19 - Brad Fausett
+  But they still get the benefit of making close to $100,000 a year, so they could get a full ROI in year one of operation.
+
+19:34 - Pace Ellsworth (flyingovertime.org)
+  I like those numbers better. Yeah, and that's good. The only thing we'd have to do to make that happen is just move all of our profit margin over on a battery project.
+
+19:48 - Brad Fausett
+  But that's the idea.
+
+19:51 - Pace Ellsworth (flyingovertime.org)
+  We got Colusa Indian Energy as a company that's doing a lot of EPC in California for microgrids. Setups. And then there are just a lot of other service providers.  There's this one other one that they don't have any native clients right now, but they sponsored the Tribal Clean Energy Forum, Illumina, and they focus on energy efficiency systems and on doing project management.  Let show you what their website looks like. But she gave me a little demo of their software platform, and it's extremely specific.
+  SCREEN SHARING: Pace started screen sharing - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=1228.265226  I don't think we could build something very easily like it, but it goes through and does a decent job of showing for specific feeder charge controller data, what are the gains that we're having in the system.  And so it's pretty good, and they have used it to manage EV chargers and battery back. So I think there might be...  it's been tested and put in the field and already figured out. Okay.
+
+21:06 - Brad Fausett
+  So we might want to do that.
+
+21:08 - Pace Ellsworth (flyingovertime.org)
+  She said, you know, she'd have to look at our project and want to quote something like 7% to 12% of hard costs for them to come in and do the project management for that.  So we wouldn't have to just learn their system. You know, we could just have them do it with us and then they could take kind of the construction project management part away from us.  Yeah.
+
+21:33 - Brad Fausett
+  We don't have to be the technical people there.
+
+21:36 - Pace Ellsworth (flyingovertime.org)
+  Yeah. And if it's hard costs, then we can just take our Washington grant, for example. And I mean, I don't doubt that we'd be able to do it without their help for the Washington one, but it'd be nice to get our feet wet with it if we want to do something much bigger.  And obviously... There's the other side. So after this project, what happens in 2027, 2028? Well, we would want to lower the off-peak rate by adding renewable systems.  We'd want to add some kind of energy production that would lower our base energy costs. And then later, we could add some kind of like data center stuff.  I will have so many data centers to auction off by then, it won't be any big deal. Exactly. We could just reappropriate all the stuff from previous channels.
+
+22:39 - Brad Fausett
+  So of the things I'm researching right now is the 15-year contracts by the AI data centers versus the 40-year contract for the electrical asset for the electrical generation.  So 15 and 40 don't math first. And And what I am seeing is that efficiency rates and the software behind it is getting more and more efficient, that they're only going to need a fraction of the electricity in 15 years.
+
+23:11 - Pace Ellsworth (flyingovertime.org)
+  The singularity does not match up with having a five-year time to operate, like permission to operate the timeline.
+
+23:18 - Brad Fausett
+  It doesn't make any sense. y'all even thinking this through?
+
+23:21 - Pace Ellsworth (flyingovertime.org)
+  Yeah, we're going to have, AI is going to cost one millionth of what it costs right now in three years.  Things like how, yeah, what are you going to do with the data centers at that point? Probably a lot more calculation, you know?  Probably.
+
+23:38 - Brad Fausett
+  I mean, they'll figure it out, but I think you'll see consolidation on all the little guys get eaten.
+
+23:43 - Pace Ellsworth (flyingovertime.org)
+  Something's going to happen, right? And there's going to be a wave crashing and then, you know, like falling back and there'll be some assets that can be reacquired for a lot cheaper.  Yeah. So anyway, basically doing... This accomplishes creating a reason for batteries for free and then getting the batteries for free too.  Any gap that we need to cover can cover from some kind of federally backed financing, whether that's USDA REAP loans or SSBCI or some other type of thing.  And we're not even counting renewable energy credits that I think we still might be able to get from certain things.  And we're not counting any private money. So it's all just banks. And we got a good commitment from Sovereign Bank that they'll lock in the rates for us if we start early.  And they will do a secured CD. So we could tell the tribes that what they put in as a cash match is just held in trust in a CD secured.  Fathom asset, and then we borrow against that.
+
+25:05 - Brad Fausett
+  So that's still there.
+
+25:07 - Pace Ellsworth (flyingovertime.org)
+  It's in there as collateral, but it's not getting spent. It's not getting invoiced against the EV project until the EV grant is awarded in December.  Okay. Yeah. That's a great update.
+
+25:23 - Brad Fausett
+  In a nutshell. Yeah.
+
+25:25 - Pace Ellsworth (flyingovertime.org)
+  Yeah. So I actually am actually very confident that we can get at least 10. I don't think it's going to be a problem.  I met five of them there. And they were like, oh, interesting. Let's talk. good.
+
+25:39 - Brad Fausett
+  Yeah.
+
+25:41 - Pace Ellsworth (flyingovertime.org)
+  And we've already visited like five or 10 of them before in person. So I think we're not going to have a problem.  It all comes down really to do they have the space and do they not have an alternative? Like one of them.  Was saying, I think it was Coyote Valley, like, oh, we already are talking to somebody about adding, you know, some kind of fast chargers.  And so I'm like, oh, okay, well, let's, let me find out if that, what you're talking about is the same type of thing, because most of the people that say that, they're talking about level two chargers for their hotel.
+
+26:20 - Brad Fausett
+  Right. Yeah.
+
+26:22 - Pace Ellsworth (flyingovertime.org)
+  Not level threes that they're charging. level threes.
+
+26:24 - Brad Fausett
+  Right. But also it's like, maybe we should add batteries to that.
+
+26:29 - Pace Ellsworth (flyingovertime.org)
+  Oh, I think it's smart.
+
+26:30 - Brad Fausett
+  I think it battery, you know, we talked about it a couple of months ago and I was like, batteries with solar.  mean, and you're making your own money then.
+
+26:37 - Pace Ellsworth (flyingovertime.org)
+  Yeah. Or maybe, maybe, maybe put a pause on your plan because if you haven't started construction yet, maybe you can get a grant for that.  So, so yeah, so we'll, we'll have to, we'll have to be quick about it. And we're not working alone.  We're working with a bunch of other people that would be partners in the production and, and we're figuring out like how much we'd.  Keep as a team and identify these different areas of success.
+
+27:10 - Brad Fausett
+  Sounds great. I love it. It's good. It's all good.
+
+27:14 - Pace Ellsworth (flyingovertime.org)
+  Jenni, are you still there?
+
+27:19 - Brad Fausett
+  She's driving.
+
+27:20 - Pace Ellsworth (flyingovertime.org)
+  Jenni, she's probably dealing with family stuff. What would you want to do the most? If we can get this going.
+
+27:33 - Brad Fausett
+  What I want to do the most. If we can get a few deposits here.
+
+27:36 - Pace Ellsworth (flyingovertime.org)
+  Because it's quite likely that the grant application opens in June. I'm going to start pushing tribes. It's June 15th.  I'm going to start pushing them to say, Hey, we need you to be in place so that we can submit this in June.  And I'll offer them some kind of a... Anything batteries I want to be involved in. Okay, good. Anything DC voltage, I would like to be involved in.
+  ACTION ITEM: Email Brad 48V white papers + current battery research - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=1682.9999  Perfect.
+
+28:06 - Brad Fausett
+  This is that.
+
+28:08 - Pace Ellsworth (flyingovertime.org)
+  Yeah.
+
+28:10 - Brad Fausett
+  I mean, that would be my priority for sure. And I've got some white papers on 48 volt systems. I've got some stuff that I need to share with you anyways.  And my new company is really going to be focused on the 48 volt systems and backup battery. And I think I just got funded by the environmental, or I'm sorry, the energy, the U.S.  Foundation. And they want me to start investigating the joint targeted interconnection queue for ERCOT, MISO, and ERCOT and SPP.  And it's about a million dollars a megawatt to add anything to a grid right now. So they're wanting me to look at it because my whole idea was you have all this load coming on.  You have all this excess production in Texas. Why isn't ERCOT? Given an exemption so that they can still feel independent, not like they're, you know, got to be regulated by FERC, give them an exemption, let's build the HVDC interconnects, and you've got, right now it's negative five cent, they're giving away power every day in Texas for five hours.  They've got too much. They're going to burn their damn system down if they don't do something with it. And they're building more constantly.  So it's like, y'all got to get this into the other grids.
+
+29:29 - Pace Ellsworth (flyingovertime.org)
+  That's hard to, that's so hard to like make sense of, because I heard at the conference that the Oklahoma utility providers are undercharged.
+
+29:39 - Brad Fausett
+  No, they are. No, Oklahoma's terrible. Yeah, because they're an SPP. They need the ERCOT, they need the ERCOT power.  Okay, so ERCOT can give its power away to Oklahoma. So the highest energy density in the entire world is Western Texas.  And so you've got the most sun, the most wind, the most oil, the most infrastructure that can be built.
+
+30:00 - Pace Ellsworth (flyingovertime.org)
+  Reduce energy is right there in West Texas.
+
+30:02 - Brad Fausett
+  And they realized that in 2009 when they did the Department of Energy analysis of the United States. So because it's been so built out, but nobody lives in West Texas.  They need transmission lines everywhere. Got it.
+
+30:15 - Pace Ellsworth (flyingovertime.org)
+  Okay.
+
+30:16 - Brad Fausett
+  But transmission lines are taking five to 10 years to get built at a million dollars a mile, which is ridiculous.  You know, at this point, it's ridiculous. So it's like they can only scale down and turn off production, right?
+
+30:27 - Pace Ellsworth (flyingovertime.org)
+  Can't they?
+
+30:28 - Brad Fausett
+  Sure. But that's just money on the table.
+
+30:31 - Pace Ellsworth (flyingovertime.org)
+  True. You're talking about a policy.
+
+30:34 - Brad Fausett
+  I see.
+
+30:34 - Pace Ellsworth (flyingovertime.org)
+  I see. And if it's high-pensibility lines.
+
+30:36 - Brad Fausett
+  paper that says Texas wants to be independent. So therefore, they're not allowed to sell to anybody. They can't even go outside of Texas because they want to be independent.  So they can't even play with the feds because they want to be Texas and independent. Well, the moment they sell an electron over that border, they're no longer an independent power production grid.
+
+30:59 - Pace Ellsworth (flyingovertime.org)
+  It doesn't That's so funny. dumbest  ever.
+
+31:02 - Brad Fausett
+  It's the opposite argument that everybody's trying to make to tribes.
+
+31:07 - Pace Ellsworth (flyingovertime.org)
+  We're trying to tell the tribes, be a utility and serve not just your tribe, but the region. I would say microgrid your tribe and then meter back into the grid if they'll let you.
+
+31:19 - Brad Fausett
+  Exactly. If they don't let you, then you need to start producing hydrogen with your excess and just bottle it up, make ammonia out of it, whatever, and bottle it up and have chemistry on the back end that you're making your value chain, your value add.
+
+31:36 - Pace Ellsworth (flyingovertime.org)
+  Just store lots of excess for a rainy day or for time when you need to go train an LLM or something.
+
+31:43 - Brad Fausett
+  If you've got a port facility not having hydrogen and green ammonia right now, it's just, it's a no-brainer. You're taking water and air and making a fuel.  Yeah, it's a no-brainer, man.
+
+31:55 - Pace Ellsworth (flyingovertime.org)
+  Yeah, makes sense. Okay, so... All right, then I need to figure out what we need to do, but I think we're mostly burdened that we'll just have to wrap up a page for people from each tribe to sign up for this, and then we'll just be pushing everybody to the page.
+
+32:21 - Brad Fausett
+  I got a pitch page.
+
+32:24 - Pace Ellsworth (flyingovertime.org)
+  And then we'll just have them claim their spot and just say there are only 20 slots and first come, serve.
+
+32:32 - Brad Fausett
+  They're going fast, bro. They're going fast. So, hey, if you want to bounce that back and forth this week, I'll help you put it together.
+
+32:40 - Pace Ellsworth (flyingovertime.org)
+  Yeah, I've got something mostly there. I'm going to tweak the numbers on it. Here, let me show you what I've got so far, but I'm going to see this.
+
+32:53 - Brad Fausett
+  Still sweating like crazy, and I got a haircut today, and my hair looks so... I'm getting old, Pace. Man, I'm getting old.  This ain't good. Losing hair? I'm just going to go bald soon. I'm just going to be like, screw it.  Grow a full beard and go bald. It'll be the reverse of childhood, you know? Yeah.
+
+33:13 - Pace Ellsworth (flyingovertime.org)
+  So this is our first, I see not that one.
+  SCREEN SHARING: Pace started screen sharing - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=1997.019216
+
+33:19 - Brad Fausett
+  Hold on.
+  SCREEN SHARING: Pace started screen sharing - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=2004.47627
+
+33:20 - Pace Ellsworth (flyingovertime.org)
+  Let me go here. This is our first version. And this is when I was, before I went to the conference, just thinking about the EVs.  And so we have, you know, some of the stats on here for that. But, and I put, and it was actually very useful to have this whole list so people could see like, oh, we're on the invite list.  Like we're on, you know, we're exclusive. Because it is exclusive. NEVI is, it identifies alternative fuel corridors by traffic volume.  This is wonderful. I like this. Yeah. Thank you. But I am going to change it over to something that looks more like this.  Um, and I just need to tweak the colors and the spacing a little bit and, um, um, and make everything work correctly and, uh, just transparency, you know, just have everybody in there and understanding.  One piece of advice I got at the forum is that it's best if the tribe doesn't own the equipment directly because of how, uh, a just difficult it is to keep up to date with everything.  And, uh, so they were encouraging me to not even have us have the ownership and just leave it on, you know, whatever the, the EPC or the manufacturer, you know, have the carry the risk, but then we wouldn't be able to necessarily justify spending the money.  Right. We would just be getting into like a PPA with them or something. Um, so I think we're going to own everything.
+
+34:59 - Brad Fausett
+  I think that's. It's a good idea for taxes.
+
+35:02 - Pace Ellsworth (flyingovertime.org)
+  Yeah, we're going to own it and we can depreciate it. And then we will give the tribes the right to buy it later.  We'll still have to do direct pay on the project cost side, but it'll be done as like a paid up lease.  So what happens if they don't pay?
+
+35:26 - Brad Fausett
+  Do you repo it? We're going to own it.
+
+35:31 - Pace Ellsworth (flyingovertime.org)
+  We're going to own it. The funding that's coming through for 100% financing for this whole project up front, you know, going to, within the first few years, going to pay up the lease.  But we wouldn't want to transfer ownership to them unless they could show that they have the capacity, which in most cases they don't.  So then this would basically do it. I'm going to make this even simpler, one here and four here. And four would be justifiable if we went.  with flow batteries. So we maximize the incentives if we do one megawatt. If we keep it just a hair under one megawatt, we can actually use an exemption under the 48E.  And we don't have to, we don't have to use prevailing wages federally to on the battery project.
+
+36:28 - Brad Fausett
+  So you can do 990 kilowatts. Probably 995 or whatever. And then six megawatt hours is the maximum for the state and incentive for California.
+
+36:40 - Pace Ellsworth (flyingovertime.org)
+  And I just figure if we have six, you know, six hours during each day that they're drawing down at a megawatt, that's basically like the worst case scenario.  And if it's, if it's not 100% utilization, then they're offsetting the peak demand from the tribal buildings, right? The businesses, uh, uh,  Be the convenience store or the casino. Casino obviously be a big one. Or tribal housing. Just depends on the tribe.  And we could always expand the battery facility later, but the next phase after this is definitely going to be renewable energy.  You know, it just makes the most sense. Yeah. So I'm going to shave this down to $100,000. And that means their deposit.  What I'm going to do is I'm going to bring that back into here. Here it is.
+
+37:38 - Brad Fausett
+  So it's going to be five $20,000 tranches.
+
+37:41 - Pace Ellsworth (flyingovertime.org)
+  And just make it that easy for them. $20,000 is a pretty easy decision for them to make.
+
+37:50 - Brad Fausett
+  $25,000 every 90 days. Yeah.
+
+37:54 - Pace Ellsworth (flyingovertime.org)
+  Yeah, pretty much. I think it would be, yeah. Yeah, basically. Yeah. Yeah. If you did 20, then that's, and there's five payments and that's.  It's, it's going to seem so, it's going to seem so low, you know, 2% is just so abominably low.  And they, what, what Doug was saying, Doug's a colleague of ours that referred us to the Washington tribe, is that tribes are like, are, are, are saying like, that's it.  Like, that's all you want us to put in. Cause then they want to put in more money. So if they did, then we could just say, yeah, sure.  But we could also have a button on here that says like, Oh, you want this to be financed? Like contact us for financing arrangements.  And we'll, we'll just get you underwritten with one of the native banks or CDFIs. And then they'll, they'll just put up the loan for this money.
+
+38:52 - Brad Fausett
+  I love it. Yeah. Perfect. So.
+
+38:56 - Pace Ellsworth (flyingovertime.org)
+  Perfect. That's straight up and down. Easy peasy. And this is only like a fraction of the ones that we actually have listed here.  One comment that Claude gave me was that maybe we shouldn't, since we're going to get into some decent marketing, maybe we should not publish the names of the tribes.
+
+39:16 - Brad Fausett
+  I wouldn't. No, I wouldn't.
+
+39:18 - Pace Ellsworth (flyingovertime.org)
+  I think you're opening yourself up to a liability when you do that.
+
+39:21 - Brad Fausett
+  I think you can do numbers or you could say averages or whatever. And I would think I would try to keep it.
+
+39:30 - Pace Ellsworth (flyingovertime.org)
+  We can tell them, we've run the, we've looked at the maps, 25 tribes qualify for this, you know, 17 are qualified for new market tax credit, 15 are qualified for energy community bonus, you know, all these different things.  Find out whether you are qualified and what you qualify for. And then we can just use it as a general funnel anyway.
+
+39:49 - Brad Fausett
+  Yeah. Yeah. And then reach out to those tribes that, you know, qualify and say, hey, we know that you qualify for this.  How can we help you get this going?
+
+39:57 - Pace Ellsworth (flyingovertime.org)
+  You know, I mean, I think having that.
+
+40:01 - Brad Fausett
+  Second phase of contact with them would be really good to get engagement, but I would remove the names. I would.  Yeah, it was useful in a private forum. We haven't talked about this before. I I get it. It's beautiful.  Actually, it makes sense. It's beautiful.
+
+40:17 - Pace Ellsworth (flyingovertime.org)
+  I wouldn't want to change it.
+
+40:18 - Brad Fausett
+  But yeah, in this case, I think just for liability reasons, I would remove names. Yep.
+
+40:25 - Pace Ellsworth (flyingovertime.org)
+  And we should really flesh this part out, have a backgrounder on Ameren Nation, Calusa Indian Energy, Seven Generations, InCharge, you know, stuff like that.  we get the battery manufacturer in here and we make a deal with them, we want to put that on.  And then I think we've got us. It didn't build out the FAQ yet, but I've got like 20 questions that it could answer.  That's beautiful.
+
+40:59 - Brad Fausett
+  It's well done. A little bit of tweaking in here there, dude.
+
+41:03 - Pace Ellsworth (flyingovertime.org)
+  Yeah. Very well done. So the concept here is that we should possibly have a deposit from somebody that we could start working from somewhat shortly.  There's also something called the Power, the Industrial Power and Light Fund that the Alliance for Tribal Clean Energy is doing.  So they'll provide just-in-time, like, reimbursable grants or something like that.
+
+41:36 - Brad Fausett
+  Okay.
+
+41:38 - Pace Ellsworth (flyingovertime.org)
+  Where as long as it's done through a tribe that wants it. Like, if we just got the commitment, you know, from the tribe, we could either use that as their first commitment or, yeah, as like a bridge funding.  If they didn't either want to commit to it or we could possibly use it as a bridge. Like, we get the invoice from them.  them. Like, And then say, hey, can you fund this invoice now? Use it as invoice financing. That would work out really well.  And we wouldn't necessarily need to pay them back immediately. We could pay them back as long as they know they're going to get paid back in like a year or two or something.
+
+42:17 - Brad Fausett
+  Then they'd be fine with that.
+
+42:19 - Pace Ellsworth (flyingovertime.org)
+  Okay.
+
+42:20 - Brad Fausett
+  I'm sure it is conserved cash on the front end. So that's good. Yeah.
+
+42:26 - Pace Ellsworth (flyingovertime.org)
+  So... Dude, this has been a great update.
+
+42:30 - Brad Fausett
+  It's hot as  out here. I'm about to go get in a cold shower. But this is a great update.  And whatever I can do to help push, you just let me know.
+
+42:41 - Pace Ellsworth (flyingovertime.org)
+  It might be to contact Faradion and then find out if there are other US-based battery component manufacturers that could build a sodium ion or they could do a vanadium redox.  And if not... There are to man. At least not Chinese. Yeah, yeah. No, I get it.
+
+43:03 - Brad Fausett
+  Can you send me what you have on that already?
+
+43:06 - Pace Ellsworth (flyingovertime.org)
+  And I'll start creating a file.
+
+43:09 - Brad Fausett
+  And probably by the end of next week, I'll have enough put together. I'll be able to report some stuff to you.  Yep.
+
+43:18 - Pace Ellsworth (flyingovertime.org)
+  I'll do the digging.
+
+43:19 - Brad Fausett
+  No worries on that.
+
+43:21 - Pace Ellsworth (flyingovertime.org)
+  Cool. Uh, for radians, sodium ion. And that's, uh, yeah, that would be good. Cause I don't really want to, I don't really want to go out of my way until I get some commitments.  It's enough that I know that, that there are multiple battery options that we can go for that are not from China.  Yeah. I'll dig into it.
+
+43:57 - Brad Fausett
+  I mean, I dig, I did some digging into sodium. And I didn't find anything but Chinese. So let me dig back into it.  I got it. I got it. Okay, let's see.
+
+44:15 - Pace Ellsworth (flyingovertime.org)
+  Natron Energy is apparently like gone, gone. They were based in Santa Clara. Yeah, they're gone. But Samsung, sodium ion.
+
+44:32 - Brad Fausett
+  And Samsung's got good stuff and they're building in the United States. So they've got some exemptions too. If they do, then they do.
+
+44:42 - Pace Ellsworth (flyingovertime.org)
+  That's cool. I just don't know if I can find any specific information. So we might have to see if there's some kind of a supplier out there.
+
+44:58 - Brad Fausett
+  I'll dig. worries. Give me a couple.
+
+45:00 - Pace Ellsworth (flyingovertime.org)
+  I think I'm going to be pretty busy just cracking the whip on all the groups that are connected to all these tribes just to try to get them to commit and just working on contracts and talking to attorneys about how to structure it.  Because one of the things is the tribes definitely need to have a tribally owned entity that's going to be the recipient of the profits.  Okay.
+
+45:31 - Brad Fausett
+  We're not going to have them spend anything except this initial investment. And ideally, the investment flows from that entity.
+
+45:39 - Pace Ellsworth (flyingovertime.org)
+  So we'd tell them, hey, tribal council, you want to do this deal? Give us an entity that you already have or go form one from a resolution right now, you know, or buy or, you know, start one that's in California or something like that.  It just needs to be fully tribally owned and, and then, um, uh. But it's best if it is organized under their Section 17.  And then send us the initial deposit through there, $100,000, and then they don't spend anything ever again.
+
+46:14 - Brad Fausett
+  They're paid up.
+
+46:17 - Pace Ellsworth (flyingovertime.org)
+  It's a cheap investment for them.
+
+46:19 - Brad Fausett
+  It's so cheap.
+
+46:21 - Pace Ellsworth (flyingovertime.org)
+  It's crazy. It's crazy cheap. I mean, it's going be hard for anybody to turn that down.
+
+46:26 - Brad Fausett
+  They're going to keep the majority of the cash flow from it.
+
+46:29 - Pace Ellsworth (flyingovertime.org)
+  That's their asset, right? Yeah. It'll be a PPA. Yeah, it's a money laundering scheme.
+
+46:36 - Brad Fausett
+  You're right, Pace. It's a power purchase agreement, basically. Yeah.
+
+46:41 - Pace Ellsworth (flyingovertime.org)
+  It'll be a very complex power purchase agreement. We'll have to figure out exactly how it looks after we figure out what the O&M is.  But, you know, it'll be there. And we have the ability by virtue of... Doing it with 10-plus participants with the ability of making sure that they're all making something all the time so we can play some games.
+
+47:12 - Brad Fausett
+  Yeah, we'll see.
+
+47:18 - Pace Ellsworth (flyingovertime.org)
+  And then I don't know. It looks longer.
+
+47:22 - Brad Fausett
+  Yeah, it looks longer. It doesn't really get much longer than this, but yes, this is about as long as it gets.  Yeah.
+
+47:29 - Pace Ellsworth (flyingovertime.org)
+  Vanadium, Redox, I can't find many companies for this, but Strighton? I've heard of Strighton. Strighton is probably built in the USA.
+
+47:45 - Brad Fausett
+  Michigan, I think. Alpharetta. Alpharetta, Georgia.
+
+47:52 - Pace Ellsworth (flyingovertime.org)
+  So look into them.
+
+47:54 - Brad Fausett
+  And I wouldn't care if it was all flow, if it was cost-effective. Yeah.
+
+48:00 - Pace Ellsworth (flyingovertime.org)
+  Um, and then I need to figure out the footprint. How can we make this as small as possible so we can either like, so we can do this, put the EV charging stations like right on top of them.  Or if we have a canopy, then it's cantilevered on top of the batteries or whatever. I don't know, you know, so we got, yeah, we'll need a structural engineer probably to look at it.
+
+48:26 - Brad Fausett
+  But what I'm kind of got in my head are like those car park things where it's got the elevator for the car.  You could put the batteries and something like that where, you know, you have different levels that you can do the battery build outs and then the bottom level could be charging.  Right.
+
+48:44 - Pace Ellsworth (flyingovertime.org)
+  yeah. Um, there's that possibly building something of like, uh, I was thinking, I was thinking, make it like a, like a little mini travel center where, um, can see.  It's covered, the whole thing is covered, and you'll throw solar on top just for looks. mean, why not, right?
+
+49:05 - Brad Fausett
+  I mean, it's just cheap money at that point, yeah.
+
+49:07 - Pace Ellsworth (flyingovertime.org)
+  And then the batteries are in the middle, cantilevering the whole thing. And you've got the charging stations on one side, and you have, like, a co-working space, like a chill, like a lounge on the other side.  Then you can put a restaurant in there, whatever you want to do.
+
+49:25 - Brad Fausett
+  I mean, anywhere somebody can go sit down and have a drink and maybe some, you know, chicken nuggets or something while they wait on their car.
+
+49:31 - Pace Ellsworth (flyingovertime.org)
+  Yeah, because they don't, one thing in Yakima, they want to have them covered. I don't know that they get, like, a ton of rain there in Yakima Nation.  It's, like, Washington, but they still want to have them covered.
+
+49:44 - Brad Fausett
+  I lived down in Wenatchee, and I grew in the Yakima Valley, and there's no rain, ever. Yeah.
+
+49:52 - Pace Ellsworth (flyingovertime.org)
+  I don't know what, they just want to have coverage, like, for shade. Probably keep the sun off of them, yeah.  Maybe. Maybe. But... But yeah, it's in top initial. So yeah, let me, so I you those flow batteries, vanadium redox.  That's it then. Let's. I got them.
+
+50:26 - Brad Fausett
+  Yeah, let me chew on it this week. I'll get you a report by the way.
+
+50:28 - Pace Ellsworth (flyingovertime.org)
+  some comparative pricing if it's possible that we can get pricing on a per tribe basis. Yep. So it's six megawatt hours, one megawatt.  I don't know what controls the difference between voltage or amperage.
+
+50:47 - Brad Fausett
+  Amperage really it's amperage. Amperage is the size of the line. Voltage is how you wire the cells. So we can figure that out.  No worries.
+
+51:00 - Pace Ellsworth (flyingovertime.org)
+  You can pull the same amount of power.
+
+51:02 - Brad Fausett
+  So you can take a small volt, high amp system and pull the same amount of power as you can a high volt, low amp system.
+  ACTION ITEM: Email Brad WA EV charger specs (480V 3-phase) - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=3070.9999  Right. But when go up in amps, you're going to go up in price because that's going to increase your metal, the amount of metal you need to conduct.
+
+51:21 - Pace Ellsworth (flyingovertime.org)
+  I could probably get you the spec for the EV charging station that we're doing in Washington. I think it's 480 volts.
+
+51:32 - Brad Fausett
+  480 volts, three phases, the best, that is king.
+
+51:35 - Pace Ellsworth (flyingovertime.org)
+  That's how they're doing it. And that's how we're going to want to go into it too.
+
+51:39 - Brad Fausett
+  However, we can get to 483, three phase. Nice.
+
+51:43 - Pace Ellsworth (flyingovertime.org)
+  Good. That's what we're doing. Yep.
+
+51:45 - Brad Fausett
+  Okay. That is king.
+
+51:48 - Pace Ellsworth (flyingovertime.org)
+  And what I care about is what is the footprint going to be on these batteries?
+
+51:53 - Brad Fausett
+  And approximate price. Yeah. Because can we do it with as little change to the footprint as... With the right structural engineer, I think we can.  With EV charging.
+
+52:06 - Pace Ellsworth (flyingovertime.org)
+  Like, put it underground. Yeah, yeah.
+
+52:08 - Brad Fausett
+  You know?
+
+52:10 - Pace Ellsworth (flyingovertime.org)
+  I mean, it's a sodium battery.
+
+52:11 - Brad Fausett
+  It shouldn't get messed up under there. But I've got this stuff. I'll dig. I'll see what all's out there.  They are putting sodiums underground. I do know that. So that might not be out of the realm of possibilities.
+
+52:25 - Pace Ellsworth (flyingovertime.org)
+  Yeah. That might be the best solution, to be honest. Maybe we put the sodiums underground and we put the flows up, you know, above ground.  You know, and just however we want to do it. We're burying the lines anyway, right?
+
+52:38 - Brad Fausett
+  It's all trenching for EV charging.
+
+52:42 - Pace Ellsworth (flyingovertime.org)
+  And then my question is, how does that behave with the grid? We don't want to have to rely on the battery in order to make the EV chargers work.  But we do want to shave off all the peak demand. You know? So we want We want it to go through the battery.
+
+53:01 - Brad Fausett
+  That's just your control system saying, hey, I'll run off the grid between now and whatever time. And at that point, I'm switching to my battery and I'm going drain it down to almost nothing.
+
+53:09 - Pace Ellsworth (flyingovertime.org)
+  And then boom, we'll switch back over. Yeah. That's what that is.
+
+53:13 - Brad Fausett
+  That shouldn't be any issue at all. Nice.
+
+53:16 - Pace Ellsworth (flyingovertime.org)
+  I'll dig. I'll dig a little bit on it then. All right. Well, I will do the rest. I don't know how fast we're talking about getting the first one.  It's probably going to take us a few weeks.
+
+53:31 - Brad Fausett
+  Yeah.
+
+53:32 - Pace Ellsworth (flyingovertime.org)
+  But about the other opportunity that we worked on in October, we still have that, you know, it's plotting. churning.
+
+53:43 - Brad Fausett
+  It'll take months, but we'll get there.
+  ACTION ITEM: Email Pace battery tech report by May 8: Faradion/Samsung/Strighton, footprints/pricing, 480V 3-phase - WATCH: https://fathom.video/share/c_1KydgPPpjHV92YYAr4o98xWUMFZRkF?timestamp=3229.9999
+
+53:45 - Pace Ellsworth (flyingovertime.org)
+  We have to jump through a bunch of red tape right now. I get it. Just stay the course, Pace.
+
+53:52 - Brad Fausett
+  You're doing great.
+
+53:53 - Pace Ellsworth (flyingovertime.org)
+  I know. Thank you. All right. We'll talk to you later. Let me know what you can do.
+
+53:59 - Brad Fausett
+  All Yeah, I will definitely get you something by Friday, no worries. Sounds good.
+
+54:04 - Pace Ellsworth (flyingovertime.org)
+  All right.
+
+54:05 - Brad Fausett
+  Later. See you.

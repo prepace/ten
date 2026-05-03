@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TribalEnergyNetwork.com — Codex/Claude Code Update Prompt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f1ea;
+    --paper-2:#ece7dc;
+    --paper-3:#e3ddcd;
+    --ink:#1c1a15;
+    --ink-2:#3b3830;
+    --muted:#6b6658;
+    --rule:#d9d2c2;
+    --accent: oklch(0.42 0.08 150);
+    --accent-2: oklch(0.58 0.14 55);
+    --bad: oklch(0.55 0.16 30);
+    --ok: oklch(0.52 0.10 150);
+    --warn: oklch(0.68 0.13 85);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 40px 96px}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  h1,h2,h3,h4{font-family:"Libre Caslon Text", Georgia, serif; font-weight:700; letter-spacing:-.01em; text-wrap:balance}
+  h1{font-size:48px;line-height:1.05;margin:14px 0 18px}
+  h2{font-size:26px;line-height:1.2;margin:0 0 14px}
+  h3{font-size:18px;line-height:1.25;margin:0 0 6px}
+  p{text-wrap:pretty;margin:0 0 12px;color:var(--ink-2)}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+
+  .masthead{
+    display:grid;grid-template-columns: 1fr auto;align-items:end;
+    border-bottom:1px solid var(--ink);padding-bottom:18px;margin-bottom:28px;gap:24px;
+  }
+  .kicker{display:flex;gap:10px;align-items:center}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .meta-line{display:flex;flex-direction:column;gap:4px;color:var(--muted);font-size:12px;text-align:right}
+
+  .lede{
+    background:var(--paper-2);border:1px solid var(--rule);
+    padding:22px 26px;margin-bottom:28px;
+    display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;
+  }
+  .lede p{margin:0;font-size:15px}
+  .lede .copy-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--ink);color:var(--paper);
+    border:none;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    padding:12px 16px;white-space:nowrap;
+  }
+  .lede .copy-btn:hover{background:var(--accent)}
+  .lede .copy-btn.ok{background:var(--ok)}
+
+  .toc{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border:1px solid var(--rule);background:#fff;margin-bottom:36px;
+  }
+  .toc a{
+    padding:12px 16px;border-right:1px solid var(--rule);
+    border-bottom:none;color:var(--ink-2);font-size:13px;
+    display:flex;gap:10px;align-items:baseline;
+  }
+  .toc a:last-child{border-right:none}
+  .toc a:hover{background:var(--paper-2);color:var(--accent)}
+  .toc .n{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em}
+
+  .section-head{
+    display:flex;align-items:baseline;gap:14px;
+    border-top:1px solid var(--ink);padding-top:18px;margin-top:32px;margin-bottom:14px;
+  }
+  .section-head .num{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.14em;
+  }
+  .section-head h2{margin:0}
+
+  /* The big prompt block */
+  .prompt-shell{
+    border:1px solid var(--ink);background:#fffdf7;
+    margin-bottom:28px;
+  }
+  .prompt-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 16px;background:var(--ink);color:var(--paper);
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .prompt-bar .copy{
+    background:var(--paper);color:var(--ink);border:none;cursor:pointer;
+    font-family:inherit;font-size:10px;letter-spacing:.12em;
+    padding:6px 12px;
+  }
+  .prompt-bar .copy:hover{background:var(--accent);color:#fff}
+  .prompt-bar .copy.ok{background:var(--ok);color:#fff}
+  pre.prompt{
+    margin:0;padding:24px 28px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:12.5px;line-height:1.65;
+    color:var(--ink);
+    white-space:pre-wrap;
+    word-wrap:break-word;
+    max-height:560px;overflow-y:auto;
+  }
+  pre.prompt::-webkit-scrollbar{width:8px}
+  pre.prompt::-webkit-scrollbar-thumb{background:var(--rule)}
+
+  /* Notes around the prompt */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    border:1px solid var(--rule);background:#fff;padding:20px;
+  }
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{font-size:13.5px;margin:0 0 8px}
+  .card .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.12em;display:block;margin-bottom:8px}
+  .card ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)}
+  .card li{margin-bottom:4px}
+
+  /* Thermometer preview */
+  .thermo{
+    border:1px solid var(--rule);background:#fff;padding:24px 28px;margin-bottom:14px;
+  }
+  .thermo-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+  .thermo-header .label{font-family:"Libre Caslon Text",Georgia,serif;font-size:22px;font-weight:700}
+  .thermo-header .count{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted);letter-spacing:.08em}
+  .thermo-track{
+    position:relative;height:46px;background:var(--paper-2);border:1px solid var(--rule);
+  }
+  .thermo-fill{
+    position:absolute;top:0;bottom:0;left:0;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  .thermo-ticks{
+    position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin-top:8px;
+  }
+  .thermo-tick{
+    border-left:1px solid var(--rule);padding:8px 10px 0;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+    color:var(--muted);
+  }
+  .thermo-tick:first-child{border-left:none}
+  .thermo-tick strong{
+    display:block;font-family:"Libre Caslon Text",Georgia,serif;font-size:14px;
+    color:var(--ink);font-weight:700;margin-bottom:2px;letter-spacing:0;text-transform:none;
+  }
+  .thermo-tick.hit{color:var(--accent)}
+  .thermo-tick.hit strong{color:var(--accent)}
+
+  /* Site list */
+  .site-list{
+    border:1px solid var(--rule);background:#fff;
+  }
+  .site-row{
+    display:grid;grid-template-columns:30px 1fr 180px 130px;
+    gap:14px;padding:12px 18px;border-bottom:1px solid var(--rule);
+    align-items:center;font-size:13.5px;
+  }
+  .site-row:last-child{border-bottom:none}
+  .site-row .num{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:11px}
+  .site-row .name{font-weight:600}
+  .site-row .place{color:var(--muted);font-size:12.5px}
+  .site-row .pill{
+    display:inline-block;padding:3px 8px;font-family:"IBM Plex Mono",monospace;
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  }
+  .pill.signed{background:var(--ok);color:#fff}
+  .pill.dilig{background:var(--warn);color:var(--ink)}
+  .pill.ident{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--rule)}
+  .pill.new{background:var(--accent);color:#fff}
+
+  .callout{
+    background:#fff;border:1px solid var(--rule);border-left:4px solid var(--accent);
+    padding:18px 22px;margin:18px 0;
+  }
+  .callout h3{margin-bottom:6px}
+  .callout p{font-size:13.5px;margin:0}
+
+  footer{
+    margin-top:64px;padding-top:18px;border-top:1px solid var(--ink);
+    display:flex;justify-content:space-between;color:var(--muted);font-size:11px;
+    font-family:"IBM Plex Mono", monospace;letter-spacing:.06em;
+  }
+
+  @media (max-width:820px){
+    .wrap{padding:28px 18px}
+    h1{font-size:34px}
+    .masthead{grid-template-columns:1fr;align-items:start}
+    .meta-line{text-align:left}
+    .toc{grid-template-columns:1fr}
+    .toc a{border-right:none;border-bottom:1px solid var(--rule)}
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .site-row{grid-template-columns:24px 1fr;gap:6px}
+    .site-row .place,.site-row .pill{grid-column:2}
+    .lede{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <div class="kicker mono"><span class="dot"></span> Build brief · For Codex / Claude Code</div>
+      <h1>TribalEnergyNetwork.com — Site Update Prompt</h1>
+    </div>
+    <div class="meta-line mono">
+      <span>Amerind Nation · Tribal Energy Network</span>
+      <span>Prepared May 2026</span>
+    </div>
+  </header>
+
+  <section class="lede">
+    <p>This document is the single source of truth to hand to a coding agent. It bundles the existing NEVI 6 + EVSE/BESS spec with two new requirements: <strong>two additional Tribal sites</strong> (Desert Rose AIR Fuel, Chimney Rock Travel Center) and a <strong>"Tribes Signed On" thermometer</strong> with milestone unlocks at 5/10/15/20. Copy the prompt below and paste it into Codex or Claude Code as the initial task.</p>
+    <button class="copy-btn" id="copyMain" type="button">⧉ Copy full prompt</button>
+  </section>
+
+  <nav class="toc mono">
+    <a href="#prompt"><span class="n">01</span> The prompt</a>
+    <a href="#thermo"><span class="n">02</span> Thermometer spec</a>
+    <a href="#sites"><span class="n">03</span> Site roster</a>
+  </nav>
+
+  <!-- ============== THE PROMPT ============== -->
+  <div class="section-head" id="prompt">
+    <span class="num">01</span>
+    <h2>The prompt — copy &amp; paste into Codex / Claude Code</h2>
+  </div>
+
+  <p style="max-width:62ch">Engineered to maximize the agent's chance of producing a defensible, on-brand build in one pass. It establishes role, constraints, exact numbers, page IA, the new sites, the thermometer mechanics, and an unambiguous Definition of Done.</p>
+
+  <div class="prompt-shell">
+    <div class="prompt-bar">
+      <span>PROMPT.md · paste verbatim</span>
+      <button class="copy" id="copyPrompt" type="button">⧉ Copy</button>
+    </div>
+<pre class="prompt" id="promptText"># ROLE
+You are a senior full-stack engineer + product copywriter + light UX designer working on **TribalEnergyNetwork.com** (a subsidiary of Amerind Nation LLC, 100% Native-owned). Ship production-ready code and copy in one pass. When a decision is reversible and obvious, decide and proceed; when it is irreversible or ambiguous, leave a TODO with a one-line question.
+
+# MISSION
+Update the site to clearly communicate the **CA NEVI 6** offer and a repeatable **EVSE + BESS** deployment model for **2–20 Tribes**. Add a **"Tribes Signed On" thermometer** with milestone unlocks that drive a bandwagon effect. Add two newly-confirmed Tribal sites to the pipeline.
+
+# NON-NEGOTIABLE TONE & CONSTRAINTS
+- Tone: confident, professional, **tribal-sovereignty-forward**, not salesy. Credit-committee clarity.
+- Define jargon when used. Use clear math; never double-count.
+- Always label sources by type: **grant**, **refundable tax credit**, **incentive**, **repayable debt/credit facility**, **cash escrow**.
+- Tribal cash contribution is **$150,000 total** (NOT $300k). Do not include in-kind in the budget.
+- SSBCI/CDFI is **repayable financing**, not grant funding.
+- Every funding model display must carry the disclaimer: *"Presented before any additional clean energy credits, LCFS revenue, utility programs, or other incentives not yet identified."*
+- Not legal or tax advice. Say so.
+
+# PERSONAS (write copy for these readers)
+1) Tribal Council / Economic Development / Energy & Utilities
+2) Tribal CFO / Finance Director
+3) Tribal Grants Manager
+4) Site Host Operator (fuel station / casino travel center)
+5) Partners (EPCs, O&M, CDFIs, lenders, CDEs)
+
+# PER-SITE PROJECT PACKAGE — USES ($5.00M total)
+- **EVSE — $1.50M** for **1.44 MW**: 8 × 180 kW DC fast chargers, 8 CCS + 8 NACS connectors.
+- **BESS — $3.50M** for **1 MW / 6 MWh**: sodium-ion or flow battery (final selection by procurement & eligibility). 2nd-life EV batteries presented only as an optional R&D alternative subject to eligibility/warranty — never the baseline.
+
+# PER-SITE TARGET CAPITAL STACK — SOURCES ($5.00M total)
+1. **$1.20M** — CA NEVI grant (≈80% of eligible EVSE capex; reimbursement timing applies).
+2. **$1.40M** — 48E elective pay refundable credit (≈40% of $3.50M battery basis; PWA + domestic content assumed; subject to compliance).
+3. **$1.00M** — NMTC net benefit **target** (~20% of total eligible project costs; allocation/fees/eligibility required; portfolio approach).
+4. **$0.77M** — SSBCI / CDFI **repayable** credit facility (construction liquidity; bridges grant/credit reimbursement timing).
+5. **$0.63M** — SGIP incentive on the battery (program step/rate-dependent; storage tier/cap mechanics apply).
+6. **$0.15M** — Tribal cash via Tribally-Owned Entity (TOE), **CD-secured escrow** at Sovereign Bank.
+
+# TRIBAL CONTRIBUTION — $150,000 IN FIVE TRANCHES
+- 20% ($30k) — NEVI pre-development kickoff (Day 1)
+- 20% ($30k) — NEVI application submission (Day 90+)
+- 20% ($30k) — NEVI grant award (Day 180+)
+- 20% ($30k) — EVSE delivery (Day 270+)
+- 20% ($30k) — substantial completion (Day 450+, prior to PTO)
+
+# OPERATING / OWNERSHIP STRUCTURE
+- **Tribal Energy Network (TEN)** owns, operates, and maintains EVSE + BESS through qualified subcontractors (Colusa Indian Energy, Allumia, 7 Generations, InCharge Energy).
+- TOE receives a contractual share of **net operational benefits** (charging margin + battery savings/arbitrage). Define waterfall plainly: revenue → energy/network/maintenance/compliance costs → TEN operating margin → TOE distributions.
+- **TOE incurs no operating expense.** TEN covers compliance, DD, ops, and maintenance prior to TOE remittance.
+- **Sovereignty pathway:** TOE retains the right to take ownership after a **capacity certification** facilitated by TEN.
+- **Contingency:** if NEVI is not awarded, proceed with the battery + energy-efficiency/electrification scope using remaining capital tools — "resilience-first" fallback.
+
+# FINANCIAL OUTCOME (use careful "target" language)
+- **Target ≥ $75,000/year** distributions to TOE (≈ 50% annual return on the TOE's $150k cash). Subject to operational performance and final tariff/program conditions.
+- Note potential upside: LCFS value-sharing (if captured contractually), incremental clean-energy incentives, portfolio procurement savings, demand-charge reduction & load management.
+
+# =========================================================
+# NEW THIS RELEASE — TRIBES-SIGNED-ON THERMOMETER & MILESTONES
+# =========================================================
+Build a prominent, animated **"Tribes Signed On" thermometer** module. It must appear on the homepage above the fold (or immediately below the hero) and on a dedicated **/coalition** page. The component creates a bandwagon effect by visualizing collective progress.
+
+**Starting state: 0 of 5 Tribes signed on.** The thermometer's primary scale is **0 → 5** — the first and only milestone shown as the active goal. The 10 / 15 / 20 milestones are presented separately as **stretch goals** beneath the active bar. As we hit 5, the agent / CMS operator advances the scale to the next milestone.
+
+## Data model (single source of truth)
+Create `data/coalition.json` (or equivalent), with:
+```
+{
+  "tribesSignedOn": 0,
+  "currentGoal": 5,
+  "lastUpdated": "<ISO date>",
+  "milestones": [
+    { "n": 5,  "label": "NMTC Activated",          "unlock": "Access New Markets Tax Credits — covers ~20% of total project costs across the portfolio.", "role": "active" },
+    { "n": 10, "label": "EV Charger Volume Pricing", "unlock": "Preferred pricing on EV chargers via portfolio procurement.",                                  "role": "stretch" },
+    { "n": 15, "label": "Battery Volume Pricing",   "unlock": "Preferred pricing on BESS systems via portfolio procurement.",                                  "role": "stretch" },
+    { "n": 20, "label": "$100M Capital Unlocked",   "unlock": "Full access to bridge & permanent lending stack — SSBCI, USDA REAP, and additional facilities.", "role": "stretch" }
+  ]
+}
+```
+Render the count and milestones from this file. Do not hardcode the count in markup.
+
+## Visual & UX requirements
+- Horizontal thermometer (or vertical on mobile) with a fill that animates from 0 → current count on first viewport entry (IntersectionObserver, `prefers-reduced-motion` honored).
+- The bar's full width represents the **current goal** (`currentGoal`, starts at 5), not 20. When `tribesSignedOn` reaches `currentGoal`, the operator advances `currentGoal` to the next milestone in `data/coalition.json` and the bar resets/scales accordingly.
+- Above the bar: `{N} of {currentGoal} Tribes signed on` and a `Last updated {date}` line. At launch this reads `0 of 5 Tribes signed on`.
+- Below the bar: a one-line pointer — "Next milestone at {currentGoal} Tribes — {label}".
+- Beneath the active bar, render a separate **"Stretch goals"** strip listing the remaining milestones (10 / 15 / 20) in a muted state, each with its label and unlock copy. These are visible context, not part of the active scale.
+- Once a milestone is hit, mark its tick with a check glyph and accent color; promote the next milestone from "stretch" to "active".
+- Use the Amerind Nation paper/ink palette and typography (Libre Caslon Text + IBM Plex Sans/Mono). Match the existing site — do not introduce new fonts or accent hues.
+- Provide a "Bring your Tribe" CTA next to the thermometer linking to /ca-nevi-6 site-eligibility form.
+
+## Accessibility
+- Render an ARIA progressbar with `aria-valuenow={tribesSignedOn} / -valuemin=0 / -valuemax={currentGoal}` and a screen-reader-only summary like "0 of 5 Tribes signed on. Next milestone: NMTC Activated at 5 Tribes. Stretch goals: EV Charger Volume Pricing at 10, Battery Volume Pricing at 15, $100M Capital Unlocked at 20."
+- All milestone copy is keyboard-reachable; tooltips on hover/focus.
+
+## Copy block (place beneath the thermometer)
+> **Why a coalition.** The capital stack scales with the coalition. Our first milestone is **5 Tribes** — at which point NMTC becomes practical at the portfolio level and covers roughly 20% of project costs. Beyond that, the stretch goals compound: at **10**, preferred pricing on EV chargers; at **15**, on batteries; at **20 Tribes (≈ $100M)**, the bridge and permanent lending market — SSBCI, USDA REAP, and additional facilities — opens fully. Joining earlier compounds the benefit for every Tribe in the cohort.
+
+# =========================================================
+# SITE ROSTER — UPDATE THE PIPELINE
+# =========================================================
+Add the two newly confirmed sites to the Target Sites / pipeline module. Status: "Identified" unless we tell you otherwise.
+
+- **Desert Rose AIR Fuel** — Alturas, CA (Modoc County) — Status: Identified — NEW
+- **Chimney Rock Travel Center** — Pit River, CA — Status: Identified — NEW
+
+Keep all listings respectful and permission-aware: only display sites that have given consent. Mark each row with a status pill: Identified · In diligence · Application-ready · Awarded · Signed.
+
+The thermometer's `tribesSignedOn` count must include only Tribes that have **signed** (not "identified"). Maintain this distinction clearly in the data model and the UI legend.
+
+# =========================================================
+# WEBSITE IA / PAGES (build or update)
+# =========================================================
+
+## 1) Homepage (above the fold)
+- Headline: **"NEVI 6 + Tribal Microgrid-Ready Charging"**
+- Subhead: **"$5M per-site EV fast charging + battery package designed to minimize Tribal cash outlay while maximizing sovereignty and long-term energy benefits."**
+- Three primary CTAs: "Check Site Eligibility" (form), "Download 1-Page Summary" (PDF placeholder), "Book a 30-Min Call" (calendar link placeholder).
+- **Tribes Signed On thermometer** placed prominently (above fold or immediately below hero).
+
+## 2) /ca-nevi-6
+- What NEVI 6 is (brief).
+- Target: 2–20 Tribes.
+- Timeline with Day 1 / 90 / 180 / 270 / 450 markers.
+- Site requirements checklist (location/host type, access, grid capacity, site control).
+- Compliance positioning (domestic content, PWA, FEOC/MACR readiness — high-level, non-legal).
+- "What we do vs what the Tribe does" section.
+- Embed FAQ.
+
+## 3) /evse-bess-package
+- Technical summary (EVSE 1.44 MW; BESS 1 MW / 6 MWh).
+- Battery roles: peak shaving, load shaping, resilience, arbitrage, microgrid stabilization.
+- Optional future-phase hub model callout: 5 MW / 20 MWh at select sites — clearly labeled "future phase, not baseline".
+
+## 4) /capital-weaving
+- Crisp Sources & Uses table (per site).
+- Clearly label each line by type (grant / refundable credit / incentive / repayable debt / cash).
+- "What happens if one source slips?" risk-mitigation section.
+- "Before additional incentives not yet identified" disclaimer prominent.
+- **Assumptions accordion** near the table.
+- **Portfolio calculator stub:** input N (2–20), output total portfolio capex and each capital source scaled linearly. Warn: NMTC and SSBCI may scale non-linearly / are allocation-based. The calculator must read from `data/coalition.json` for live default count.
+- Embed FAQ.
+
+## 5) /tribal-sovereignty
+- Why this structure protects the Tribe.
+- TOE ownership option mechanics.
+- Capacity certification pathway.
+- Land use & site control considerations.
+
+## 6) /coalition (NEW PAGE)
+- Full-bleed thermometer + milestone explainers.
+- Roster of signed Tribes (with permission); separate "in diligence" and "identified" sub-lists.
+- Bandwagon copy (see block above).
+- "Bring your Tribe" CTA linking to /ca-nevi-6 eligibility form.
+
+## 7) Pipeline / Target Sites module
+- Status tags: Identified · In diligence · Application-ready · Awarded · Signed.
+- Tribe / site name + city / county.
+- Add the two new sites listed above.
+
+## 8) Downloadables (placeholder PDFs)
+- 1-page overview · Tribal council briefing deck · NEVI 6 readiness checklist · Capital weaving sources & timing guide.
+
+## 9) Partner Network
+- Colusa Indian Energy · Allumia · 7 Generations · InCharge Energy.
+- Disclaimer: "partners vary by geography and project needs."
+
+## 10) /faq
+20 FAQs (full text below). Embed on /ca-nevi-6 and /capital-weaving as well.
+
+# =========================================================
+# BOILERPLATE COPY BLOCKS
+# =========================================================
+
+## Disclaimer (on /capital-weaving and footer)
+> **Disclaimer:** The funding model shown is a planning model and is contingent on eligibility, award decisions, and program availability (NEVI, SGIP step/rates, NMTC allocation, and SSBCI/CDFI underwriting).
+> **This model is presented *before* any additional clean energy credits, LCFS revenue, utility programs, or other incentives not yet identified.** Any such additional incentives will be treated as incremental upside or used to reduce repayable financing needs.
+> This information is not legal or tax advice.
+
+## What the Tribe Provides
+- Tribally controlled land/site access (as applicable)
+- $150,000 TOE escrow (milestone-based)
+- Site coordination / local approvals support
+- Optional: workforce coordination if desired
+
+## What TEN Provides
+- Grant strategy + application management
+- Compliance + due diligence
+- EPC / O&M coordination
+- Procurement strategy (domestic content / FEOC-aware)
+- Operations + maintenance management
+- Reporting & performance transparency dashboards (if offered)
+
+# =========================================================
+# 20 FAQS (verbatim)
+# =========================================================
+1) **What is CA NEVI 6?** California's next funding round under the National Electric Vehicle Infrastructure program to deploy public DC fast charging along designated corridors. We support Tribes in site readiness, application, award compliance, and delivery.
+2) **What's in the $5M per-site package?** A $1.5M EV fast charging build (1.44 MW, 8×180 kW with CCS + NACS) plus a $3.5M battery system (1 MW / 6 MWh), including development, delivery coordination, and subcontracted O&M support.
+3) **How much cash does the Tribe put in?** $150,000 total via a wholly-owned TOE in CD-secured escrow, released in milestone tranches. No additional Tribal equity required in the base model.
+4) **Why does the Tribe contribute cash at all?** Aligns incentives, supports pre-development momentum, and helps unlock the broader capital stack while keeping Tribal exposure capped and predictable.
+5) **Is the SSBCI/CDFI facility free money?** No — it is repayable financing used to bridge timing gaps and reduce friction. Repaid from project cash flows and/or reimbursements.
+6) **Is NMTC guaranteed?** No. NMTC is allocation-based and requires CDE allocation. We model a target net benefit and pursue it at the portfolio level.
+7) **How does 48E elective pay work for Tribes?** Eligible Tribal entities can receive the credit value as a refundable payment, subject to wage/apprenticeship rules, domestic content, and compliance.
+8) **What is SGIP?** California's Self-Generation Incentive Program — incentive for energy storage. Availability depends on program step/rates and eligibility.
+9) **What if NEVI isn't awarded?** Proceed with the battery + targeted energy improvements. EV charging can be pursued through other grant programs or later rounds.
+10) **Who owns the equipment?** TEN initially owns and operates. TOE receives a contractual share of net operational benefits, with a path to Tribal ownership via capacity certification.
+11) **What is capacity certification?** Verification the Tribe/TOE can assume ownership responsibly (operations, maintenance, compliance). TEN facilitates the process.
+12) **Do we need to hire staff?** No. TOE incurs no operating expense in the base structure; TEN manages O&M via subcontractors.
+13) **How is charging margin calculated?** Charging revenue minus energy costs, network/CPO fees, maintenance, and other operating expenses. Transparent waterfall and reporting in the agreement.
+14) **How does the battery save/make money?** Reducing peak demand costs, shifting energy usage to lower-cost periods, supporting reliability, and capturing permissible arbitrage/savings depending on tariffs and operating rules.
+15) **Is this a microgrid?** Microgrid-ready. True microgrid operation depends on site controls, interconnection permissions, and additional generation/controls.
+16) **Does this include LCFS revenue?** Presented before LCFS — treated as incremental upside if captured contractually.
+17) **What are the biggest risks?** Grant award uncertainty, reimbursement/credit timing, SGIP step availability, NMTC allocation availability, operational utilization. Mitigated by portfolio structuring, compliance-first procurement, conservative underwriting.
+18) **How long does deployment take?** Day 1 kickoff → Day 90+ submission → Day 180+ award → Day 270+ delivery → Day 450+ substantial completion. Actual timing depends on interconnection and permitting.
+19) **Can this scale?** Yes — designed for 2–20 Tribes with standardized package, portfolio procurement, and repeatable compliance.
+20) **Is this legal/tax advice?** No. Planning information only. Final structures and eligibility confirmed with qualified counsel and program administrators.
+
+# =========================================================
+# IMPLEMENTATION NOTES
+# =========================================================
+- Use clear, scannable headings and tables. Keep copy density consistent.
+- Add an Assumptions accordion next to Sources & Uses.
+- Build the portfolio calculator as a small client-side component (no backend required).
+- The thermometer reads `data/coalition.json`; updating that file (or its CMS equivalent) must be the only step needed to change the count.
+- Honor `prefers-reduced-motion` for the thermometer animation.
+- Print stylesheet for /capital-weaving and /faq (RFP attachments).
+- Lazy-load any third-party calendar / form embeds.
+- Keep the existing visual identity: paper/ink palette, Libre Caslon Text display, IBM Plex Sans body, IBM Plex Mono labels. Do not introduce new typefaces or accent colors.
+
+# =========================================================
+# DEFINITION OF DONE
+# =========================================================
+- [ ] Homepage hero, subhead, three CTAs match spec.
+- [ ] Thermometer renders from `data/coalition.json`, animates on first viewport entry, honors reduced motion, passes ARIA progressbar audit.
+- [ ] Launch state shows **0 of 5** with the bar empty; the active milestone is **5 — NMTC Activated**; 10/15/20 are rendered as a separate "Stretch goals" strip.
+- [ ] When `tribesSignedOn` reaches `currentGoal`, advancing `currentGoal` in `data/coalition.json` to the next milestone correctly rescales the bar and promotes the next stretch goal to active.
+- [ ] /coalition page exists with thermometer, roster (signed / in diligence / identified), bandwagon copy, "Bring your Tribe" CTA.
+- [ ] /ca-nevi-6, /evse-bess-package, /capital-weaving, /tribal-sovereignty, /faq pages built or updated to spec.
+- [ ] Sources & Uses table on /capital-weaving with assumptions accordion + portfolio calculator stub (2–20).
+- [ ] Pipeline / Target Sites module shows the two new sites (Desert Rose AIR Fuel — Alturas; Chimney Rock Travel Center — Pit River) with "Identified" status.
+- [ ] Tribal cash is $150k (never $300k); SSBCI labeled as repayable; "before additional incentives" disclaimer present on /capital-weaving and footer.
+- [ ] All 20 FAQs published at /faq and embedded on /ca-nevi-6 and /capital-weaving.
+- [ ] Visual identity respected: no new fonts, no new accent colors, mobile-first responsive, keyboard-accessible.
+- [ ] Print stylesheet for /capital-weaving and /faq.
+- [ ] No legal/tax-advice claims; the standard disclaimer line is present where relevant.
+
+# WHEN UNCERTAIN
+Prefer clarity, defensibility, and Tribal sovereignty alignment over polish. Leave a TODO comment with a one-line question rather than guessing on irreversible choices (legal language, tribal naming, partner attribution, dollar figures).
+</pre>
+  </div>
+
+  <!-- ============== THERMOMETER PREVIEW ============== -->
+  <div class="section-head" id="thermo">
+    <span class="num">02</span>
+    <h2>Thermometer — visual reference for the agent</h2>
+  </div>
+
+  <p style="max-width:62ch">A working preview the engineer can mirror. The fill animates left-to-right; ticks switch from muted (locked) to accent (unlocked) once the count crosses each threshold.</p>
+
+  <div class="thermo">
+    <div class="thermo-header">
+      <span class="label">Tribes Signed On</span>
+      <span class="count">0 of 5 · First milestone · Last updated May 2, 2026</span>
+    </div>
+    <div class="thermo-track">
+      <div class="thermo-fill" style="width:0%"></div>
+    </div>
+    <div class="thermo-ticks" style="grid-template-columns:1fr">
+      <div class="thermo-tick" style="border-left:none"><strong>5 Tribes — NMTC Activated</strong>First milestone. Unlocks New Markets Tax Credits — covers ~20% of project costs across the portfolio.</div>
+    </div>
+    <p style="margin:18px 0 0;font-size:13px;color:var(--muted);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase">Stretch goals</p>
+    <div class="thermo-ticks">
+      <div class="thermo-tick"><strong>10 — Charger Pricing</strong>Preferred pricing on EV chargers (portfolio procurement).</div>
+      <div class="thermo-tick"><strong>15 — Battery Pricing</strong>Preferred pricing on BESS systems.</div>
+      <div class="thermo-tick"><strong>20 — $100M Unlocked</strong>Full bridge + permanent lending stack: SSBCI, USDA REAP, more.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <span class="num">DATA</span>
+      <h3>Single source of truth</h3>
+      <p>Read from <code>data/coalition.json</code>. Updating that file is the only step required to move the count. Never hardcode the count in markup.</p>
+    </div>
+    <div class="card">
+      <span class="num">A11Y</span>
+      <h3>ARIA progressbar</h3>
+      <p>Use <code>role="progressbar"</code> with <code>aria-valuenow/min/max</code>. Provide a screen-reader summary that names which milestones are unlocked and which is next.</p>
+    </div>
+    <div class="card">
+      <span class="num">MOTION</span>
+      <h3>Honor reduced motion</h3>
+      <p>Animate the fill on first viewport entry only. If <code>prefers-reduced-motion</code> is set, render the final state immediately without animation.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>Critical distinction: "signed on" vs "identified"</h3>
+    <p>The thermometer count must reflect <strong>Tribes that have signed</strong>, not Tribes in the broader pipeline. Both data points are useful, but conflating them undermines the bandwagon claim. Keep them separated in the data model and in the UI legend.</p>
+  </div>
+
+  <!-- ============== SITES ============== -->
+  <div class="section-head" id="sites">
+    <span class="num">03</span>
+    <h2>Pipeline additions</h2>
+  </div>
+
+  <p style="max-width:62ch">The two newly-confirmed sites to fold into the existing Target Sites module. Status starts at "Identified" — the agent should not promote either to "Signed" without explicit instruction.</p>
+
+  <div class="site-list">
+    <div class="site-row">
+      <span class="num">+</span>
+      <div>
+        <div class="name">Desert Rose AIR Fuel</div>
+        <div class="place">Alturas, CA · Modoc County</div>
+      </div>
+      <span class="pill new">New addition</span>
+      <span class="pill ident">Identified</span>
+    </div>
+    <div class="site-row">
+      <span class="num">+</span>
+      <div>
+        <div class="name">Chimney Rock Travel Center</div>
+        <div class="place">Pit River, CA</div>
+      </div>
+      <span class="pill new">New addition</span>
+      <span class="pill ident">Identified</span>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--accent-2)">
+    <h3>One last instruction worth repeating to the agent</h3>
+    <p>Respect Tribal naming and only display sites with explicit consent. If consent status for a listed site is unclear, leave it off the public roster and flag a TODO — do not guess. This is a reputational issue, not a UX issue.</p>
+  </div>
+
+  <footer>
+    <span>Tribal Energy Network · Codex/Claude Code update brief · May 2026</span>
+    <span>Amerind Nation LLC · 100% Native-owned</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  function bindCopy(btnId, sourceId){
+    const btn = document.getElementById(btnId);
+    if(!btn) return;
+    btn.addEventListener('click', async () => {
+      const src = sourceId ? document.getElementById(sourceId).innerText : document.getElementById('promptText').innerText;
+      try {
+        await navigator.clipboard.writeText(src);
+        const original = btn.innerText;
+        btn.classList.add('ok');
+        btn.innerText = '✓ Copied';
+        setTimeout(() => { btn.classList.remove('ok'); btn.innerText = original; }, 1800);
+      } catch(e) {
+        btn.innerText = 'Copy failed — select manually';
+      }
+    });
+  }
+  bindCopy('copyMain', 'promptText');
+  bindCopy('copyPrompt', 'promptText');
+})();
+</script>
+
+</body>
+</html>
