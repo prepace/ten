@@ -144,8 +144,8 @@ const faqs = [
 		"California's next funding round under the National Electric Vehicle Infrastructure program to deploy public DC fast charging along designated corridors. We support Tribes in site readiness, application, award compliance, and delivery.",
 	],
 	[
-		"What's in the $5M per-site package?",
-		"A $1.25M EV fast charging build sized for competitive NEVI scoring plus a $4M battery system, including development, delivery coordination, and subcontracted O&M support.",
+		"What's in the $6M per-site package?",
+		"A $1.25M EV fast charging build sized for competitive NEVI scoring plus a $4M battery system and $750k in site amenities, including development, delivery coordination, and contracted O&M support.",
 	],
 	[
 		"How much cash does the Tribe put in?",
@@ -181,7 +181,7 @@ const faqs = [
 	],
 	[
 		"Do we need to hire staff?",
-		"No. TOE incurs no operating expense in the base structure; TEN manages O&M via subcontractors.",
+		"No. TOE incurs no operating expense in the base structure; TEN manages O&M via strategic partnerships.",
 	],
 	[
 		"How is charging margin calculated?",
@@ -827,7 +827,7 @@ export default function Page() {
 				<Section id="downloads">
 					<SectionHead title="A repeatable package for California Tribes">
 						TEN owns, operates, and maintains the EVSE + BESS through qualified
-						subcontractors while the Tribally-Owned Entity (TOE) receives a
+						strategic partners while the Tribally-Owned Entity (TOE) receives a
 						contractual share of net operational benefits. The public cohort has
 						20 maximum slots for this CA NEVI 6 round.
 					</SectionHead>
