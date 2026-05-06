@@ -800,10 +800,22 @@ export default function Page() {
 			{/* HERO */}
 			<section className="hero">
 				<div className="hero-inner">
-					<div className="invite-tag">Invite Only &middot; Pre-Vetted Sites</div>
-					<h1>Your Site Has Been Selected for <span>California NEVI 6</span></h1>
-					<p className="hero-sub">The California Energy Commission is awarding $79 million for DC fast charging stations along major corridors. Your location has been identified as a strong candidate and included in a coordinated tribal application. We handle the entire process — you provide the site and the commitment.</p>
-					<a href="https://calendly.com/ampace" className="hero-cta">Claim Your Spot →</a>
+					<div className="invite-tag">
+						Invite Only &middot; Pre-Vetted Sites
+					</div>
+					<h1>
+						Your Site Has Been Selected for <span>California NEVI 6</span>
+					</h1>
+					<p className="hero-sub">
+						The California Energy Commission is awarding $79 million for DC fast
+						charging stations along major corridors. Your location has been
+						identified as a strong candidate and included in a coordinated
+						tribal application. We handle the entire process — you provide the
+						site and the commitment.
+					</p>
+					<a href="https://calendly.com/ampace" className="hero-cta">
+						Claim Your Spot →
+					</a>
 				</div>
 			</section>
 
@@ -833,10 +845,22 @@ export default function Page() {
 			<div className="section">
 				<div className="section-header">
 					<h2>You&apos;re in Good Company</h2>
-					<p>Your site is part of a coordinated California tribal application covering up to 20 high-traffic locations along Alternative Fuel Corridors. Strength in numbers: grouping eligible tribal sites into one application unlocks volume pricing, shared engineering costs, and a stronger competitive position with the CEC.</p>
+					<p>
+						Your site is part of a coordinated California tribal application
+						covering up to 20 high-traffic locations along Alternative Fuel
+						Corridors. Strength in numbers: grouping eligible tribal sites into
+						one application unlocks volume pricing, shared engineering costs,
+						and a stronger competitive position with the CEC.
+					</p>
 				</div>
 				<div className="network-intro">
-					<strong>Why this matters:</strong> The CEC&apos;s maximum award per applicant is 35% of the total solicitation ($27.65M). By applying as a coordinated tribal network rather than 20 separate single-site applications, we secure better pricing from EPC partners, avoid duplicating engineering and legal costs, and present a stronger, more cohesive proposal. Your site retains its own budget, grant allocation, and revenue stream — the network simply provides the scaffolding.
+					<strong>Why this matters:</strong> The CEC&apos;s maximum award per
+					applicant is 35% of the total solicitation ($27.65M). By applying as a
+					coordinated tribal network rather than 20 separate single-site
+					applications, we secure better pricing from EPC partners, avoid
+					duplicating engineering and legal costs, and present a stronger, more
+					cohesive proposal. Your site retains its own budget, grant allocation,
+					and revenue stream — the network simply provides the scaffolding.
 				</div>
 				<div className="site-table-wrap">
 					<table>
@@ -847,39 +871,112 @@ export default function Page() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr><td>Lucky 7</td><td className="tribe-col">Smith River / Tolowa Dee-ni&apos;</td></tr>
-							<tr><td>Tribal Fuel Mart</td><td className="tribe-col">Elk Valley</td></tr>
-							<tr><td>Pem Mey Fuel Mart</td><td className="tribe-col">Yurok</td></tr>
-							<tr><td>Rain Rock</td><td className="tribe-col">Karuk</td></tr>
-							<tr><td>Fuel &amp; Fun</td><td className="tribe-col">Blue Lake</td></tr>
-							<tr><td>Club at Mill Creek</td><td className="tribe-col">Big Lagoon</td></tr>
-							<tr><td>Pump and Play</td><td className="tribe-col">Rohnerville / Bear River</td></tr>
-							<tr><td>Rolling Hills</td><td className="tribe-col">Paskenta</td></tr>
-							<tr><td>Casino Gas Station</td><td className="tribe-col">Coyote Valley</td></tr>
-							<tr><td>Running Creek</td><td className="tribe-col">Upper Lake</td></tr>
-							<tr><td>Market &amp; Fuel</td><td className="tribe-col">Big Valley</td></tr>
-							<tr><td>Thunder Valley</td><td className="tribe-col">United Auburn</td></tr>
-							<tr><td>Red Hawk</td><td className="tribe-col">Shingle Springs</td></tr>
-							<tr><td>Sky River</td><td className="tribe-col">Wilton</td></tr>
-							<tr><td>TREDC</td><td className="tribe-col">Tule River</td></tr>
-							<tr><td>Chukchansi Gold</td><td className="tribe-col">Picayune</td></tr>
-							<tr><td>Golden Acorn</td><td className="tribe-col">Campo Kumeyaay</td></tr>
-							<tr><td>Cathedral City / Rancho Mirage</td><td className="tribe-col">Agua Caliente</td></tr>
-							<tr><td>Fantasy Springs</td><td className="tribe-col">Cabazon</td></tr>
-							<tr><td>Spotlight 29 / Shelee&apos;s</td><td className="tribe-col">Twenty-Nine Palms</td></tr>
-							<tr><td>Red Earth</td><td className="tribe-col">Torres-Martinez</td></tr>
-							<tr><td>Outlet Center / Pit Stop</td><td className="tribe-col">Viejas</td></tr>
-							<tr><td>Quechan</td><td className="tribe-col">Fort Yuma</td></tr>
+							<tr>
+								<td>Lucky 7</td>
+								<td className="tribe-col">Smith River / Tolowa Dee-ni&apos;</td>
+							</tr>
+							<tr>
+								<td>Tribal Fuel Mart</td>
+								<td className="tribe-col">Elk Valley</td>
+							</tr>
+							<tr>
+								<td>Pem Mey Fuel Mart</td>
+								<td className="tribe-col">Yurok</td>
+							</tr>
+							<tr>
+								<td>Rain Rock</td>
+								<td className="tribe-col">Karuk</td>
+							</tr>
+							<tr>
+								<td>Fuel &amp; Fun</td>
+								<td className="tribe-col">Blue Lake</td>
+							</tr>
+							<tr>
+								<td>Club at Mill Creek</td>
+								<td className="tribe-col">Big Lagoon</td>
+							</tr>
+							<tr>
+								<td>Pump and Play</td>
+								<td className="tribe-col">Rohnerville / Bear River</td>
+							</tr>
+							<tr>
+								<td>Rolling Hills</td>
+								<td className="tribe-col">Paskenta</td>
+							</tr>
+							<tr>
+								<td>Casino Gas Station</td>
+								<td className="tribe-col">Coyote Valley</td>
+							</tr>
+							<tr>
+								<td>Running Creek</td>
+								<td className="tribe-col">Upper Lake</td>
+							</tr>
+							<tr>
+								<td>Market &amp; Fuel</td>
+								<td className="tribe-col">Big Valley</td>
+							</tr>
+							<tr>
+								<td>Thunder Valley</td>
+								<td className="tribe-col">United Auburn</td>
+							</tr>
+							<tr>
+								<td>Red Hawk</td>
+								<td className="tribe-col">Shingle Springs</td>
+							</tr>
+							<tr>
+								<td>Sky River</td>
+								<td className="tribe-col">Wilton</td>
+							</tr>
+							<tr>
+								<td>TREDC</td>
+								<td className="tribe-col">Tule River</td>
+							</tr>
+							<tr>
+								<td>Chukchansi Gold</td>
+								<td className="tribe-col">Picayune</td>
+							</tr>
+							<tr>
+								<td>Golden Acorn</td>
+								<td className="tribe-col">Campo Kumeyaay</td>
+							</tr>
+							<tr>
+								<td>Cathedral City / Rancho Mirage</td>
+								<td className="tribe-col">Agua Caliente</td>
+							</tr>
+							<tr>
+								<td>Fantasy Springs</td>
+								<td className="tribe-col">Cabazon</td>
+							</tr>
+							<tr>
+								<td>Spotlight 29 / Shelee&apos;s</td>
+								<td className="tribe-col">Twenty-Nine Palms</td>
+							</tr>
+							<tr>
+								<td>Red Earth</td>
+								<td className="tribe-col">Torres-Martinez</td>
+							</tr>
+							<tr>
+								<td>Outlet Center / Pit Stop</td>
+								<td className="tribe-col">Viejas</td>
+							</tr>
+							<tr>
+								<td>Quechan</td>
+								<td className="tribe-col">Fort Yuma</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 
 			{/* WHAT WE HANDLE vs WHAT YOU PROVIDE */}
-			<div className="section" style={{paddingTop: 0}}>
+			<div className="section" style={{ paddingTop: 0 }}>
 				<div className="section-header">
 					<h2>We Handle the Heavy Lifting</h2>
-					<p>This is a complex federal-state program with prevailing wage, environmental review, and utility coordination requirements. We manage all of it.</p>
+					<p>
+						This is a complex federal-state program with prevailing wage,
+						environmental review, and utility coordination requirements. We
+						manage all of it.
+					</p>
 				</div>
 				<div className="two-col">
 					<div className="col-card ours">
@@ -905,7 +1002,9 @@ export default function Page() {
 							<li>Utility provider contact information</li>
 							<li>Authorized signer for application</li>
 							<li>CA Secretary of State registration</li>
-							<li>$50,000 deposit to reserve your spot (held in trust until award)</li>
+							<li>
+								$50,000 deposit to reserve your spot (held in trust until award)
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -919,19 +1018,38 @@ export default function Page() {
 						<div className="step-card">
 							<div className="step-num">1</div>
 							<div className="step-title">Reserve Your Spot</div>
-							<div className="step-desc">Confirm your site, provide basic information, and place your deposit. This secures your position in the tribal application and is held in trust — not billed until the grant is awarded and the CEC contract is executed.</div>
-							<div className="step-fee">20% of fee &middot; Deposit held in trust</div>
+							<div className="step-desc">
+								Confirm your site, provide basic information, and place your
+								deposit. This secures your position in the tribal application
+								and is held in trust — not billed until the grant is awarded and
+								the CEC contract is executed.
+							</div>
+							<div className="step-fee">
+								20% of fee &middot; Deposit held in trust
+							</div>
 						</div>
 						<div className="step-card">
 							<div className="step-num">2</div>
 							<div className="step-title">We Build &amp; Submit</div>
-							<div className="step-desc">Our team develops your full application — narrative, budget, site plans, environmental forms, utility verification — and submits everything through the CEC&apos;s ECAMS portal before the September 25 deadline.</div>
-							<div className="step-fee">40% of fee &middot; Due at submission</div>
+							<div className="step-desc">
+								Our team develops your full application — narrative, budget,
+								site plans, environmental forms, utility verification — and
+								submits everything through the CEC&apos;s ECAMS portal before
+								the September 25 deadline.
+							</div>
+							<div className="step-fee">
+								40% of fee &middot; Due at submission
+							</div>
 						</div>
 						<div className="step-card">
 							<div className="step-num">3</div>
 							<div className="step-title">Award &amp; Build</div>
-							<div className="step-desc">If awarded, we manage the full project — EPC procurement, construction oversight, commissioning, and 5-year operations setup. Your station opens and starts generating revenue for your tribe.</div>
+							<div className="step-desc">
+								If awarded, we manage the full project — EPC procurement,
+								construction oversight, commissioning, and 5-year operations
+								setup. Your station opens and starts generating revenue for your
+								tribe.
+							</div>
 							<div className="step-fee">40% of fee &middot; Due at award</div>
 						</div>
 					</div>
@@ -942,24 +1060,53 @@ export default function Page() {
 			<section className="budget-section">
 				<div className="budget-inner">
 					<h2>Your Investment &amp; Return</h2>
-					<p className="budget-sub">The CEC covers 80% of the project. Your tribe contributes 20% — half of which is value you already hold (land and staff time).</p>
+					<p className="budget-sub">
+						The CEC covers 80% of the project. Your tribe contributes 20% — half
+						of which is value you already hold (land and staff time).
+					</p>
 
 					<div className="big-callout">
-						<div className="big-callout-label">Your Total Cash Investment per Station</div>
+						<div className="big-callout-label">
+							Your Total Cash Investment per Station
+						</div>
 						<div className="big-callout-num">$150,000</div>
-						<div className="big-callout-sub">Out of a $1,500,000 fully built, commissioned, and maintained charging station</div>
-						<div className="big-callout-note">That&apos;s 10% of the project — the grant and your existing land cover the rest</div>
+						<div className="big-callout-sub">
+							Out of a $1,500,000 fully built, commissioned, and maintained
+							charging station
+						</div>
+						<div className="big-callout-note">
+							That&apos;s 10% of the project — the grant and your existing land
+							cover the rest
+						</div>
 					</div>
 
 					<div className="budget-stack">
 						<div className="budget-card">
 							<h3>What the Grant Covers (80%)</h3>
-							<div className="budget-line"><span>EVSE hardware (8 dual-port 180kW chargers)</span><span>$480,000</span></div>
-							<div className="budget-line"><span>Civil, electrical, and installation</span><span>$240,000</span></div>
-							<div className="budget-line"><span>Engineering, permitting, project management</span><span>$240,000</span></div>
-							<div className="budget-line"><span>Utility interconnection</span><span>$80,000</span></div>
-							<div className="budget-line"><span>5-year warranty, O&amp;M, and networking</span><span>$160,000</span></div>
-							<div className="budget-line total"><span>CEC Grant Award</span><span>$1,200,000</span></div>
+							<div className="budget-line">
+								<span>EVSE hardware (8 dual-port 180kW chargers)</span>
+								<span>$480,000</span>
+							</div>
+							<div className="budget-line">
+								<span>Civil, electrical, and installation</span>
+								<span>$240,000</span>
+							</div>
+							<div className="budget-line">
+								<span>Engineering, permitting, project management</span>
+								<span>$240,000</span>
+							</div>
+							<div className="budget-line">
+								<span>Utility interconnection</span>
+								<span>$80,000</span>
+							</div>
+							<div className="budget-line">
+								<span>5-year warranty, O&amp;M, and networking</span>
+								<span>$160,000</span>
+							</div>
+							<div className="budget-line total">
+								<span>CEC Grant Award</span>
+								<span>$1,200,000</span>
+							</div>
 						</div>
 
 						<div className="budget-card">
@@ -977,72 +1124,189 @@ export default function Page() {
 								</div>
 							</div>
 
-							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--sage)", marginBottom: "0.5rem"}}>In-Kind — $150,000 (value you already hold)</div>
-								<div className="budget-line"><span>Use of your land for the station</span><span>$100,000</span></div>
-								<div className="budget-line"><span>Staff time (facilities, environmental, admin)</span><span>$50,000</span></div>
+							<div style={{ marginTop: "1rem" }}>
+								<div
+									style={{
+										fontWeight: 600,
+										fontSize: "0.88rem",
+										color: "var(--sage)",
+										marginBottom: "0.5rem",
+									}}
+								>
+									In-Kind — $150,000 (value you already hold)
+								</div>
+								<div className="budget-line">
+									<span>Use of your land for the station</span>
+									<span>$100,000</span>
+								</div>
+								<div className="budget-line">
+									<span>Staff time (facilities, environmental, admin)</span>
+									<span>$50,000</span>
+								</div>
 							</div>
 
-							<div style={{marginTop: "1rem"}}>
-								<div style={{fontWeight: 600, fontSize: "0.88rem", color: "var(--gold)", marginBottom: "0.5rem"}}>Cash — $150,000</div>
-								<div className="budget-line"><span>Your $50K deposit (applied post-award)</span><span>$50,000</span></div>
-								<div className="budget-line"><span>Remaining balance</span><span>$100,000</span></div>
-								<div className="budget-line" style={{fontSize: "0.82rem", color: "var(--muted)"}}><span>Payable at award, or financed against grant</span><span></span></div>
+							<div style={{ marginTop: "1rem" }}>
+								<div
+									style={{
+										fontWeight: 600,
+										fontSize: "0.88rem",
+										color: "var(--gold)",
+										marginBottom: "0.5rem",
+									}}
+								>
+									Cash — $150,000
+								</div>
+								<div className="budget-line">
+									<span>Your $50K deposit (applied post-award)</span>
+									<span>$50,000</span>
+								</div>
+								<div className="budget-line">
+									<span>Remaining balance</span>
+									<span>$100,000</span>
+								</div>
+								<div
+									className="budget-line"
+									style={{ fontSize: "0.82rem", color: "var(--muted)" }}
+								>
+									<span>Payable at award, or financed against grant</span>
+									<span></span>
+								</div>
 							</div>
 
-							<div className="budget-line total"><span>Total Match</span><span>$300,000</span></div>
+							<div className="budget-line total">
+								<span>Total Match</span>
+								<span>$300,000</span>
+							</div>
 						</div>
 					</div>
 
-					<div className="section-header" style={{marginBottom: "1rem"}}>
-						<h2 style={{fontFamily: "'Fraunces',serif", fontSize: "1.3rem"}}>How Fast Does $150,000 Pay for Itself?</h2>
-						<p style={{color: "var(--muted)", fontSize: "0.92rem"}}>Your station earns revenue from every vehicle that charges. At California DCFC pricing ($0.40–$0.60/kWh) and 1,080 kW of total station capacity, the math works quickly.</p>
+					<div className="section-header" style={{ marginBottom: "1rem" }}>
+						<h2 style={{ fontFamily: "'Fraunces',serif", fontSize: "1.3rem" }}>
+							How Fast Does $150,000 Pay for Itself?
+						</h2>
+						<p style={{ color: "var(--muted)", fontSize: "0.92rem" }}>
+							Your station earns revenue from every vehicle that charges. At
+							California DCFC pricing ($0.40–$0.60/kWh) and 1,080 kW of total
+							station capacity, the math works quickly.
+						</p>
 					</div>
 					<div className="roi-scenarios">
 						<div className="roi-card conservative">
 							<div className="roi-scenario-label">Conservative</div>
 							<div className="roi-payback">14</div>
 							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>10%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.40</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$146K</strong> net revenue/yr</div>
+							<div className="roi-detail">
+								<strong>10%</strong> utilization
+							</div>
+							<div className="roi-detail">
+								<strong>$0.40</strong>/kWh pricing
+							</div>
+							<div
+								className="roi-detail"
+								style={{
+									marginTop: "0.4rem",
+									paddingTop: "0.4rem",
+									borderTop: "1px dashed rgba(0,0,0,0.08)",
+								}}
+							>
+								<strong>$146K</strong> net revenue/yr
+							</div>
 						</div>
 						<div className="roi-card moderate">
 							<div className="roi-scenario-label">Expected</div>
 							<div className="roi-payback">8</div>
 							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>15%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.44</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$256K</strong> net revenue/yr</div>
+							<div className="roi-detail">
+								<strong>15%</strong> utilization
+							</div>
+							<div className="roi-detail">
+								<strong>$0.44</strong>/kWh pricing
+							</div>
+							<div
+								className="roi-detail"
+								style={{
+									marginTop: "0.4rem",
+									paddingTop: "0.4rem",
+									borderTop: "1px dashed rgba(0,0,0,0.08)",
+								}}
+							>
+								<strong>$256K</strong> net revenue/yr
+							</div>
 						</div>
 						<div className="roi-card aggressive">
 							<div className="roi-scenario-label">Strong Market</div>
 							<div className="roi-payback">4</div>
 							<div className="roi-payback-unit">months to payback</div>
-							<div className="roi-detail"><strong>20%</strong> utilization</div>
-							<div className="roi-detail"><strong>$0.48</strong>/kWh pricing</div>
-							<div className="roi-detail" style={{marginTop: "0.4rem", paddingTop: "0.4rem", borderTop: "1px dashed rgba(0,0,0,0.08)"}}><strong>$465K</strong> net revenue/yr</div>
+							<div className="roi-detail">
+								<strong>20%</strong> utilization
+							</div>
+							<div className="roi-detail">
+								<strong>$0.48</strong>/kWh pricing
+							</div>
+							<div
+								className="roi-detail"
+								style={{
+									marginTop: "0.4rem",
+									paddingTop: "0.4rem",
+									borderTop: "1px dashed rgba(0,0,0,0.08)",
+								}}
+							>
+								<strong>$465K</strong> net revenue/yr
+							</div>
 						</div>
 					</div>
 
 					<div className="retainer-callout">
-						<strong>After payback, the station keeps earning.</strong> Your charging station has a useful life of 10+ years. Once you&apos;ve recouped your $168,750 investment — typically within the first year — the ongoing revenue is yours. At the expected utilization level, that&apos;s over $250,000 per year in net station revenue to your tribe, from an asset that was 80% grant-funded and built on land you already own.
+						<strong>After payback, the station keeps earning.</strong> Your
+						charging station has a useful life of 10+ years. Once you&apos;ve
+						recouped your $168,750 investment — typically within the first year
+						— the ongoing revenue is yours. At the expected utilization level,
+						that&apos;s over $250,000 per year in net station revenue to your
+						tribe, from an asset that was 80% grant-funded and built on land you
+						already own.
 					</div>
 
 					<div className="phase2-callout">
-						<span className="phase2-label">Phase 2 &middot; Battery Storage</span>
-						<div className="phase2-title">Add a Battery System — Capture Every Kilowatt at the Best Rate</div>
-						<p className="phase2-desc">Once your station is operational, we help you apply for California&apos;s Self-Generation Incentive Program (SGIP) to install a battery storage system. For qualifying tribal sites in high fire-threat districts or disadvantaged communities, SGIP can cover <strong>up to 100% of the battery cost</strong>. The battery charges overnight at low off-peak rates, then powers your chargers during expensive peak hours — eliminating demand charges and capturing pricing arbitrage.</p>
+						<span className="phase2-label">
+							Phase 2 &middot; Battery Storage
+						</span>
+						<div className="phase2-title">
+							Add a Battery System — Capture Every Kilowatt at the Best Rate
+						</div>
+						<p className="phase2-desc">
+							Once your station is operational, we help you apply for
+							California&apos;s Self-Generation Incentive Program (SGIP) to
+							install a battery storage system. For qualifying tribal sites in
+							high fire-threat districts or disadvantaged communities, SGIP can
+							cover <strong>up to 100% of the battery cost</strong>. The battery
+							charges overnight at low off-peak rates, then powers your chargers
+							during expensive peak hours — eliminating demand charges and
+							capturing pricing arbitrage.
+						</p>
 						<div className="phase2-grid">
 							<div className="phase2-metric">
 								<div className="phase2-val">+$300K</div>
 								<div className="phase2-unit">Additional annual revenue</div>
-								<div className="phase2-desc" style={{marginTop: "0.5rem", fontSize: "0.82rem"}}>From demand charge avoidance and TOU arbitrage on the same charging load</div>
+								<div
+									className="phase2-desc"
+									style={{ marginTop: "0.5rem", fontSize: "0.82rem" }}
+								>
+									From demand charge avoidance and TOU arbitrage on the same
+									charging load
+								</div>
 							</div>
 							<div className="phase2-metric">
 								<div className="phase2-val">~$550K</div>
-								<div className="phase2-unit">Total annual revenue (expected)</div>
-								<div className="phase2-desc" style={{marginTop: "0.5rem", fontSize: "0.82rem"}}>Chargers + battery arbitrage combined, net of all operating costs</div>
+								<div className="phase2-unit">
+									Total annual revenue (expected)
+								</div>
+								<div
+									className="phase2-desc"
+									style={{ marginTop: "0.5rem", fontSize: "0.82rem" }}
+								>
+									Chargers + battery arbitrage combined, net of all operating
+									costs
+								</div>
 							</div>
 						</div>
 					</div>
@@ -1052,7 +1316,10 @@ export default function Page() {
 			{/* PRICING WINDOWS */}
 			<div className="pricing-strip">
 				<h2>Engagement Windows</h2>
-				<p className="pricing-strip-sub">Your deposit secures your spot and covers application preparation. Earlier commitment means a lower rate.</p>
+				<p className="pricing-strip-sub">
+					Your deposit secures your spot and covers application preparation.
+					Earlier commitment means a lower rate.
+				</p>
 				<div className="pricing-cards">
 					<div className="price-card early">
 						<div className="price-window">Early Commitment</div>
@@ -1080,8 +1347,18 @@ export default function Page() {
 						<div className="price-amount">Not accepting new participants</div>
 					</div>
 				</div>
-				<div className="retainer-callout" style={{fontSize: "0.85rem"}}>
-					<strong>Your deposit is a long-term commitment to your tribe&apos;s energy future.</strong> The deposit is held in trust and not applied to any work until the CEC awards the grant and the contract is fully executed. If this particular application is not awarded, your deposit rolls forward — we apply it toward the next qualifying opportunity for your site, whether that&apos;s a future NEVI round, a SGIP battery storage project, or other federal and state energy programs. Your investment stays working until we secure a result.
+				<div className="retainer-callout" style={{ fontSize: "0.85rem" }}>
+					<strong>
+						Your deposit is a long-term commitment to your tribe&apos;s energy
+						future.
+					</strong>{" "}
+					The deposit is held in trust and not applied to any work until the CEC
+					awards the grant and the contract is fully executed. If this
+					particular application is not awarded, your deposit rolls forward — we
+					apply it toward the next qualifying opportunity for your site, whether
+					that&apos;s a future NEVI round, a SGIP battery storage project, or
+					other federal and state energy programs. Your investment stays working
+					until we secure a result.
 				</div>
 			</div>
 
@@ -1091,7 +1368,9 @@ export default function Page() {
 				<div className="tl-items">
 					<div className="tl-item">
 						<div className="tl-date">Now – June 14</div>
-						<div className="tl-desc">Early commitment window — reserve your spot at the best rate</div>
+						<div className="tl-desc">
+							Early commitment window — reserve your spot at the best rate
+						</div>
 					</div>
 					<div className="tl-item">
 						<div className="tl-date">June 15</div>
@@ -1099,11 +1378,15 @@ export default function Page() {
 					</div>
 					<div className="tl-item">
 						<div className="tl-date">August 15</div>
-						<div className="tl-desc">Last day to join — no new participants after this date</div>
+						<div className="tl-desc">
+							Last day to join — no new participants after this date
+						</div>
 					</div>
 					<div className="tl-item">
 						<div className="tl-date">September 25</div>
-						<div className="tl-desc">Application deadline — 11:59 PM, no exceptions</div>
+						<div className="tl-desc">
+							Application deadline — 11:59 PM, no exceptions
+						</div>
 					</div>
 					<div className="tl-item">
 						<div className="tl-date">December 2026</div>
@@ -1111,7 +1394,9 @@ export default function Page() {
 					</div>
 					<div className="tl-item">
 						<div className="tl-date">Q2 2027</div>
-						<div className="tl-desc">Project start — construction and station buildout begins</div>
+						<div className="tl-desc">
+							Project start — construction and station buildout begins
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1119,11 +1404,21 @@ export default function Page() {
 			{/* CTA */}
 			<section className="cta-section">
 				<h2>Ready to Claim Your Station?</h2>
-				<p>Your site was selected because it&apos;s in the right location, with the right traffic, and the right infrastructure potential. Let&apos;s put the funding to work.</p>
+				<p>
+					Your site was selected because it&apos;s in the right location, with
+					the right traffic, and the right infrastructure potential. Let&apos;s
+					put the funding to work.
+				</p>
 				<div className="cta-buttons">
-					<a href="https://calendly.com/ampace" className="btn btn-light">Schedule a Call →</a>
-					<a href="mailto:pace@amerindnation.com" className="btn btn-outline">Email Us</a>
-					<a href="tel:+17036720267" className="btn btn-outline">Call (703) 672-0267</a>
+					<a href="https://calendly.com/ampace" className="btn btn-light">
+						Schedule a Call →
+					</a>
+					<a href="mailto:pace@amerindnation.com" className="btn btn-outline">
+						Email Us
+					</a>
+					<a href="tel:+17036720267" className="btn btn-outline">
+						Call (703) 672-0267
+					</a>
 				</div>
 			</section>
 
@@ -1155,15 +1450,21 @@ export default function Page() {
 					</div>
 					<div className="need-card">
 						<strong>Decision Timeline</strong>
-						Ability to commit within 30 days — spots are limited and time-sensitive
+						Ability to commit within 30 days — spots are limited and
+						time-sensitive
 					</div>
 				</div>
 			</div>
 
 			{/* FOOTER */}
 			<div className="footer">
-				&copy; 2026 Tribal Energy Network &middot; Amerind Nation LLC &middot; <a href="mailto:pace@amerindnation.com">pace@amerindnation.com</a><br />
-				This is informational, not tax or legal advice. Program terms subject to CEC solicitation manual GFO-25-603. Revenue and Phase 2 projections are illustrative and based on industry data; actual results will vary by location, utilization, and SGIP program availability.
+				&copy; 2026 Tribal Energy Network &middot; Amerind Nation LLC &middot;{" "}
+				<a href="mailto:pace@amerindnation.com">pace@amerindnation.com</a>
+				<br />
+				This is informational, not tax or legal advice. Program terms subject to
+				CEC solicitation manual GFO-25-603. Revenue and Phase 2 projections are
+				illustrative and based on industry data; actual results will vary by
+				location, utilization, and SGIP program availability.
 			</div>
 		</>
 	);
