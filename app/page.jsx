@@ -11,61 +11,54 @@ const bookingUrl =
 const sources = [
 	[
 		"CA NEVI",
-		"$0.80M",
+		"$1.00M",
 		"grant",
-		"Approx. 80% of eligible EVSE capex; reimbursement timing applies.",
+		"80% of eligible $1.25M EVSE capex; reimbursement timing applies.",
 	],
 	[
 		"48E elective pay",
-		"$1.60M",
+		"$3.00M",
 		"refundable tax credit",
-		"Approx. 40% of $4M battery basis; subject to counsel and program rules.",
+		"Up to 60% of $5M battery basis; subject to counsel/program rules.",
 	],
 	[
-		"NMTC net benefit target",
+		"NMTC net target",
+		"$1.20M",
+		"incentive",
+		"20% of $6M energy project total. Allocation and eligibility required.",
+	],
+	[
+		"Tribal lending",
 		"$1.00M",
-		"incentive",
-		"Allocation, fees, eligibility, and portfolio approach required.",
-	],
-	[
-		"SSBCI / CDFI facility",
-		"$0.87M",
-		"repayable debt/credit facility",
-		"Construction liquidity that bridges grant and credit timing.",
-	],
-	[
-		"SGIP battery support",
-		"$0.63M",
-		"incentive",
-		"Program step, rate, storage tier, and cap mechanics apply.",
-	],
-	[
-		"TOE cash escrow",
-		"$0.10M",
-		"cash escrow",
-		"Tribal cash contribution via CD-secured escrow with Native bank partners.",
+		"repayable debt/credit terms",
+		"Financing to bridge grant, credit timing, and long-term DSCR.",
 	],
 ];
 
 const uses = [
 	[
 		"EVSE",
-		"$1.00M",
+		"$1.25M",
 		"8 public DC fast-charging positions; final kW and connector mix optimized for CEC scoring and utility conditions.",
 	],
 	[
 		"BESS",
 		"$4.00M",
-		"Just-under-1 MW / up to 6 MWh battery system; sodium-ion or flow battery selected through procurement and eligibility review.",
+		"1.2 MW / 4.8 MWh battery system; sodium-ion modular batteries selected through competitive procurement process.",
+	],
+	[
+		"Plaza",
+		"$750k",
+		"Solar canopy, lighting, signage, and other site amenities to boost visibility, foot traffic, and Tribal branding.",
 	],
 ];
 
 const tranches = [
-	["June 2026", "$20k", "NEVI pre-development kickoff"],
-	["September 2026", "$20k", "NEVI application submission"],
-	["December 2026", "$20k", "NEVI grant conditional award"],
-	["March 2027", "$20k", "EVSE delivery"],
-	["June 2027", "$20k", "Substantial completion, prior to PTO"],
+	["June 2026", "$25k", "NEVI pre-development kickoff"],
+	["September 2026", "$25k", "NEVI application submission"],
+	["December 2026", "$25k", "NEVI grant conditional award"],
+	["March 2027", "$25k", "EVSE delivery"],
+	["June 2027", "$25k", "Substantial completion, prior to PTO"],
 ];
 
 const qualificationStats = [
@@ -137,7 +130,7 @@ const batteryNotes = [
 	],
 	[
 		"Compact travel-center footprint",
-		"Canopy, cantilevered, containerized, and below-grade battery layouts are design options for sites where land is tight.",
+		"Solar canopy, cantilevered, containerized, and below-grade battery layouts are design options for sites where land is tight.",
 	],
 	[
 		"Forward compatibility",
@@ -152,11 +145,11 @@ const faqs = [
 	],
 	[
 		"What's in the $5M per-site package?",
-		"A $1M EV fast charging build sized for competitive NEVI scoring plus a $4M battery system, including development, delivery coordination, and subcontracted O&M support.",
+		"A $1.25M EV fast charging build sized for competitive NEVI scoring plus a $4M battery system, including development, delivery coordination, and subcontracted O&M support.",
 	],
 	[
 		"How much cash does the Tribe put in?",
-		"$100,000 total through a wholly-owned TOE in CD-secured escrow, released in five $20,000 milestone tranches.",
+		"$125,000 total through a wholly-owned TOE in CD-secured escrow, released in five $25,000 milestone tranches.",
 	],
 	[
 		"Why does the Tribe contribute cash at all?",
@@ -175,12 +168,8 @@ const faqs = [
 		"Eligible Tribal entities can receive the credit value as a refundable payment, subject to wage/apprenticeship rules, domestic content, and compliance.",
 	],
 	[
-		"What is SGIP?",
-		"California's Self-Generation Incentive Program — incentive for energy storage. Availability depends on program step/rates and eligibility.",
-	],
-	[
 		"What if NEVI is not awarded?",
-		"Proceed with the battery + targeted energy improvements. EV charging can be pursued through other grant programs or later rounds.",
+		"Proceed under the battery + targeted energy improvements with EV financing. EV grants can be pursued through other grant programs or later rounds.",
 	],
 	[
 		"Who owns the equipment?",
@@ -212,7 +201,7 @@ const faqs = [
 	],
 	[
 		"What are the biggest risks?",
-		"Grant award uncertainty, reimbursement/credit timing, SGIP step availability, NMTC allocation availability, operational utilization. Mitigated by portfolio structuring, compliance-first procurement, conservative underwriting.",
+		"Grant award uncertainty, reimbursement/credit timing, NMTC allocation availability, operational utilization. Mitigated by portfolio structuring, compliance-first procurement, conservative underwriting.",
 	],
 	[
 		"How long does deployment take?",
@@ -278,13 +267,13 @@ function SectionHead({ title, children, light = false }) {
 			<DisplayHeading className={light ? "text-[#fffdf7]" : ""}>
 				{title}
 			</DisplayHeading>
-			<p
+			<div
 				className={`max-w-2xl ${
 					light ? "text-[#fffdf7]/75" : "text-[#3b3830]"
 				}`}
 			>
 				{children}
-			</p>
+			</div>
 		</div>
 	);
 }
@@ -314,9 +303,10 @@ function PrimaryLink({
 	);
 }
 
-function GridShell({ children, className = "" }) {
+function GridShell({ children, className = "", shellRef = null }) {
 	return (
 		<div
+			ref={shellRef}
 			className={`grid gap-[2px] border-[2px] border-[#d9d2c2] bg-[#d9d2c2] ${className}`}
 		>
 			{children}
@@ -387,6 +377,131 @@ function CheckList({ items }) {
 				</li>
 			))}
 		</ul>
+	);
+}
+
+const fundingFlow = [
+	{
+		kicker: "Step 1",
+		title: "$125k Native bank deposit",
+		body: "The Tribe places $125,000 ($25k every 3 months) in a deposit account at a Native bank. It is used as collateral and commitment proof, not as a blank check.",
+		value: "$125k escrow",
+	},
+	{
+		kicker: "Step 2",
+		title: "Capital stack gradually unlocks",
+		body: "That deposit supports a $1M EV grant (CA NEVI), up to $4M in direct-pay tax credits, and over $1M in impact lending.",
+		value: "$6M+ funding",
+	},
+	{
+		kicker: "Step 3",
+		title: "System gets fully funded",
+		body: "Once the project is funded and reimbursements & credits clear (12-24 months), the deposit is returned to the Tribally-owned entity.",
+		value: "$0 net cost",
+	},
+	{
+		kicker: "Step 4",
+		title: "Native partner owns + operates",
+		body: "TEN (Tribal Energy Network) owns and runs the EVSE + BESS system, handles O&M, and shares operating value with the Tribe.",
+		value: "$0 Opex liability",
+	},
+	{
+		kicker: "Step 5",
+		title: "Annual Tribal ROI value",
+		body: "Target outcome: over $125k/year in project cashflow plus $125k/year in avoided energy costs (EVs + legacy peak demand charges).",
+		value: "$250k/yr",
+	},
+	{
+		kicker: "Step 6",
+		title: "Tribal asset ownership transfer",
+		body: "After five years to clear depreciation, the Tribe can take ownership through the agreed capacity-certification pathway.",
+		value: "Upon maturity",
+	},
+];
+
+function FundingFlow() {
+	return (
+		<Section className="py-10 md:py-14">
+			<section
+				className="overflow-hidden border border-[#1c1a15] bg-[#fffdf7]"
+				aria-labelledby="funding-flow-title"
+			>
+				<div className="grid gap-6 bg-[#1c1a15] p-6 text-[#fffdf7] md:grid-cols-[1fr_auto] md:items-end md:p-8">
+					<div>
+						<Eyebrow className="text-[#d8a04f]">Capital flow</Eyebrow>
+						<h2
+							className="max-w-4xl text-balance font-serif text-4xl leading-[1.05] md:text-5xl"
+							id="funding-flow-title"
+						>
+							How $125k on deposit turns into a funded Tribal EV microgrid.
+						</h2>
+						<p className="mt-4 max-w-3xl text-[#fffdf7]/80">
+							The deposit is the trigger. The grant, direct-pay credits, and
+							impact lending do the heavy lifting. The Tribe gets the deposit
+							back, receives annual value, and can own the system after five
+							years.
+						</p>
+					</div>
+					<div className="border border-[#fffdf7]/20 bg-[#fffdf7]/10 p-5">
+						<div className="font-mono text-xs font-semibold uppercase tracking-[0.11em] text-[#d8a04f]">
+							Target Tribal upside
+						</div>
+						<div className="mt-2 font-serif text-4xl font-bold">$250k/yr</div>
+						<div className="mt-1 text-lg text-[#fffdf7]/75">
+							$125k cashflow + <br />
+							$125k energy savings
+						</div>
+					</div>
+				</div>
+
+				<ol className="grid gap-[2px] bg-[#d9d2c2] md:grid-cols-3">
+					{fundingFlow.map((step, index) => (
+						<li className="relative bg-[#fffdf7] p-5 md:p-6" key={step.title}>
+							{index < fundingFlow.length - 1 ? (
+								<span
+									className="absolute right-4 top-6 hidden text-2xl text-[#276449] md:block"
+									aria-hidden="true"
+								>
+									→
+								</span>
+							) : null}
+							<div className="mb-4 flex items-start justify-between gap-4 pr-8">
+								<div>
+									<div className="font-mono font-semibold uppercase tracking-[0.11em] text-[#276449]">
+										{step.kicker}
+									</div>
+									<h3 className="mt-1 text-balance font-serif text-2xl leading-tight text-[#1c1a15]">
+										{step.title}
+									</h3>
+								</div>
+								<div className="bg-[#ece7dc] px-3 py-1 text-sm font-bold text-[#276449]">
+									{step.value}
+								</div>
+							</div>
+							<p className="text-sm leading-6 text-[#3b3830]">{step.body}</p>
+						</li>
+					))}
+				</ol>
+
+				<div className="grid gap-4 border-t border-[#d9d2c2] bg-[#ece7dc] p-5 text-sm leading-6 text-[#3b3830] md:grid-cols-3 md:p-6">
+					<div>
+						<strong className="block text-[#1c1a15]">Grant trigger</strong>
+						$125k deposit demonstrates 10% cash match for the $1M EV grant.
+						Required to start the NEVI application.
+					</div>
+					<div>
+						<strong className="block text-[#1c1a15]">Tax credit bridge</strong>
+						Direct-pay credits are monetized after eligibility and compliance
+						requirements are met.
+					</div>
+					<div>
+						<strong className="block text-[#1c1a15]">Ownership pathway</strong>
+						The Tribe can take ownership after year 5 once capacity
+						certification is complete.
+					</div>
+				</div>
+			</section>
+		</Section>
 	);
 }
 
@@ -546,6 +661,29 @@ function CoalitionThermometer() {
 }
 
 export default function Page() {
+	const faqRef = useRef(null);
+	const [allFaqsOpen, setAllFaqsOpen] = useState(false);
+
+	const syncFaqsOpenState = () => {
+		const faqItems = Array.from(
+			faqRef.current?.querySelectorAll("details") ?? [],
+		);
+		setAllFaqsOpen(faqItems.length > 0 && faqItems.every((item) => item.open));
+	};
+
+	const toggleAllFaqs = () => {
+		const nextOpen = !allFaqsOpen;
+		const faqItems = Array.from(
+			faqRef.current?.querySelectorAll("details") ?? [],
+		);
+
+		for (const item of faqItems) {
+			item.open = nextOpen;
+		}
+
+		setAllFaqsOpen(nextOpen);
+	};
+
 	return (
 		<div className="min-h-screen bg-[#f4f1ea] text-[#1c1a15] [font-family:IBM_Plex_Sans,system-ui,sans-serif]">
 			<header className="flex flex-wrap items-center justify-between gap-6 border-b border-[#d9d2c2] bg-[#fffdf7]/95 px-4 py-4 backdrop-blur sm:px-8 lg:px-12">
@@ -574,6 +712,7 @@ export default function Page() {
 							alt="Amerind Nation"
 							width={210}
 							height={52}
+							style={{ maxWidth: "100%", height: "auto" }}
 							priority
 						/>
 					</Link>
@@ -600,13 +739,22 @@ export default function Page() {
 						<div>
 							<Eyebrow>CA NEVI 6 · EVSE + BESS portfolio</Eyebrow>
 							<h1 className="max-w-3xl text-balance font-serif text-6xl leading-[0.92] text-[#fffdf7] md:text-8xl">
-								Tribal EV Microgrid
+								Invite-Only Tribal EV Microgrid
 							</h1>
 							<p className="mt-5 max-w-3xl text-xl leading-relaxed text-[#fffdf7]/90 md:text-2xl">
-								$5M per-site EV fast charging + battery package designed to
-								limit Tribal cash exposure to $100k, while maximizing Tribal
-								energy sovereignty, battery economics, and capital weaving with
-								100% annual ROI.
+								<strong>
+									Turn $125k into a 100%-funded $6M charger + battery install.
+								</strong>
+								<br></br>
+								Slash bills. Boost foot traffic. Build tribal energy
+								sovereignty.
+								<br></br>
+								All funds in escrow, zero operating expenses, and a path to
+								ownership.
+								<br></br>
+								<strong>
+									Check your eligibility now to get a 50-to-1 match.
+								</strong>
 							</p>
 							<nav
 								className="mt-7 flex flex-wrap gap-3"
@@ -626,10 +774,13 @@ export default function Page() {
 
 						<ul className="grid list-none gap-px border border-[#fffdf7]/25 bg-[#fffdf7]/25 p-0">
 							{[
-								["$5.00M", "Total per-site project package"],
-								["$1M", "EVSE build sized for competitive NEVI scoring"],
-								["6 MWh", "Battery storage for demand control and resilience"],
-								["$100k", "Tribal cash match held in escrow, 100% annual ROI"],
+								["$6.00M", "Total per-site project package"],
+								["$1.25M", "EVSE build sized for competitive NEVI scoring"],
+								[
+									"4.8 MWh",
+									"Battery storage for demand control and resilience",
+								],
+								["$125k", "Tribal cash match held in escrow, 200% annual ROI"],
 							].map(([value, label]) => (
 								<li className="bg-[#1c1a15]/50 p-4" key={label}>
 									<strong className="block font-serif text-3xl leading-none text-[#b36b1f]">
@@ -644,93 +795,12 @@ export default function Page() {
 					</div>
 				</section>
 
-				<Section className="max-w-5xl"></Section>
-
-				<CoalitionThermometer />
-
-				<Section id="downloads">
-					<SectionHead title="A repeatable package for California Tribes">
-						TEN owns, operates, and maintains the EVSE + BESS through qualified
-						subcontractors while the Tribally-Owned Entity (TOE) receives a
-						contractual share of net operational benefits. The public cohort has
-						20 maximum slots for this CA NEVI 6 round.
-					</SectionHead>
-					<GridShell className="md:grid-cols-4">
-						<StatCard
-							value="8 CCS+NACS"
-							note="180kW Public DC fast-charging EV cabinets per site"
-						/>
-						<StatCard
-							value="6 MWh"
-							note="BESS storage capacity target to eliminate demand charges"
-						/>
-						<StatCard
-							value="≈$100k"
-							note="Target annual TOE benefit, subject to performance"
-						/>
-						<StatCard
-							value="0 Opex"
-							note="A PPA lets TO incurs no operating expenses, just savings + rev share"
-						/>
-					</GridShell>
-					<div className="pt-4">
-						<DisplayHeading>Why a coalition?</DisplayHeading>
-						<p className="mt-5 text-lg leading-relaxed text-[#3b3830]">
-							The capital stack scales with the coalition. Our first milestone
-							is <strong>5 Tribes</strong> — at which point NMTC becomes
-							practical at the portfolio level and covers roughly 20% of project
-							costs. Beyond that, the stretch goals compound: at{" "}
-							<strong>10</strong>, preferred pricing on EV chargers; at{" "}
-							<strong>15</strong>, on batteries; at{" "}
-							<strong>20 Tribes (approximately $100M)</strong>, the bridge and
-							permanent lending market — SSBCI, USDA REAP, and additional
-							facilities — opens fully. Joining earlier compounds the benefit
-							for every Tribe in the cohort.
-						</p>
-					</div>
-				</Section>
+				<FundingFlow />
 
 				<Section>
-					<SectionHead title="Sources & uses, labeled plainly">
-						The model uses source-type labels throughout so finance teams can
-						distinguish grants, refundable credits, incentives, repayable
-						financing, and cash escrow without double-counting.
-					</SectionHead>
-					<GridShell className="md:grid-cols-4">
-						{uses.map(([label, amount, note]) => (
-							<StatCard key={label} value={amount} label={label} note={note} />
-						))}
-						<StatCard
-							value="$5.00M"
-							label="Total"
-							note="EV fast charging plus microgrid-ready battery storage."
-						/>
-						<StatCard
-							value="$100k"
-							label="Tribal cash"
-							note="Total contribution, equal to 10% of the EVSE budget and 2% of total project cost."
-						/>
-					</GridShell>
-
-					<GridShell className="mt-4 md:grid-cols-3">
-						{sources.map(([name, amount, type, note]) => (
-							<SourceCard key={name} title={name} amount={amount} type={type}>
-								{note}
-							</SourceCard>
-						))}
-					</GridShell>
-					<Disclaimer>
-						<strong>Planning model disclaimer:</strong> Presented before any
-						additional clean energy credits, LCFS revenue, utility programs, or
-						other incentives not yet identified. This information is not legal
-						or tax advice.
-					</Disclaimer>
-				</Section>
-
-				<Section>
-					<SectionHead title="Five easy $20k tranches">
+					<SectionHead title="Five easy $25k tranches">
 						The Tribal contribution is capped and milestone-based at 10% of the
-						EV portion (2% of the total $5 million project capital stack). All
+						EV portion (2% of the total $6 million project capital stack). All
 						funds are held in trust by Native bank partners as cash match
 						collateral for project financing.
 					</SectionHead>
@@ -747,10 +817,83 @@ export default function Page() {
 					</GridShell>
 					<Disclaimer>
 						<strong>WARNING: </strong>No Tribal partners may join the TEN
-						application after August 15, 2026, in order to ensure ALL coalition
-						members can meet the NEVI 6 application requirements.{" "}
-						<strong>Hurry!</strong> The application process requires
-						appointment-based eligibility review.
+						application after <strong>August 15, 2026</strong>, in order to
+						ensure ALL coalition members can meet the NEVI 6 application
+						requirements. <strong>Hurry!</strong> The application process
+						requires appointment-based eligibility review.
+					</Disclaimer>
+				</Section>
+
+				<Section id="downloads">
+					<SectionHead title="A repeatable package for California Tribes">
+						TEN owns, operates, and maintains the EVSE + BESS through qualified
+						subcontractors while the Tribally-Owned Entity (TOE) receives a
+						contractual share of net operational benefits. The public cohort has
+						20 maximum slots for this CA NEVI 6 round.
+					</SectionHead>
+					<GridShell className="md:grid-cols-4">
+						<StatCard
+							value="8 CCS+NACS"
+							note="150kW Public DC fast-charging EV ports, 8x per site"
+						/>
+						<StatCard
+							value="4.8 MWh"
+							note="BESS storage capacity target to eliminate demand charges"
+						/>
+						<StatCard
+							value="≈$250k"
+							note="Target annual TOE benefit, subject to performance"
+						/>
+						<StatCard
+							value="0 Opex"
+							note="A PPA lets TO incurs no operating expenses, just savings + rev share"
+						/>
+					</GridShell>
+					<div className="pt-4">
+						<DisplayHeading className="mt-4">Why a coalition?</DisplayHeading>
+						<p className="mt-5 text-lg leading-relaxed text-[#3b3830]">
+							The capital stack scales with the coalition. Our first milestone
+							is <strong>5 Tribes</strong> — at which point NMTC becomes
+							practical at the portfolio level and covers roughly 20% of project
+							costs. Beyond that, the stretch goals compound: at{" "}
+							<strong>10</strong>, preferred pricing on EV chargers; at{" "}
+							<strong>15</strong>, on batteries; at{" "}
+							<strong>20 Tribes (approximately $100M)</strong>, the bridge and
+							permanent lending market — SSBCI, USDA REAP, and additional
+							facilities — opens fully. Joining earlier compounds the benefit
+							for every Tribe in the cohort.
+						</p>
+					</div>
+				</Section>
+
+				<CoalitionThermometer />
+
+				<Section>
+					<SectionHead title="Sources & uses, labeled plainly">
+						The model uses source-type labels throughout so finance teams can
+						distinguish grants, refundable credits, incentives, repayable
+						financing, and cash escrow without double-counting.
+					</SectionHead>
+					<Eyebrow className="mt-4">Sources</Eyebrow>
+					<GridShell className="md:grid-cols-4">
+						{sources.map(([name, amount, type, note]) => (
+							<SourceCard key={name} title={name} amount={amount} type={type}>
+								{note}
+							</SourceCard>
+						))}
+					</GridShell>
+					<Eyebrow className="mt-4">Uses</Eyebrow>
+					<GridShell className="md:grid-cols-3">
+						{uses.map(([label, amount, note]) => (
+							<StatCard key={label} value={amount} label={label} note={note} />
+						))}
+					</GridShell>
+
+					<Disclaimer>
+						<strong>Planning model disclaimer:</strong> Presented before any
+						additional clean energy credits, LCFS revenue, utility programs, or
+						other incentives not yet identified. This information is not legal
+						or tax advice.
 					</Disclaimer>
 				</Section>
 
@@ -864,16 +1007,31 @@ export default function Page() {
 
 				<Section id="faq">
 					<SectionHead title="FAQs">
-						<Link
-							className="inline-flex min-h-11 items-center justify-center border border-[#1c1a15] bg-[#1c1a15] px-4 py-3 font-bold text-[#fffdf7] transition-transform hover:-translate-y-0.5"
-							href={bookingUrl}
-						>
-							More questions? Book a Meeting
-						</Link>
+						<div className="ml-auto flex w-full flex-wrap justify-end gap-3">
+							<button
+								className="inline-flex min-h-11 items-center justify-center border border-[#1c1a15] bg-[#fffdf7] px-4 py-3 font-bold text-[#1c1a15] transition-transform hover:-translate-y-0.5"
+								onClick={toggleAllFaqs}
+								type="button"
+							>
+								{allFaqsOpen ? "Collapse all FAQs" : "Expand all FAQs"}
+							</button>
+							<Link
+								className="inline-flex min-h-11 items-center justify-center border border-[#1c1a15] bg-[#1c1a15] px-4 py-3 font-bold text-[#fffdf7] transition-transform hover:-translate-y-0.5"
+								href={bookingUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								More questions? Book a Meeting
+							</Link>
+						</div>
 					</SectionHead>
-					<GridShell className="md:grid-cols-2">
+					<GridShell className="md:grid-cols-2" shellRef={faqRef}>
 						{faqs.map(([question, answer]) => (
-							<details className="bg-[#fffdf7] p-5" key={question}>
+							<details
+								className="bg-[#fffdf7] p-5"
+								key={question}
+								onToggle={syncFaqsOpenState}
+							>
 								<summary className="cursor-pointer font-bold text-[#1c1a15]">
 									{question}
 								</summary>
