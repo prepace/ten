@@ -12,7 +12,7 @@
 		},
 		{
 			"n": 10,
-			"label": "EV Charger Volume Pricing",
+			"label": "EVSE Volume Pricing",
 			"unlock": "Preferred pricing on EV chargers via portfolio procurement.",
 			"role": "stretch"
 		},

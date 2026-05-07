@@ -396,8 +396,8 @@ const fundingFlow = [
 	{
 		kicker: "Step 3",
 		title: "System gets fully funded",
-		body: "Once the project is funded and reimbursements & credits clear (12-24 months), the deposit is returned to the Tribally-owned entity.",
-		value: "$0 net cost",
+		body: "Once the project is funded and reimbursements & credits clear (12-24 months), 50% of the deposit is returned to the Tribally-owned entity.",
+		value: "1% net cost",
 	},
 	{
 		kicker: "Step 4",
@@ -433,7 +433,7 @@ function FundingFlow() {
 							className="max-w-4xl text-balance font-serif text-4xl leading-[1.05] md:text-5xl"
 							id="funding-flow-title"
 						>
-							How $125k on deposit turns into a funded Tribal EV microgrid.
+							How a $125k deposit turns into a funded Tribal EV solar microgrid.
 						</h2>
 						<p className="mt-4 max-w-3xl text-[#fffdf7]/80">
 							The deposit is the trigger. The grant, direct-pay credits, and
@@ -752,9 +752,7 @@ export default function Page() {
 								All funds in escrow, zero operating expenses, and a path to
 								ownership.
 								<br></br>
-								<strong>
-									Check your eligibility now to get a 50-to-1 match.
-								</strong>
+								<strong>Check your eligibility now to get a 50x match.</strong>
 							</p>
 							<nav
 								className="mt-7 flex flex-wrap gap-3"
